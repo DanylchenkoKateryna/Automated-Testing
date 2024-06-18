@@ -15,7 +15,7 @@ jobs:
           command: dotnet.exe restore
       - run:
           name: "Run Application Tests"
-          command: dotnet.exe test -v n 
+          command: dotnet.exe test
       - run:
           name: "Print Working Directory"
           command: pwd
