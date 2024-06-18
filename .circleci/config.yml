@@ -15,18 +15,20 @@ jobs:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: "Install project dependencies"
-          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj
+          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: dotnet test Calculator/GraphInterface/GraphInterface.csproj -v n --no-build 
+          command: dotnet test Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
       - run:
           name: "Print Working Directory"
           command: pwd
       - store_test_results:
+          path: test-results
+      - store_artifacts:
           path: test-results
       
           
