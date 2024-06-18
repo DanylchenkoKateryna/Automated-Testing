@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: "Build Application according to some given configuration"
-          command: dotnet build GraphInterface.csproj /p:Configuration=Release
+          command: dotnet build C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\Calculator_Exam_CommandProject.sln --configuration Release --no-restore
 
 workflows:
   build_and_test:
