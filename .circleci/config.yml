@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: "Build Application according to some given configuration"
-          command: msbuild C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\GraphInterface\GraphInterface.csproj /p:Configuration=Release
+          command: dotnet build GraphInterface.csproj /p:Configuration=Release
 
 workflows:
   build_and_test:
