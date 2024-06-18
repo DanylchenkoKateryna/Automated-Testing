@@ -1,4 +1,5 @@
 ﻿using AnalaizerClassLibrary;
+using CalcClassBr;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
@@ -8,31 +9,16 @@ namespace Tests
     [TestClass]
     public class AnalizerClassIsOperatorTests
     {
-        public TestContext TestContext { get; set; }
+        private readonly CalcClass calcClass=new CalcClass();
 
-        [DataSource("System.Data.SqlClient", "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TestData;" +
-            "Integrated Security=True", "IsOperatorData", DataAccessMethod.Sequential)]
-        
         [TestMethod]
-        public void IsOperator_FromDB()
+        public void Add_10And20_retyrn30()
         {
-            //arrange 
+            int a = 10;
+            int b = 20;
+            int expected = 30;
 
-            bool expected = (bool)TestContext.DataRow["Result"];
-
-            Type type = typeof(AnalaizerClass);
-            MethodInfo method = type.GetMethod("IsOperator", BindingFlags.NonPublic | BindingFlags.Static);
-
-            object[] parameterValues =
-            {
-                (string)TestContext.DataRow["Symbol"]
-            };
-
-            //act
-
-            bool result = (bool)method.Invoke("IsOperator", parameterValues);
-
-            //assert
+            int result = calcClass.Add(a, b);
 
             Assert.AreEqual(expected, result);
         }

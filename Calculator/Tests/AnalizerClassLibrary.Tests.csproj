@@ -62,6 +62,10 @@
       <Project>{28d27784-d8ef-42fd-9e46-c85481f20f20}</Project>
       <Name>AnalizerClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CalcClassBr\CalcClassBr.csproj">
+      <Project>{99CFE500-B39E-40D1-AAFB-F185FC53070F}</Project>
+      <Name>CalcClassBr</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
