@@ -30,9 +30,9 @@ jobs:
           command: msbuild C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\GraphInterface\GraphInterface.csproj /p:Configuration=Release
 
 workflows:
-  test_and_build:
+  build_and_test:
     jobs:
-      - test
-      - build:
+      - build
+      - test:
           requires:
-            - test
+            - build
