@@ -10,12 +10,18 @@ jobs:
       name: win/default
     steps:
       - checkout
+       - run:
+          name: "Check .NET SDK Version"
+          command: dotnet --version
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: "Install project dependencies"
           command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
+      - run:
+          name: "List Installed Packages"
+          command: dotnet list package
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
