@@ -26,8 +26,6 @@ jobs:
       - run:
           name: "Print Working Directory"
           command: pwd
-      - store_artifacts:
-          path: C:\Users\circleci\project\test_coverage
           
   build:
     description: Build application with Release configuration
@@ -35,10 +33,6 @@ jobs:
       name: win/default
     steps:
       - checkout
-      # Restore dependencies
-      - run:
-          name: Restore Dependencies
-          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Release
