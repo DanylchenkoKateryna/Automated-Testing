@@ -22,7 +22,9 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: dotnet test Calculator/Calculator_Exam_CommandProject.sln -v n --results-directory:test_coverage --collect:"Code Coverage"
+          command: dotnet test Calculator/Calculator_Exam_CommandProject.sln -v n 
+      - store_test_results:
+          path: C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\testsResults 
       - run:
           name: "Print Working Directory"
           command: pwd
