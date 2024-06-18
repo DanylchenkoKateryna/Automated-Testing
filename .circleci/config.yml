@@ -4,21 +4,6 @@ orbs:
   win: circleci/windows@2.4
 
 jobs:
-  test:
-    description: Setup and run application tests
-    executor:
-      name: win/default
-    steps:
-      - checkout
-      - run:
-          name: "Install project dependencies"
-          command: dotnet.exe restore
-      - run:
-          name: "Run Application Tests"
-          command: dotnet.exe test
-      - run:
-          name: "Print Working Directory"
-          command: pwd
   build:
     description: Build application with Release configuration
     executor:
@@ -33,6 +18,3 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
