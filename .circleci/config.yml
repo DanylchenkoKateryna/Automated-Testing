@@ -40,7 +40,7 @@ jobs:
       - checkout
       - run:
           name: "Build Application according to some given configuration"
-          command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Release
+          command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
 
 workflows:
   build_and_test:
