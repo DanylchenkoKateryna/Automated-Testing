@@ -26,8 +26,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Navigate to Project Directory"
+          command: cd C:/Users/KaterynaDanylchenko/Desktop/circleciTestProject/Automated-Testing/Calculator/
+      - run:
           name: "Build Application according to some given configuration"
-          command: msbuild "C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\Calculator_Exam_CommandProject.csproj" /p:Configuration=Release
+          command: msbuild Calculator_Exam_CommandProject.csproj /p:Configuration=Release
 
 workflows:
   test_and_build:
