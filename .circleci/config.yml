@@ -13,7 +13,7 @@ jobs:
       # Restore dependencies
       - run:
           name: Restore Dependencies
-          command: dotnet restore Project1/Project1.csproj
+          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Release
