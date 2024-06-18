@@ -24,12 +24,10 @@ jobs:
           name: "Run Application Tests"
           command: dotnet test Calculator/Calculator_Exam_CommandProject.sln -v n 
       - store_test_results:
-          path: C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\testsResults 
+          path: test-results
       - run:
           name: "Print Working Directory"
           command: pwd
-      - store_artifacts:
-          path: C:\Users\circleci\project\test_coverage
           
   build:
     description: Build application with Release configuration
