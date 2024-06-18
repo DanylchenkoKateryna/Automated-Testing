@@ -10,7 +10,7 @@ jobs:
       name: win/default
     steps:
       - checkout
-       - run:
+      - run:
           name: "Check .NET SDK Version"
           command: dotnet --version
       - restore_cache:
