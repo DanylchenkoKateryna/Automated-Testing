@@ -12,7 +12,7 @@ namespace Tests
         private readonly CalcClass calcClass=new CalcClass();
 
         [TestMethod]
-        public void Add_10And20_retyrn30()
+        public void Add_10And20_Return30()
         {
             int a = 10;
             int b = 20;

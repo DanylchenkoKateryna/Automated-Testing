@@ -1,43 +1,27 @@
-﻿//using AnalaizerClassLibrary;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using System;
-//using System.Reflection;
+﻿using AnalaizerClassLibrary;
+using CalcClassBr;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Reflection;
 
-//namespace Tests
-//{
-//    [TestClass]
-//    public class AnalizerClassReplaceSymbolTests
-//    {
-//        public TestContext TestContext { get; set; }
+namespace Tests
+{
+    [TestClass]
+    public class AnalizerClassReplaceSymbolTests
+    {
+        private readonly CalcClass calcClass = new CalcClass();
 
-//        [DataSource("System.Data.SqlClient", "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TestData;" +
-//            "Integrated Security=True","ReplaceSymbolData", DataAccessMethod.Sequential)]
+        [TestMethod]
+        public void Add_10And20_ReturnWrongResult()
+        {
+            int a = 10;
+            int b = 20;
+            int expected = 50;
 
-//        [TestMethod]
-//        public void ReplaceSymbol_FromDB_AreEqual()
-//        {
-//            //arrange
+            int result = calcClass.Add(a, b);
 
-//            string expected = (string)TestContext.DataRow["Result"];
-//            string a = (string)TestContext.DataRow["Symbol"];
-
-//            Type type= typeof(AnalaizerClass);
-//            MethodInfo method = type.GetMethod("ReplaceSymbol", BindingFlags.NonPublic | BindingFlags.Static);
-
-//            object[] parameterValues =
-//            {
-//                (string)TestContext.DataRow["Input"],
-//                char.Parse(a),
-//                (int)TestContext.DataRow["Position"]
-//            };
-
-//            //act
-
-//            string result = (string)method.Invoke("ReplaceSymbol", parameterValues);
-
-//            //assert
-
-//            Assert.AreEqual(expected, result);
-//        }
-//    }
-//}
+            Assert.AreEqual(expected, result);
+        }
+    }
+    
+}
