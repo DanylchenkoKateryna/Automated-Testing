@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Display .NET SDK version
           command: dotnet --version
+      - run:
+          name: List contents of the test project output directory
+          command: ls -R Calculator/Tests/bin/Debug
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
