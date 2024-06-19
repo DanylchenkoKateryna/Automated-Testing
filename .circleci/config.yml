@@ -10,6 +10,13 @@ jobs:
       name: win/default
     steps:
       - checkout
+      - run:
+          name: Print current directory
+          command: pwd
+
+      - run:
+          name: List contents of current directory
+          command: ls -R
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
@@ -17,9 +24,6 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      - run:
-          name: "Print Working Directory"
-          command: pwd
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
