@@ -23,7 +23,7 @@ jobs:
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
-          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Tests/bin/Debug/Tests.dll
+          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
          # .\packages\xunit.runner.console.2.8.1\build\xunit.runner.console.props
       - store_artifacts:
           path: test-results/results.xml.txt
