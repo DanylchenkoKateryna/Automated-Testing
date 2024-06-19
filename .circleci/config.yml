@@ -12,8 +12,7 @@ jobs:
       - checkout
       - run:
           name: Install .NET Framework 4.7.2 targeting pack
-          command: |
-            choco install dotnet-4.7.2-targetpack -y
+          command: choco install dotnet-4.7.2-targetpack -y
       - run:
           name: Install .NET SDK 8.0.204
           command: |
