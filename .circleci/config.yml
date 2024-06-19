@@ -33,7 +33,7 @@ jobs:
   build:
     description: Build application with Debug configuration
     executor:
-      name: win/default
+      name: windows/default
     steps:
       - checkout
       - run:
