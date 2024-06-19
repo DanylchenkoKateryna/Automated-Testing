@@ -19,7 +19,7 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: "Run Application Tests"
-          command: dotnet test Calculator/GraphInterface/GraphInterface.csproj --no-build --configuration Debug
+          command: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --no-build --configuration Debug
       - run:
           name: "Print Working Directory"
           command: pwd
