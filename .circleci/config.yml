@@ -7,7 +7,7 @@ jobs:
   test:
     description: Setup and run application tests
     executor:
-      name: win/default
+      name: windows/default
     steps:
       - checkout
       - run:
@@ -16,9 +16,14 @@ jobs:
       - run:
           name: Display .NET SDK version
           command: dotnet --version
-      - run:
-          name: List contents of the test project output directory
-          command: ls -R Calculator/Tests/bin/Debug
+      # Check if the bin\Debug directory exists
+      - run: |
+          if (Test-Path "Tests\bin\Debug") {
+            Write-Output "bin\Debug directory exists"
+            Get-ChildItem -Path "Tests\bin\Debug"
+          } else {
+            Write-Output "bin\Debug directory does not exist"
+          }
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
@@ -42,7 +47,7 @@ jobs:
   build:
     description: Build application with Debug configuration
     executor:
-      name: win/default
+      name: windows/default
     steps:
       - checkout
       - run:
