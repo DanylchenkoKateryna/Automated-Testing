@@ -47,7 +47,7 @@ jobs:
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
-          command:dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
+          command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
           #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
 
 workflows:
