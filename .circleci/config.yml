@@ -10,6 +10,14 @@ jobs:
       name: win/default
     steps:
       - checkout
+       - run:
+          name: Install .NET SDK 8.0.204
+          command: |
+            $ErrorActionPreference = "Stop"
+            Invoke-WebRequest -Uri https://dotnet.microsoft.com/download/dotnet-core/scripts/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
+            .\dotnet-install.ps1 -Channel 8.0 -Version 8.0.204
+            [Environment]::SetEnvironmentVariable('PATH', $Env:PATH + ';C:\Program Files\dotnet', [System.EnvironmentVariableTarget]::Process)
+            dotnet --version
       - run:
           name: Print current directory
           command: pwd
