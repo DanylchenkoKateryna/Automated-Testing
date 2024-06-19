@@ -20,7 +20,7 @@ jobs:
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
-          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Tests\bin\Debug\Tests.dll
+          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Tests/bin/Debug/Tests.dll
          # .\packages\xunit.runner.console.2.8.1\build\xunit.runner.console.props
       - run:
           name: "Print Working Directory"
