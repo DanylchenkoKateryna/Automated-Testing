@@ -10,7 +10,7 @@ jobs:
       name: win/default
     steps:
       - checkout
-       - run:
+      - run:
           name: Install .NET SDK 8.0.204
           command: |
             $ErrorActionPreference = "Stop"
