@@ -19,7 +19,6 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run: msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /t:restore
-      - run: msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Debug
       - run:
           name: "Run Application Tests"
           command: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --no-build --configuration Debug
