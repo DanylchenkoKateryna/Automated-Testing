@@ -10,6 +10,9 @@ jobs:
       name: win/default
     steps:
       - checkout
+      - run:
+          name: "Print Working Directory"
+          command: pwd
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
@@ -22,9 +25,6 @@ jobs:
           name: "Run Application Tests"
           command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Tests/bin/Debug/Tests.dll
          # .\packages\xunit.runner.console.2.8.1\build\xunit.runner.console.props
-      - run:
-          name: "Print Working Directory"
-          command: pwd
       - store_artifacts:
           path: test-results/results.xml.txt
           destination: /test-results
