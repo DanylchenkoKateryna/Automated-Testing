@@ -10,9 +10,12 @@ jobs:
       name: win/default
     steps:
       - checkout
+      # Install .NET Framework 4.7.2 targeting pack
       - run:
           name: Install .NET Framework 4.7.2 targeting pack
-          command: choco install dotnet-4.7.2-targetpack -y
+          command: |
+            Invoke-WebRequest -Uri https://download.microsoft.com/download/6/E/4/6E48E8AB-DC00-419E-9704-06DD46E5F81D/NDP472-KB4054531-Web.exe -OutFile NDP472-KB4054531-Web.exe
+            Start-Process -FilePath NDP472-KB4054531-Web.exe -ArgumentList "/quiet /norestart" -Wait
       - run:
           name: Install .NET SDK 8.0.204
           command: |
