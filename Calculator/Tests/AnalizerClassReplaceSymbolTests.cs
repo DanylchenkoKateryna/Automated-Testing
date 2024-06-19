@@ -3,15 +3,15 @@ using CalcClassBr;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
+using Xunit;
 
 namespace Tests
 {
-    [TestClass]
     public class AnalizerClassReplaceSymbolTests
     {
         private readonly CalcClass calcClass = new CalcClass();
 
-        [TestMethod]
+        [Fact]
         public void Add_10And20_ReturnWrongResult()
         {
             int a = 10;
@@ -20,7 +20,7 @@ namespace Tests
 
             int result = calcClass.Add(a, b);
 
-            Assert.AreEqual(expected, result);
+            Xunit.Assert.Equal(expected, result);
         }
     }
     
