@@ -26,7 +26,7 @@ jobs:
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
-          command: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+          command: dotnet test Calculator/Tests/bin/Debug/Tests.dll --configuration Debug --logger "trx;LogFileName=test_results.trx"
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - store_artifacts:
@@ -47,7 +47,8 @@ jobs:
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
-          command: msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
+          command:dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
+          #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
 
 workflows:
   build_and_test:
