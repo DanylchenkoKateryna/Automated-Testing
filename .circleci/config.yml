@@ -10,6 +10,11 @@ jobs:
       name: win/default
     steps:
       - checkout
+      - run:
+          name: "Setup .NET SDK"
+          command: |
+            dotnet --version  # Verify .NET SDK version
+            dotnet dev-certs https --trust  # Trust HTTPS development certificate (if needed)
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
