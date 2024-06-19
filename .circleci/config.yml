@@ -18,7 +18,6 @@ jobs:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
-      - run: msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /t:restore
       - run:
           name: "Run Application Tests"
           command: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --no-build --configuration Debug
@@ -40,7 +39,7 @@ jobs:
       - checkout
       - run:
           name: "Install project dependencies"
-          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
+          command: msbuild Calculator/GraphInterface/GraphInterface.csproj -t:restore -p:RestorePackagesConfig=true
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
