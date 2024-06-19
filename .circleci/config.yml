@@ -6,8 +6,7 @@ orbs:
 jobs:
   test:
     description: Setup and run application tests
-    executor:
-      name: windows/default
+    executor: windows/default
     steps:
       - checkout
       - run:
@@ -46,8 +45,7 @@ jobs:
           
   build:
     description: Build application with Debug configuration
-    executor:
-      name: windows/default
+    executor: windows/default
     steps:
       - checkout
       - run:
