@@ -17,8 +17,9 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      - run: dotnet restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj
-      - run: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj
+      - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
+      - run: msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /t:restore
+      - run: msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Debug
       - run:
           name: "Print Working Directory"
           command: pwd
