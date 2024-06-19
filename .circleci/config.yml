@@ -7,15 +7,12 @@ jobs:
   test:
     description: Setup and run application tests
     executor:
-      name: win/default
+      name: windows/default
     steps:
       - checkout
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      - run:
-          name: "Install project dependencies"
-          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
@@ -40,6 +37,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install project dependencies"
+          command: dotnet restore Calculator/GraphInterface/GraphInterface.csproj --verbosity detailed
+      - run:
           name: "Build Application according to some given configuration"
           command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
 
@@ -47,4 +47,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            -build
