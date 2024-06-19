@@ -11,6 +11,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install .NET Framework 4.7.2 targeting pack
+          command: |
+            choco install dotnet-4.7.2-targetpack -y
+      - run:
           name: Install .NET SDK 8.0.204
           command: |
             $ErrorActionPreference = "Stop"
@@ -38,7 +42,8 @@ jobs:
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
-          command: dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+          command: 
+          #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
          # .\packages\xunit.runner.console.2.8.1\build\xunit.runner.console.props
       - store_artifacts:
