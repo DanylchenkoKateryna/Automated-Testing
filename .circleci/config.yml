@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: List contents of current directory
-          command: ls -R
+          command: ls -R Calculator/Tests/bin/Debug
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
