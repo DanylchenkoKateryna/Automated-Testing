@@ -42,13 +42,20 @@ jobs:
           name: View XML File Content
           command: |
             cat C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+
       
+      - run:
+          name: Convert TRX to JUnit XML
+          command: |
+            # Convert TRX to JUnit XML using PowerShell or other methods
+            [xml]$trxXml = Get-Content -Path C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+            $trxXml.Save("junit-results.xml")
       - store_artifacts:
           path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\junit-results.xml
           #when: always
           
   build:
