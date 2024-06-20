@@ -31,17 +31,17 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=C:\Users\circleci\project\test-results\TestResults.trx" || true
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "trx;LogFileName=test_results.trx" --results-directory "test-results"
           when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
-      - run:
-          name: List Test Results Directory
-          command: dir C:\Users\circleci\project\test-results
-      - store_test_results:
-          path: C:\Users\circleci\project\test-results
-          when: always
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test_results/test_results.trx
       
           
   build:
