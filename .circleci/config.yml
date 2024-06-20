@@ -45,7 +45,7 @@ jobs:
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - store_test_results:
-          path: C:\Users\circleci\project\test-results
+          path: C:\Users\circleci\project\test-results\TestResults.trx
           when: always
       
           
