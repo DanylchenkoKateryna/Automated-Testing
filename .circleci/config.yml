@@ -51,7 +51,7 @@ jobs:
             [xml]$trxXml = Get-Content -Path C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
             $trxXml.Save("junit-results.xml")
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\junit-results.xml
           destination: test-results
     
       - store_test_results:
