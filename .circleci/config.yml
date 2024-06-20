@@ -45,6 +45,15 @@ jobs:
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - run:
+          name: Wait for File Unlocking
+          command: |
+            $count = 0
+            $maxAttempts = 10
+            while ($count -lt $maxAttempts -and (Test-Path 'C:\Users\circleci\project\test-results\TestResults.trx')) {
+              Start-Sleep -Seconds 10
+              $count++
+            }
+      - run:
           name: Convert TRX to JUnit
           command: trx2junit C:\Users\circleci\project\test-results\TestResults.trx C:\Users\circleci\project\test-results\TestResults.xml
       - run:
