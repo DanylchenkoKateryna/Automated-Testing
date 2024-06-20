@@ -16,14 +16,6 @@ jobs:
       - run:
           name: Display .NET SDK version
           command: dotnet --version
-      # Check if the bin\Debug directory exists
-      - run: |
-          if (Test-Path "Tests\bin\Debug") {
-            Write-Output "bin\Debug directory exists"
-            Get-ChildItem -Path "Tests\bin\Debug"
-          } else {
-            Write-Output "bin\Debug directory does not exist"
-          }
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
@@ -31,17 +23,17 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
+      - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Run Application Tests"
-          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
+          command: |
+            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+          #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
-      - store_artifacts:
-          path: test-results/results.xml.txt
-          destination: /test-results
       - store_test_results:
-          path: test-results
+          path: test-results.xml
       
           
   build:
@@ -55,8 +47,11 @@ jobs:
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
-          command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
+          command: |
+            dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
+            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
+      
 
 workflows:
   build_and_test:
