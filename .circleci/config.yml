@@ -33,6 +33,8 @@ jobs:
             mkdir -p TestResults
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=TestResults/test-results.xml"
+            ls TestResults
+            cat TestResults/test-results.xml
           #when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
@@ -40,16 +42,6 @@ jobs:
       - store_test_results:
           path: TestResults
           #when: always
-      - run:
-          name: List TestResults Directory
-          command: |
-            ls TestResults
-      # View contents of test-results.xml file
-      - run:
-          name: View Test Results File
-          command: |
-            cat TestResults/test-results.xml
-      
           
   build:
     description: Build application with Debug configuration
