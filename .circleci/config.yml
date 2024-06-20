@@ -10,20 +10,14 @@ jobs:
       name: win/default
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Print current directory
           command: pwd
       - run:
           name: Display .NET SDK version
           command: dotnet --version
-      # Check if the bin\Debug directory exists
-      - run: |
-          if (Test-Path "Tests\bin\Debug") {
-            Write-Output "bin\Debug directory exists"
-            Get-ChildItem -Path "Tests\bin\Debug"
-          } else {
-            Write-Output "bin\Debug directory does not exist"
-          }
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
@@ -57,6 +51,11 @@ jobs:
           name: "Build Application according to some given configuration"
           command: dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
           #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Calculator/Calculator_Exam_CommandProject/bin
+            - Calculator/Calculator_Exam_CommandProject/obj
 
 workflows:
   build_and_test:
