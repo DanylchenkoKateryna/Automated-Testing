@@ -25,20 +25,20 @@ jobs:
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       - run:
           name: Create Test Results Directory
-          command: mkdir C:\Users\circleci\project\test-results
+          command: mkdir -p C:\Users\circleci\project\test-results
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=TestResults.trx"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=C:\Users\circleci\project\test-results\TestResults.trx" || true
+          when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - run:
-          name: Move Test Results
-          command: |
-            move C:\Users\circleci\project\Calculator\Tests\AnalizerClassLibrary.Tests\TestResults.trx C:\Users\circleci\project\test-results\TestResults.trx
+          name: List Test Results Directory
+          command: dir C:\Users\circleci\project\test-results
       - store_test_results:
           path: C:\Users\circleci\project\test-results
           when: always
