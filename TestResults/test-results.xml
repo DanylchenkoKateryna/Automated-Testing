@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2c26f451-2413-458f-b411-31ed0b85fa3e" name="KaterynaDanylchenko@NET-DANYLCHENKO 2024-06-20 15:34:37" runUser="AzureAD\KaterynaDanylchenko" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2024-06-20T15:34:37.8385921+03:00" queuing="2024-06-20T15:34:37.8385924+03:00" start="2024-06-20T15:34:34.8297816+03:00" finish="2024-06-20T15:34:37.8470241+03:00" />
+  <TestSettings name="default" id="1bc87052-6d81-4c92-9993-98a8d7ac6741">
+    <Deployment runDeploymentRoot="KaterynaDanylchenko_NET-DANYLCHENKO_2024-06-20_15_34_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="08afab14-0183-4d26-a763-720ad68efb5e" testId="e73154f5-dd84-f754-b190-202e94f3083a" testName="Tests.AnalizerClassIsOperatorTests.Add_10And20_Return30" computerName="NET-DANYLCHENKO" duration="00:00:00.3230000" startTime="2024-06-20T15:34:37.7094676+03:00" endTime="2024-06-20T15:34:37.7094676+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08afab14-0183-4d26-a763-720ad68efb5e" />
+    <UnitTestResult executionId="643dab5e-d4b4-4d24-8c70-1fc8727fe445" testId="7e5307f2-abe0-cfb5-406f-c459559814f7" testName="Tests.AnalizerClassReplaceSymbolTests.Add_10And20_ReturnWrongResult" computerName="NET-DANYLCHENKO" duration="00:00:00.3230000" startTime="2024-06-20T15:34:37.7169817+03:00" endTime="2024-06-20T15:34:37.7169817+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="643dab5e-d4b4-4d24-8c70-1fc8727fe445" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Tests.AnalizerClassIsOperatorTests.Add_10And20_Return30" storage="c:\users\katerynadanylchenko\desktop\circlecitestproject\automated-testing\calculator\tests\bin\debug\tests.dll" id="e73154f5-dd84-f754-b190-202e94f3083a">
+      <Execution id="08afab14-0183-4d26-a763-720ad68efb5e" />
+      <TestMethod codeBase="C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\Tests\bin\Debug\Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/net" className="Tests.AnalizerClassIsOperatorTests" name="Add_10And20_Return30" />
+    </UnitTest>
+    <UnitTest name="Tests.AnalizerClassReplaceSymbolTests.Add_10And20_ReturnWrongResult" storage="c:\users\katerynadanylchenko\desktop\circlecitestproject\automated-testing\calculator\tests\bin\debug\tests.dll" id="7e5307f2-abe0-cfb5-406f-c459559814f7">
+      <Execution id="643dab5e-d4b4-4d24-8c70-1fc8727fe445" />
+      <TestMethod codeBase="C:\Users\KaterynaDanylchenko\Desktop\circleciTestProject\Automated-Testing\Calculator\Tests\bin\Debug\Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/net" className="Tests.AnalizerClassReplaceSymbolTests" name="Add_10And20_ReturnWrongResult" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e73154f5-dd84-f754-b190-202e94f3083a" executionId="08afab14-0183-4d26-a763-720ad68efb5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e5307f2-abe0-cfb5-406f-c459559814f7" executionId="643dab5e-d4b4-4d24-8c70-1fc8727fe445" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.1+ce9211e970 (64-bit .NET Framework 4.8.9241.0)&#xD;
+[xUnit.net 00:00:01.58]   Discovering: Tests&#xD;
+[xUnit.net 00:00:01.65]   Discovered:  Tests&#xD;
+[xUnit.net 00:00:01.66]   Starting:    Tests&#xD;
+[xUnit.net 00:00:02.12]   Finished:    Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
