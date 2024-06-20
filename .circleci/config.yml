@@ -40,6 +40,10 @@ jobs:
       - store_test_results:
           path: TestResults
           #when: always
+      - run:
+          name: List TestResults Directory
+          command: |
+            ls TestResults
       # View contents of test-results.xml file
       - run:
           name: View Test Results File
