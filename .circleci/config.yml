@@ -10,8 +10,6 @@ jobs:
       name: win/default
     steps:
       - checkout
-      - attach_workspace:
-          at: .
       - run:
           name: Print current directory
           command: pwd
@@ -28,7 +26,7 @@ jobs:
       - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory ./
       - run:
           name: "Run Application Tests"
-          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
+          command: .\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - store_artifacts:
@@ -53,11 +51,7 @@ jobs:
             dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Calculator/Calculator_Exam_CommandProject/bin
-            - Calculator/Calculator_Exam_CommandProject/obj
+      
 
 workflows:
   build_and_test:
