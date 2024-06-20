@@ -28,6 +28,14 @@ jobs:
       #    command: mkdir -p C:\Users\circleci\project\test-results
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
+          name: Install trx2junit tool
+          command: dotnet tool install --global trx2junit
+      - run:
+          name: Update PATH
+          command: |
+            $env:Path += ";C:\Users\circleci\.dotnet\tools"
+            echo $env:Path
+      - run:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
