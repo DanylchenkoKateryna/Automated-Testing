@@ -31,7 +31,7 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger:"xunit;LogFileName=test-results.xml"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger:"trx;LogFileName=test-results.xml"
           when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
