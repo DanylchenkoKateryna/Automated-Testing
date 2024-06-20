@@ -46,7 +46,7 @@ jobs:
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - run:
           name: Convert TRX to JUnit
-          command: trx2junit C:\Users\circleci\project\test-results\TestResults.trx -o C:\Users\circleci\project\test-results
+          command: trx2junit C:\Users\circleci\project\test-results\TestResults.trx C:\Users\circleci\project\test-results\TestResults.xml
       - run:
           name: List Test Results Directory
           command: dir C:\Users\circleci\project\test-results
