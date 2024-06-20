@@ -16,7 +16,7 @@ namespace Tests
         {
             int a = 10;
             int b = 20;
-            int expected = 30;
+            int expected = 50;
 
             int result = calcClass.Add(a, b);
 
