@@ -31,7 +31,7 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=TestResults\test-results.xml"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "junit;LogFileName=TestResults\test-results.xml"
           when: always
           
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
@@ -43,19 +43,12 @@ jobs:
           command: |
             cat C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
 
-      
-      - run:
-          name: Convert TRX to JUnit XML
-          command: |
-            # Convert TRX to JUnit XML using PowerShell or other methods
-            [xml]$trxXml = Get-Content -Path C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
-            $trxXml.Save("junit-results.xml")
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\junit-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\junit-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
           #when: always
           
   build:
