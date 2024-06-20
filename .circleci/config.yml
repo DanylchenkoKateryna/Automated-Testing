@@ -32,11 +32,8 @@ jobs:
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
-      - store_artifacts:
-          path: test-results/results.xml.txt
-          destination: /test-results
       - store_test_results:
-          path: test-results
+          path: test-results.xml
       
           
   build:
