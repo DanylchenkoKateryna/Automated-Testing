@@ -34,7 +34,7 @@ jobs:
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=TestResults/test-results.xml"
             ls TestResults
-            cat TestResults/test-results.xml
+            cat TestResults
           #when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
