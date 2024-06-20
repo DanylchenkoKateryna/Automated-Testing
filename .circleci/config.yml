@@ -39,7 +39,7 @@ jobs:
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       
       - store_test_results:
-          path: TestResults
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults
           #when: always
           
   build:
