@@ -48,7 +48,7 @@ jobs:
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
           #when: always
           
   build:
