@@ -28,24 +28,16 @@ jobs:
       #    command: mkdir -p C:\Users\circleci\project\test-results
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
-          name: Install trx2junit tool
-          command: dotnet tool install --global trx2junit
-      - run:
-          name: Update PATH
-          command: |
-            $env:Path += ";C:\Users\circleci\.dotnet\tools"
-            echo $env:Path
-      - run:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=C:\Users\circleci\project\test-results\TestResults.trx"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "trx;LogFileName=C:\Users\circleci\project\test-results\TestResults.xml"
           when: always
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
       - store_test_results:
-          path: C:\Users\circleci\project\test-results\TestResults.trx
+          path: C:\Users\circleci\project\test-results
           when: always
       
           
