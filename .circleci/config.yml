@@ -23,9 +23,9 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      #- run:
-      #   name: Create Test Results Directory
-      #   command: mkdir -p C:\Users\circleci\project\test-results
+      - run:
+          name: Create Test Results Directory
+          command: mkdir -p C:\Users\circleci\project\test-results
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Run Application Tests"
