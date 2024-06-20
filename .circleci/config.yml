@@ -42,6 +42,11 @@ jobs:
           name: View XML File Content
           command: |
             cat C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+      
+      - store_artifacts:
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+          destination: test-results
+    
       - store_test_results:
           path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults
           #when: always
