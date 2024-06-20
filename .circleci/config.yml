@@ -40,6 +40,11 @@ jobs:
       - store_test_results:
           path: TestResults
           #when: always
+      # View contents of test-results.xml file
+      - run:
+          name: View Test Results File
+          command: |
+            cat TestResults/test-results.xml
       
           
   build:
