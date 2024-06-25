@@ -32,9 +32,9 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "junit;LogFileName=TestResults\test-results.xml"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "junit;LogFileName=TestResults\test-results-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).xml"
           when: always
-          
+          #LogFileName=test_results/TestResults-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).trx
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
