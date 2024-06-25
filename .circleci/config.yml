@@ -6,6 +6,7 @@ orbs:
 jobs:
   test:
     description: Setup and run application tests
+    parallelism: 4
     executor:
       name: win/default
     steps:
@@ -31,9 +32,19 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --logger "junit;LogFileName=TestResults\test-results.xml"
+            TEST_LIST=$(dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --list-tests --no-build --filter "TestCategory!=LongRunning" | grep "Name:" | cut -d' ' -f2)
+            TOTAL_TESTS=$(echo "$TEST_LIST" | wc -l)
+            CHUNK_SIZE=$((TOTAL_TESTS / parallelism + 1))
+            PART_INDEX=$((CIRCLE_NODE_INDEX - 1))
+            START_INDEX=$((PART_INDEX * CHUNK_SIZE))
+            END_INDEX=$((START_INDEX + CHUNK_SIZE))
+            echo "$TEST_LIST" | sed -n "${START_INDEX},${END_INDEX}p" > tests-to-run.txt
+
+            # Run subset of tests based on the split
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --no-build --configuration Debug --verbosity minimal --filter "FullyQualifiedName~$(cat tests-to-run.txt | tr '\n' '|')" --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
           when: always
-          
+          #LogFileName=test_results/TestResults-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).trx
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
@@ -41,14 +52,14 @@ jobs:
       - run:
           name: View XML File Content
           command: |
-            cat C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
 
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\TestResults\test-results.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
           #when: always
           
   build:
