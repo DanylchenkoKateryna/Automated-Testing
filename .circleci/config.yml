@@ -24,25 +24,22 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      #- run:
-      #    name: Create Test Results Directory
-      #    command: mkdir -p C:\Users\circleci\project\test-results
+    
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+      - run:
+          name: Generate Test List
+          command: |
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --list-tests --logger:"trx;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.trx"
+            # Assuming you have a tool to parse the trx file to a simple list
+            apt-get update && apt-get install -y python3-pip
+            pip3 install trx2txt
+            python3 -m trx2txt C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.trx > C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.txt
+            circleci tests split all_tests.txt --split-by=timings > split_tests.txt
       - run:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            TEST_LIST=$(dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --list-tests --no-build --filter "TestCategory!=LongRunning" | grep "Name:" | cut -d' ' -f2)
-            TOTAL_TESTS=$(echo "$TEST_LIST" | wc -l)
-            CHUNK_SIZE=$((TOTAL_TESTS / parallelism + 1))
-            PART_INDEX=$((CIRCLE_NODE_INDEX - 1))
-            START_INDEX=$((PART_INDEX * CHUNK_SIZE))
-            END_INDEX=$((START_INDEX + CHUNK_SIZE))
-            echo "$TEST_LIST" | sed -n "${START_INDEX},${END_INDEX}p" > tests-to-run.txt
-
-            # Run subset of tests based on the split
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --no-build --configuration Debug --verbosity minimal --filter "FullyQualifiedName~$(cat tests-to-run.txt | tr '\n' '|')" --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --verbosity minimal --collect:"XPlat Code Coverage" --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
           when: always
           #LogFileName=test_results/TestResults-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).trx
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
