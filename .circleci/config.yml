@@ -27,6 +27,13 @@ jobs:
     
       - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
+          name: Generate Test List
+          command: |
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --list-tests --logger:"trx;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.trx"
+            # Assuming you have a tool to parse the trx file to a simple list
+            parse_trx_to_list tests_list.trx > all_tests.txt
+            circleci tests split all_tests.txt --split-by=timings > split_tests.txt
+      - run:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
