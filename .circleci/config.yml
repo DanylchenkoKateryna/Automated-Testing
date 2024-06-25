@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     description: Setup and run application tests
-    parallelism: 4
+    #parallelism: 4
     executor:
       name: win/default
     steps:
@@ -30,12 +30,7 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            TEST_FILES=$(circleci tests glob "Calculator/Tests/**/*Tests.csproj" | circleci tests split --split-by=timings)
-            for test_file in $TEST_FILES; 
-            do
-              dotnet test $test_file --configuration Debug --no-build verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$(circleci tests split --split-by=timings).xml"
-            done
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$(circleci tests split --split-by=timings).xml"
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" $(circleci tests split --split-by=timings)
           when: always
           #LogFileName=test_results/TestResults-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).trx
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
