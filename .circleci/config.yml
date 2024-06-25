@@ -31,7 +31,8 @@ jobs:
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             TEST_FILES=$(circleci tests glob "Calculator/Tests/**/*Tests.csproj" | circleci tests split --split-by=timings)
-            for test_file in $TEST_FILES; do
+            for test_file in $TEST_FILES; 
+            do
               dotnet test $test_file --configuration Debug --no-build verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$(circleci tests split --split-by=timings).xml"
             done
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$(circleci tests split --split-by=timings).xml"
