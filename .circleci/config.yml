@@ -32,7 +32,7 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            TESTS=$(circleci tests glob "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" | circleci tests split --split-by=timings)
+            TESTS=$(circleci tests glob "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" | circleci tests split "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" --split-by=timings)
             dotnet test $TESTS --configuration Debug --no-build --verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --verbosity minimal --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
