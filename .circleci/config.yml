@@ -20,12 +20,12 @@ jobs:
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
+    
+      - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-    
-      - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Run Application Tests"
           command: |
