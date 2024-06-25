@@ -32,9 +32,8 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            circleci tests split Calculator/Tests/AnalizerClassLibrary.Tests.csproj --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            circleci tests split Calculator/Tests/AnalizerClassLibrary.Tests.csproj # --configuration Debug --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
           when: always
-          #--configuration Debug
           #LogFileName=test_results/TestResults-$(circleci tests split --split-by=timings --total=4 --index=$CIRCLE_NODE_INDEX).trx
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
