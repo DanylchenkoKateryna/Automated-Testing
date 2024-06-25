@@ -31,7 +31,9 @@ jobs:
           command: |
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --list-tests --logger:"trx;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.trx"
             # Assuming you have a tool to parse the trx file to a simple list
-            parse_trx_to_list tests_list.trx > all_tests.txt
+            apt-get update && apt-get install -y python3-pip
+            pip3 install trx2txt
+            python3 -m trx2txt C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.trx > C:\Users\circleci\project\Calculator\Tests\TestResults\tests_list.txt
             circleci tests split all_tests.txt --split-by=timings > split_tests.txt
       - run:
           name: "Run Application Tests"
