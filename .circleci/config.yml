@@ -42,9 +42,8 @@ jobs:
             
             # Full original path
             $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
-            
             # Remove base path
-            $relativePath = $fullPath -replace [regex]::Escape($basePath), ''
+            $relativePath = $fullPath.Substring($basePath.Length)
             
             # Replace backslashes with periods and remove .cs extension
             $newPath = $relativePath -replace '\\', '.' -replace '\.cs$', ''
