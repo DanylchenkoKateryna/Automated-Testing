@@ -36,16 +36,7 @@ jobs:
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            # Array to store transformed class names
-            $classNames = @()
-            foreach ($testFilePath in C:\Users\circleci\project\Calculator\Tests\tests-to-run) {
-
-                # Transform filename to class name format
-                $className = $testFilePath.Replace('\', '.') -replace '\.cs$', ''
-            
-                # Add transformed class name to the array
-                $classNames += $className
-            }
+            $className = C:\Users\circleci\project\Calculator\Tests\tests-to-run.Replace('\', '.') -replace '\.cs$', ''
             cat $classNames
             #dotnet test $testsToRun --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
          
