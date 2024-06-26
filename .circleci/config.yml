@@ -41,7 +41,7 @@ jobs:
             $oldPath = "Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
             
             # Remove base path
-            $newPath = $oldPath -replace '\C:\Users\circleci\project\', ''
+            $newPath = $oldPath -replace [regex]::Escape($basePath), ''
             
             # Replace backslashes with periods
             $newPath = $newPath -replace '\\', '.'
