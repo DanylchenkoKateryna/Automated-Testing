@@ -36,6 +36,7 @@ jobs:
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             dotnet test $(cat C:\Users\circleci\project\Calculator\Tests\tests-to-run) --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
          
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
@@ -44,7 +45,7 @@ jobs:
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
-     
+    
       # Example: Viewing the content of an XML file
       - run:
           name: View XML File Content
