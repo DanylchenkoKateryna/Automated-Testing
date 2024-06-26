@@ -36,14 +36,16 @@ jobs:
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+
+            #Calculator\Tests\AnalizerClassIsOperatorTests.cs
+            $removePath="C:\Users\circleci\project\Calculator\"
+            $testsClassPath="$cat(C:\Users\circleci\project\Calculator\Tests\tests-to-run)"
+            $basePath = "C:\Users\circleci\project\"
+            $newFullPath = Join-Path $basePath $testsClassPath
             
-            # Base path
-            $basePath = "C:\Users\circleci\project\Calculator\"
+            #$fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
             
-            # Full original path
-            $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
-            # Remove base path
-            $relativePath = $fullPath.Substring($basePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+            $relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
         
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
