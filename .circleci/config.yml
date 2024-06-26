@@ -32,6 +32,7 @@ jobs:
      
       - run:
           name: "Run Application Tests"
+          shell: bash
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
