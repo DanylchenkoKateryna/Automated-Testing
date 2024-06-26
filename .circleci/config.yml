@@ -39,10 +39,13 @@ jobs:
             $testFiles = Get-ChildItem -Path Calculator/Tests/AnalizerClassLibrary.Tests.csproj | ForEach-Object { 
                 $_.FullName
             }
+            # Step 2: Run dotnet test on each test project
+            foreach ($testFile in $testFiles) {
+                dotnet test $testFile --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            }
             $testsToRun = Get-Content -Path "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
             #cat $testsToRun
-            cat $testFiles
-            dotnet test $testsToRun --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            #dotnet test $testsToRun --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
          
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
