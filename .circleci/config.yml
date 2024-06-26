@@ -37,19 +37,17 @@ jobs:
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            # Base path
             $basePath = "C:\Users\circleci\project\"
-            $oldPath = "Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
+            
+            # Full original path
+            $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
             
             # Remove base path
-            $newPath = $oldPath -replace [regex]::Escape($basePath), ''
+            $relativePath = $fullPath -replace [regex]::Escape($basePath), ''
             
-            # Replace backslashes with periods
-            $newPath = $newPath -replace '\\', '.'
-            
-            # Remove .cs extension
-            $newPath = $newPath -replace '\.cs$', ''
-            
-            Rename-Item -Path $basePath$oldPath -NewName $newPath
+            # Replace backslashes with periods and remove .cs extension
+            $newPath = $relativePath -replace '\\', '.' -replace '\.cs$', ''
             cat $newPath
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
