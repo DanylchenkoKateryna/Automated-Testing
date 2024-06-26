@@ -37,11 +37,21 @@ jobs:
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             $testsToRun = Get-Content -Path "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
-            foreach ($testClass in $testsToRun) {
-                # Run the dotnet test command for each test class
-                dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FullyQualifiedName=$testClass"
-            }
-            #dotnet test C:\Users\circleci\project\Calculator\Tests\tests-to-run --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            
+            # Read the contents of the test file to find the namespace and class name
+            $fileContents = Get-Content -Path "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
+            
+            # Extract namespace from the file contents
+            $namespaceLine = $fileContents | Where-Object { $_ -match "^namespace\s+(.+)\s*{" }
+            $namespace = $matches[1].Trim()
+            
+            # Extract class name from the file contents
+            $classLine = $fileContents | Where-Object { $_ -match "^public\s+class\s+(.+)" }
+            $className = $matches[1].Trim()
+            
+            # Construct fully qualified name
+            $fullyQualifiedName = "$namespace.$className"
+            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FullyQualifiedName=$fullyQualifiedName" --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
          
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
