@@ -38,8 +38,9 @@ jobs:
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             $oldPath = "Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
-            $newPath = $oldPath -replace '\\', '.'
-            cat $newPath
+            $newPath = $oldPath -replace '\\', '.' -replace '\.cs$', ''
+            Rename-Item -Path $oldPath -NewName $newPath
+            cat $oldPath
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
