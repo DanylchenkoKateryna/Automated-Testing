@@ -37,9 +37,8 @@ jobs:
             circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             $testFiles = Get-Content -Path "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
-            foreach ($testFile in $testFiles) {
-                dotnet test $testFile --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
-            }
+            $className = [System.IO.Path]::GetFileNameWithoutExtension(C:\Users\circleci\project\Calculator\Tests\tests-to-run)
+            cat $className
             #dotnet test $testsToRun --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
          
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
