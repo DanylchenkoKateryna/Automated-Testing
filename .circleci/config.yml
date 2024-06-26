@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     description: Setup and run application tests
-    #parallelism: 4
+    parallelism: 4
     executor:
       name: win/default
     steps:
