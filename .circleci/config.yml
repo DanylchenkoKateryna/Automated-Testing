@@ -44,10 +44,11 @@ jobs:
             $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
             # Remove base path
             $relativePath = $fullPath.Substring($basePath.Length)
-            
+            cat $relativePath
             # Replace backslashes with periods and remove .cs extension
             $newPath = $relativePath -replace '\\', '.' -replace '\.cs$', ''
             cat $newPath
+            
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
