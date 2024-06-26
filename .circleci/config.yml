@@ -34,8 +34,8 @@ jobs:
           name: "Run Application Tests"
           shell: bash
           command: |
-            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests/*.cs --configuration Debug
-            circleci tests glob "Calculator/Tests/*.csproj" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+            circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FileName=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run" --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
          
