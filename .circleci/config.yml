@@ -39,7 +39,7 @@ jobs:
 
             #Calculator\Tests\AnalizerClassIsOperatorTests.cs
             $removePath="C:\Users\circleci\project\Calculator\"
-            $testsClassPath="$cat(C:\Users\circleci\project\Calculator\Tests\tests-to-run)"
+            $testsClassPath=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             $basePath = "C:\Users\circleci\project\"
             $newFullPath = Join-Path $basePath $testsClassPath
             
