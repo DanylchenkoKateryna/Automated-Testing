@@ -34,7 +34,7 @@ jobs:
           name: "Run Application Tests"
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-            TEST_FILES=$(circleci tests glob "Calculator/Tests/AnalizerClassLibrary.Tests/*.cs" | circleci tests split --split-by=timings)
+            circleci tests glob "Calculator/Tests/AnalizerClassLibrary.Tests/*.cs" | circleci tests split --split-by=timings
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
