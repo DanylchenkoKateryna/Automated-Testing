@@ -50,6 +50,7 @@ jobs:
       - run:
           name: View XML File Content
           command: |
+            cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
 
       - store_artifacts:
