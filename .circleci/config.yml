@@ -38,7 +38,7 @@ jobs:
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             
             # Base path
-            $basePath = "C:\Users\circleci\project\Calculator"
+            $basePath = "C:\Users\circleci\project\Calculator\"
             
             # Full original path
             $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
