@@ -37,13 +37,20 @@ jobs:
              
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            circleci tests glob "Calculator/Tests/**/*Tests.cs" |
-            circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run |
-            xargs dotnet test 
-            #circleci tests glob "Calculator/Tests/**/*Tests.csproj" | circleci tests run --command "--junitfile C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml --format testname --"
-
-
-
+          
+            # Path to the file with the list of test files
+            $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
+            
+            # Read the content of the file
+            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            $removePath="C:\Users\circleci\project\Calculator\"
+            foreach ($testFile in $testFiles) {
+                # Ensure we are processing only relevant test files
+                    # Remove the base path
+                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+            
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            }
 
 
             #Calculator\Tests\AnalizerClassIsOperatorTests.cs
