@@ -42,8 +42,6 @@ namespace Tests
         public void Sub_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
             int result = calcClass.Sub(a, b);
-            //Thread.Sleep(5000);
-
             Assert.Equal(expected, result);
         }
     }
