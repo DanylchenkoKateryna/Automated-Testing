@@ -44,6 +44,7 @@ jobs:
             # Read the content of the file
             $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat $testFiles
+            $basePath = "C:\Users\circleci\project\"
             $removePath="C:\Users\circleci\project\Calculator\"
             foreach ($testFile in $testFiles) {
                 # Ensure we are processing only relevant test files
