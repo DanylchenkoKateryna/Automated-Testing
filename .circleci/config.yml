@@ -48,7 +48,7 @@ jobs:
                 # Ensure we are processing only relevant test files
                     # Remove the base path
                     $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
-            
+                    cat $relativePath
                     dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FullyQualifiedName = $relativePath" --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             }
 
