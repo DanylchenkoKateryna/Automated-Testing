@@ -43,7 +43,9 @@ jobs:
             
             # Read the content of the file
             $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            
+            $nodeIndex = $env:CIRCLE_NODE_INDEX
+            $testResultsPath = "C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$nodeIndex.xml"
+
             $basePath = "C:\Users\circleci\project\"
             $removePath="Calculator\"
             foreach ($testFile in $testFiles) {
@@ -51,20 +53,10 @@ jobs:
                     $newFullPath = Join-Path $basePath $testFile
                     $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     $relativePath
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$env:CIRCLE_NODE_INDEX.xml"
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=$testResultsPath"
             }
 
-
-            #Calculator\Tests\AnalizerClassIsOperatorTests.cs
-            #$removePath="C:\Users\circleci\project\Calculator\"
-            #$testsClassPath=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            #$basePath = "C:\Users\circleci\project\"
-            #$newFullPath = Join-Path $basePath $testsClassPath
-            
-            #$relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
-        
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
+           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
           #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
@@ -75,14 +67,14 @@ jobs:
       - run:
           name: View XML File Content
           command: |
-            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$env:CIRCLE_NODE_INDEX.xml
+            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
 
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$env:CIRCLE_NODE_INDEX.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$env:CIRCLE_NODE_INDEX.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
           #when: always
           
   build:
