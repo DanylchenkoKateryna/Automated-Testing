@@ -38,8 +38,7 @@ jobs:
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
 
-            # List all test projects
-            dotnet sln Calculator/Calculator_Exam_CommandProject.sln list --type Project | grep 'Test' | xargs -I {} dotnet test {} --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            circleci tests run Calculator/Tests/AnalizerClassLibrary.Tests.csproj --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
 
 
 
