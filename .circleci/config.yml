@@ -42,7 +42,7 @@ jobs:
             $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
             
             # Read the content of the file
-            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            $testFiles = Get-Content $testFilePath
             $removePath="C:\Users\circleci\project\Calculator\"
             foreach ($testFile in $testFiles) {
                 # Ensure we are processing only relevant test files
