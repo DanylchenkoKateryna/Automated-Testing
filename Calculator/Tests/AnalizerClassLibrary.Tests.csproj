@@ -87,8 +87,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalizerClassIsOperatorTests.cs" />
-    <Compile Include="AnalizerClassReplaceSymbolTests.cs" />
+    <Compile Include="CalcClassAddTests.cs" />
+    <Compile Include="CalcClassSubTests.cs" />
+    <Compile Include="DivideTestFolder\CalcClassDivTests.cs" />
+    <Compile Include="MultiplyTestFolder\CalcClassMultTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
