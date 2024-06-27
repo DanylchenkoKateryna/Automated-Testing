@@ -9,7 +9,7 @@ namespace Tests
         private readonly CalcClass calcClass=new CalcClass();
 
         [Theory]
-        [InlineData(10, 20, 30)]
+        [InlineData(10, 20, 50)]
         [InlineData(1, 2, 3)]
         [InlineData(-5, 5, 0)]
         [InlineData(100, 200, 300)]
