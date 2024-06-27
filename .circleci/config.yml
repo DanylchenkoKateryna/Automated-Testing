@@ -43,7 +43,7 @@ jobs:
             $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
             
             # Read the content of the file
-            $testFiles = Get-Content $testFilePath
+            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             $removePath="C:\Users\circleci\project\Calculator\"
             # Initialize an array to hold the transformed paths
             $transformedPaths = @()
