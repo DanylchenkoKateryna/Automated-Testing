@@ -38,17 +38,48 @@ jobs:
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
 
-            #Calculator\Tests\AnalizerClassIsOperatorTests.cs
+            
+            # Path to the file with the list of test files
+            $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
+            
+            # Read the content of the file
+            $testFiles = Get-Content $testFilePath
             $removePath="C:\Users\circleci\project\Calculator\"
-            $testsClassPath=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            $basePath = "C:\Users\circleci\project\"
-            $newFullPath = Join-Path $basePath $testsClassPath
+            # Initialize an array to hold the transformed paths
+            $transformedPaths = @()
             
-            $fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
+            foreach ($testFile in $testFiles) {
+                # Ensure we are processing only relevant test files
+                if ($testFile -match "Tests.cs$") {
+                    # Remove the base path
+                    $relativePath = $testFile.Substring($removePath.Length)
             
-            $relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+                    # Replace backslashes with dots and remove the .cs extension
+                    $transformedPath = $relativePath -replace '\\', '.' -replace '\.cs$', ''
+            
+                    # Add the transformed path to the array
+                    $transformedPaths += $transformedPath
+                }
+            }
+
+            # Save the transformed paths back to the file (optional)
+            $transformedPaths | Set-Content $testFilePath
+            
+            # Output the transformed paths to the console
+            $transformedPaths
+
+
+
+
+            #Calculator\Tests\AnalizerClassIsOperatorTests.cs
+            #$removePath="C:\Users\circleci\project\Calculator\"
+            #$testsClassPath=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            #$basePath = "C:\Users\circleci\project\"
+            #$newFullPath = Join-Path $basePath $testsClassPath
+            
+            #$relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
         
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
