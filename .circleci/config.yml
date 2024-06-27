@@ -35,7 +35,7 @@ jobs:
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
              
-            circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            circleci tests glob "Calculator/Tests/**/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
 
             #Calculator\Tests\AnalizerClassIsOperatorTests.cs
