@@ -64,7 +64,7 @@ jobs:
 
             # Save the transformed paths back to the file (optional)
             $transformedPaths | Set-Content $testFilePath
-            
+            cat $transformedPaths
             foreach ($relativePath in $transformedPaths) {
                 dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             }
