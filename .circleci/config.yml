@@ -38,22 +38,9 @@ jobs:
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
 
-            
-            # Path to the file with the list of test files
-            $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
-            
-            # Read the content of the file
-            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            $removePath="C:\Users\circleci\project\Calculator\"
-            foreach ($testFile in $testFiles) {
-                # Ensure we are processing only relevant test files
-                if ($testFile -match "Tests.cs$") {
-                    # Remove the base path
-                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
-            
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
-                }
-            }
+            # List all test projects
+            dotnet sln Calculator/Calculator_Exam_CommandProject.sln list --type Project | grep 'Test' | xargs -I {} dotnet test {} --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
+
 
 
 
