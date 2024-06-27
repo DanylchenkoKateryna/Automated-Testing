@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     description: Setup and run application tests
-    parallelism: 2
+    parallelism: 4
     executor:
       name: win/default
     steps:
@@ -35,28 +35,20 @@ jobs:
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
              
-            #circleci tests glob "Calculator/Tests/*.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            #cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            
+            # Read the content of the file
+            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            $removePath="Calculator\"
+            foreach ($testFile in $testFiles) {
+                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+                    $relativePath
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"  
+            }
 
-            #Calculator\Tests\AnalizerClassIsOperatorTests.cs
-            #$removePath="C:\Users\circleci\project\Calculator\"
-            #$testsClassPath=cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            #$basePath = "C:\Users\circleci\project\"
-            #$newFullPath = Join-Path $basePath $testsClassPath
-            
-            #$fullPath = "C:\Users\circleci\project\Calculator\Tests\AnalizerClassReplaceSymbolTests.cs"
-            
-            #$relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
-        
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
-            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
+           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
-          #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe C:\Users\circleci\project\Calculator\Tests\bin\Debug\Tests.dll
-          #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-          #.\packages\xunit.runner.console.2.8.1\tools\net472\xunit.console.exe Calculator\Tests\bin\Debug\Tests.dll
-    
-      # Example: Viewing the content of an XML file
       - run:
           name: View XML File Content
           command: |
@@ -68,7 +60,6 @@ jobs:
     
       - store_test_results:
           path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
-          #when: always
           
   build:
     description: Build application with Debug configuration
@@ -84,7 +75,6 @@ jobs:
           command: |
             dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
-          #msbuild Calculator/GraphInterface/GraphInterface.csproj -t:build
       
 
 workflows:
