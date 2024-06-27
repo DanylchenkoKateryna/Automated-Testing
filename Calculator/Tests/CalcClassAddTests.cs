@@ -7,7 +7,7 @@ namespace Tests
     public class CalcClassAddTests
     {
         private readonly CalcClass calcClass=new CalcClass();
-        sdfghjkl;
+        
         [Theory]
         [InlineData(10, 20, 30)]
         [InlineData(1, 2, 3)]
