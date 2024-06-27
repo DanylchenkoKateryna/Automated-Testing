@@ -42,7 +42,7 @@ namespace Tests.MultiplyTestFolder
         public void Mult_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
             int result = calcClass.Mult(a, b);
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
 
             Assert.Equal(expected, result);
         }
