@@ -37,8 +37,10 @@ jobs:
              
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-
-            circleci tests glob "Calculator/Tests/**/*Tests.csproj" | circleci tests run --command "--junitfile C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml --format testname --"
+            circleci tests glob "Calculator/Tests/**/*Tests.cs" |
+            circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run |
+            xargs dotnet test 
+            #circleci tests glob "Calculator/Tests/**/*Tests.csproj" | circleci tests run --command "--junitfile C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml --format testname --"
 
 
 
