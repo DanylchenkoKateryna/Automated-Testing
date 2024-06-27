@@ -45,28 +45,14 @@ jobs:
             # Read the content of the file
             $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             $removePath="C:\Users\circleci\project\Calculator\"
-            # Initialize an array to hold the transformed paths
-            $transformedPaths = @()
-            
             foreach ($testFile in $testFiles) {
                 # Ensure we are processing only relevant test files
                 if ($testFile -match "Tests.cs$") {
                     # Remove the base path
-                    $relativePath = $testFile.Substring($removePath.Length)
+                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
             
-                    # Replace backslashes with dots and remove the .cs extension
-                    $transformedPath = $relativePath -replace '\\', '.' -replace '\.cs$', ''
-            
-                    # Add the transformed path to the array
-                    $transformedPaths += $transformedPath
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
                 }
-            }
-
-            # Save the transformed paths back to the file (optional)
-            $transformedPaths | Set-Content $testFilePath
-            cat $transformedPaths
-            foreach ($relativePath in $transformedPaths) {
-                dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             }
 
 
