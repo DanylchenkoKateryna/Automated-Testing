@@ -42,13 +42,14 @@ jobs:
             $testFilePath = "C:\Users\circleci\project\Calculator\Tests\tests-to-run"
             
             # Read the content of the file
-            $testFiles = Get-Content $testFilePath
+            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
             cat $testFiles
             $removePath="C:\Users\circleci\project\Calculator\"
             foreach ($testFile in $testFiles) {
                 # Ensure we are processing only relevant test files
                     # Remove the base path
-                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+                    $newFullPath = Join-Path $basePath $testFile
+                    $relativePath = $newFullPath.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     cat $relativePath
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FullyQualifiedName = $relativePath" --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             }
