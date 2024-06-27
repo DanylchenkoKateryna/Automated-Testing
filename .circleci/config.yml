@@ -49,7 +49,7 @@ jobs:
             foreach ($testFile in $testFiles) {
                     cat $testFile
                     $newFullPath = Join-Path $basePath $testFile
-                    $relativePath = $testFile -replace '\\', '.' -replace '\.cs$', ''
+                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     cat $relativePath
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter "FullyQualifiedName = $relativePath" --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"
             }
