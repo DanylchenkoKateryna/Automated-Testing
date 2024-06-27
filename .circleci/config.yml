@@ -43,9 +43,7 @@ jobs:
             
             # Read the content of the file
             $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            $nodeIndex = $env:CIRCLE_NODE_INDEX
-            $testResultsPath = "C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$nodeIndex.xml"
-
+            $counter = 1
             $basePath = "C:\Users\circleci\project\"
             $removePath="Calculator\"
             foreach ($testFile in $testFiles) {
@@ -53,7 +51,8 @@ jobs:
                     $newFullPath = Join-Path $basePath $testFile
                     $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     $relativePath
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=$testResultsPath"
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-$($counter).xml"
+                    $counter++
             }
 
            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
@@ -67,14 +66,14 @@ jobs:
       - run:
           name: View XML File Content
           command: |
-            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
+            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
 
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults\
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results-%CIRCLE_NODE_INDEX%.xml
+          path: C:\Users\circleci\project\Calculator\Tests\TestResults
           #when: always
           
   build:
