@@ -43,7 +43,7 @@ jobs:
             foreach ($testFile in $testFiles) {
                     $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     $relativePath
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"  
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=Calculator\Tests\TestResults\test-results.xml"  
             }
 
            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
@@ -52,14 +52,14 @@ jobs:
       - run:
           name: View XML File Content
           command: |
-            cat C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
+            cat Calculator\Tests\TestResults\test-results.xml
 
       - store_artifacts:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
+          path: Calculator\Tests\TestResults\test-results.xml
           destination: test-results
     
       - store_test_results:
-          path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
+          path: Calculator\Tests\TestResults\test-results.xml
           
   build:
     description: Build application with Release configuration
