@@ -24,7 +24,7 @@ jobs:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
     
-      - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+      - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: "Run Application Tests"
           command: |
-            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release
              
             circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             
@@ -43,10 +43,10 @@ jobs:
             foreach ($testFile in $testFiles) {
                     $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
                     $relativePath
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"  
+                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml"  
             }
 
-           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
+           #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
       - run:
@@ -62,19 +62,18 @@ jobs:
           path: C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml
           
   build:
-    description: Build application with Debug configuration
+    description: Build application with Release configuration
     executor:
       name: win/default
     steps:
       - checkout
       - run:
           name: "Install project dependencies"
-          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+          command: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            dotnet build Calculator/GraphInterface/GraphInterface.csproj --configuration Debug
-            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Debug
+            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release
       
 
 workflows:
