@@ -24,7 +24,7 @@ jobs:
           keys:
             - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
     
-      - run: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj
+      - run: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
@@ -69,7 +69,7 @@ jobs:
       - checkout
       - run:
           name: "Install project dependencies"
-          command: nuget restore Calculator/Tests/AnalizerClassLibrary.Tests.csproj
+          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
           command: |
