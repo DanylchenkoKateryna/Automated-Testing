@@ -73,7 +73,7 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release
+            dotnet build "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" --configuration Release
       
 
 workflows:
