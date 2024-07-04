@@ -33,7 +33,7 @@ jobs:
       - run:
           name: "Run Application Tests"
           command: |
-            dotnet build --configuration Release
+            msbuild Calculator/Calculator_Exam_CommandProject.sln /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             
