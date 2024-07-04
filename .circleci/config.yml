@@ -35,17 +35,17 @@ jobs:
           command: |
             dotnet build Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release
              
-            circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             
             # Read the content of the file
-            $testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
-            $removePath="Calculator\"
-            foreach ($testFile in $testFiles) {
-                    $relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
-                    $relativePath
-                    dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
-            }
-
+            #$testFiles = cat C:\Users\circleci\project\Calculator\Tests\tests-to-run
+            #$removePath="Calculator\"
+            #foreach ($testFile in $testFiles) {
+                    #$relativePath = $testFile.Substring($removePath.Length) -replace '\\', '.' -replace '\.cs$', ''
+                    #$relativePath
+                    #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
+            #}
+            dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
