@@ -53,13 +53,22 @@ jobs:
     
   nodeInstall:
     description: Install Node.js 10 and show Node.js version
-    docker:
-      - image: circleci/node:10.24.1 
+    executor:
+      name: win/default
+    #docker:
+    #  - image: circleci/node:10.24.1 
     steps:
       - run:
           name: Install Node.js 10
           command: |
-            node --version  # Print Node.js
+            Invoke-WebRequest -Uri https://nodejs.org/dist/v10.24.1/node-v10.24.1-x64.msi -OutFile node-v10.24.1-x64.msi
+            Start-Process msiexec.exe -ArgumentList '/i', 'node-v10.24.1-x64.msi', '/quiet', '/norestart' -NoNewWindow -Wait
+            node --version  # Print Node.js version
+      - run:
+          name: Run .bat file
+          command: |
+            cd Calculator\CalcClassBr
+            .\test.bat
       - run:
           name: "Run .bat file"
           shell: pwsh
