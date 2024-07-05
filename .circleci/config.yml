@@ -71,11 +71,9 @@ jobs:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
-          name: "cd"
-          command: cd Calculator\Tests
-      - run:
           name: "Build Application according to some given configuration"
           command: |
+            Calculator/CalcClassBr/test.bat
             msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
       
 
