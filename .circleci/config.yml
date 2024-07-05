@@ -62,7 +62,7 @@ jobs:
             node --version  # Print Node.js
       - run:
           name: "Run .bat file"
-         shell: pwsh
+          shell: pwsh
           command: |
             cd Calculator/CalcClassBr
             .\test.bat
