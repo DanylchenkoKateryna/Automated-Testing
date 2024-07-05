@@ -60,12 +60,12 @@ jobs:
           name: Install Node.js 10
           command: |
             node --version  # Print Node.js
-      #- run:
-      #    name: "Run .bat file"
-      #   shell: cmd.exe
-      #    command: |
-      #      cd Calculator/CalcClassBr
-      #      .\test.bat
+      - run:
+          name: "Run .bat file"
+         shell: pwsh
+          command: |
+            cd Calculator/CalcClassBr
+            .\test.bat
       - persist_to_workspace:
           root: .
           paths:
