@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  node: circleci/node@5.2.0
   win: circleci/windows@2.4
 
 jobs:
@@ -65,15 +66,15 @@ jobs:
   build:
     description: Build application with Release configuration
     executor:
-      name: win/default
+      name: node/default
     steps:
       - checkout
       # Install Node.js 10 and show Node.js version
       - run:
           name: Install Node.js 10
           command: |
-            choco install nodejs --version 10.24.0 --yes
-            RefreshEnv  # Refresh environment variables
+            #choco install nodejs --version 10.24.0 --yes
+            #RefreshEnv  # Refresh environment variables
             node --version  # Print Node.js version
       - run:
           name: "Install project dependencies"
