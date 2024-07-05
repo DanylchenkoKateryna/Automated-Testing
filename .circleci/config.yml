@@ -1,13 +1,14 @@
 version: 2.1
 
+orbs:
+  win: circleci/windows@2.4
+
 jobs:
   test:
     description: Setup and run application tests
     parallelism: 4
-    docker:
-      - image: mcr.microsoft.com/windows/servercore:ltsc2019
-        environment:
-          ENABLE_WSL: true
+    executor:
+      name: win/default
           
     steps:
       - checkout
@@ -63,10 +64,8 @@ jobs:
           
   build:
     description: Build application with Release configuration
-    docker:
-      - image: mcr.microsoft.com/windows/servercore:ltsc2019
-        environment:
-          ENABLE_WSL: true
+    executor:
+      name: win/default
     steps:
       - checkout
       - run:
