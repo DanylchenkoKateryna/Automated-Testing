@@ -30,8 +30,7 @@ jobs:
       #    paths:
       #      - C:\Users\circleci\.nuget\packages
       #    key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-      - attach_workspace:
-          at: .
+      
       - run:
           name: "Run Application Tests"
           command: |
@@ -62,8 +61,7 @@ jobs:
     
       - store_test_results:
           path: Calculator\Tests\TestResults\test-results.xml
-    depends_on:
-      - build
+    
       
   build:
     description: Build application with Release configuration
@@ -94,4 +92,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
