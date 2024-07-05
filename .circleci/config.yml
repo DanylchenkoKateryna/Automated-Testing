@@ -16,22 +16,9 @@ jobs:
       - run:
           name: Print current directory
           command: pwd
-      
-      - run:
-          name: Display .NET SDK version
-          command: dotnet --version
-      
+          
       - attach_workspace:
           at: .
-      #- restore_cache:
-      #    keys:
-      #     - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-    
-      #- run: nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
-      #- save_cache:
-      #    paths:
-      #      - C:\Users\circleci\.nuget\packages
-      #    key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
       
       - run:
           name: "Run Application Tests"
@@ -64,20 +51,34 @@ jobs:
       - store_test_results:
           path: Calculator\Tests\TestResults\test-results.xml
     
-      
+  nodeInstall:
+    description: Install Node.js 10 and show Node.js version
+    docker:
+      - image: circleci/node:10.24.1 
+    steps:
+      - run:
+          name: Install Node.js 10
+          command: |
+            node --version  # Print Node.js 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .nuget/
+            - Calculator/
+  
   build:
     description: Build application with Release configuration
-    #docker:
-      #- image: circleci/node:10.24.1  
     executor:
       name: win/default
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       # Install Node.js 10 and show Node.js version
       - run:
           name: Install Node.js 10
           command: |
-            choco install nodejs --version 10.24.0 -y
+            #choco install nodejs --version 10.24.0 -y
             #RefreshEnv  # Refresh environment variables
             node --version  # Print Node.js version
       - run:
