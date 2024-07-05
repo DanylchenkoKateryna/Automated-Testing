@@ -68,6 +68,12 @@ jobs:
       - image: circleci/node:10
     steps:
       - checkout
+      # Install nuget
+      - run:
+          name: Install nuget
+          command: |
+            sudo apt-get update
+            sudo apt-get install nuget -y
       - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
