@@ -67,7 +67,7 @@ jobs:
     description: Build application with Release configuration
     docker:
       - image: circleci/node:10.24.1  
-      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
       # Install Node.js 10 and show Node.js version
