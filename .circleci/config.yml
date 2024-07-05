@@ -59,17 +59,10 @@ jobs:
     #  - image: circleci/node:10.24.1 
     steps:
       - run:
-          name: Install Node.js 10
-          command: |
-            Invoke-WebRequest -Uri https://nodejs.org/dist/v10.24.0/node-v10.24.0-x64.msi -OutFile node-v10.24.0-x64.msi
-            Start-Process msiexec.exe -ArgumentList '/i', 'node-v10.24.0-x64.msi', '/quiet', '/norestart' -NoNewWindow -Wait
-            node --version  # Print Node.js version
-            npm --version   # Print npm version to verify installation
-      - run:
           name: Run .bat file
           command: |
             cd Calculator\CalcClassBr
-            .\test.bat
+            npm install
       - run:
           name: "Run .bat file"
           shell: pwsh
