@@ -67,7 +67,7 @@ jobs:
     description: Build application with Release configuration
     docker:
       - image: circleci/node:10.24.1  
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: mcr.microsoft.com/dotnet/framework/sdk:4.7 
     steps:
       - checkout
       # Install NuGet CLI
