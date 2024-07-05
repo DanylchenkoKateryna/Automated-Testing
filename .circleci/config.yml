@@ -67,14 +67,10 @@ jobs:
     description: Build application with Release configuration
     docker:
       - image: circleci/node:10.24.1  
-      - image: mcr.microsoft.com/dotnet/framework/sdk:4.7 
+    executor:
+      name: win/default
     steps:
       - checkout
-      # Install NuGet CLI
-      - run:
-          name: Install NuGet
-          command: |
-            sudo apt-get install nuget
       # Install Node.js 10 and show Node.js version
       - run:
           name: Install Node.js 10
