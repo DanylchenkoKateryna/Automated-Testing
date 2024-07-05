@@ -75,14 +75,8 @@ jobs:
       - run:
           name: Install Node.js 10
           command: |
-            choco install nodejs --version 10.24.0
+            choco install nodejs --version 10.24.0 -y
             #RefreshEnv  # Refresh environment variables
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install 10.24.0
-            nvm use 10.24.0
             node --version  # Print Node.js version
       - run:
           name: "Install project dependencies"
