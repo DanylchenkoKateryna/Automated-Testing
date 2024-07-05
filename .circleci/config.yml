@@ -65,8 +65,8 @@ jobs:
           
   build:
     description: Build application with Release configuration
-    executor:
-      name: node/default
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - checkout
       # Install Node.js 10 and show Node.js version
