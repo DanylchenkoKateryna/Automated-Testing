@@ -59,7 +59,13 @@ jobs:
       - run:
           name: Install Node.js 10
           command: |
-            node --version  # Print Node.js 
+            node --version  # Print Node.js
+      - run:
+          name: "Run .bat file"
+          #shell: powershell.exe
+          command: |
+            cd Calculator/CalcClassBr
+            .\test.bat
       - persist_to_workspace:
           root: .
           paths:
@@ -99,7 +105,10 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build
+      - nodeInstall
+      - build:
+          requires:
+            - nodeInstall
       - test:
           requires:
             - build
