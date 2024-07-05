@@ -50,31 +50,7 @@ jobs:
     
       - store_test_results:
           path: Calculator\Tests\TestResults\test-results.xml
-    
-  nodeInstall:
-    description: Install Node.js 10 and show Node.js version
-    executor:
-      name: win/default
-    #docker:
-    #  - image: circleci/node:10.24.1 
-    steps:
-      - run:
-          name: Run .bat file
-          command: |
-            cd Calculator\CalcClassBr
-            npm install
-      - run:
-          name: "Run .bat file"
-          shell: pwsh
-          command: |
-            cd Calculator/CalcClassBr
-            .\test.bat
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .nuget/
-            - ./
-  
+ 
   build:
     description: Build application with Release configuration
     executor:
@@ -112,10 +88,7 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - nodeInstall
-      - build:
-          requires:
-            - nodeInstall
+      - build
       - test:
           requires:
             - build
