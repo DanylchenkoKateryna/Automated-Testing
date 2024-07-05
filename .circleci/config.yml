@@ -62,7 +62,7 @@ jobs:
             node --version  # Print Node.js
       - run:
           name: "Run .bat file"
-          #shell: powershell.exe
+          shell: powershell.exe
           command: |
             cd Calculator/CalcClassBr
             .\test.bat
