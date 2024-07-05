@@ -88,7 +88,7 @@ jobs:
           command: |
             node --version
             msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
-       - persist_to_workspace:
+      - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
             - .nuget/
