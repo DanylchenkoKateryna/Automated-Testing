@@ -64,7 +64,9 @@ jobs:
   build:
     description: Build application with Release configuration
     docker:
-      - image: circleci/windows:latest
+      - image: mcr.microsoft.com/windows/servercore:ltsc2019
+        environment:
+          ENABLE_WSL: true
     steps:
       - checkout
       - run:
