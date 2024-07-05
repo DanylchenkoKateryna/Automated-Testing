@@ -91,6 +91,10 @@ jobs:
             #RefreshEnv  # Refresh environment variables
             node --version  # Print Node.js version
       - run:
+          name: Install Visual Studio Build Tools
+          command: |
+            choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.WebBuildTools"
+      - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
