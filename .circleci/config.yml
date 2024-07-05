@@ -84,6 +84,7 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: |
+            node --version
             msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
       
 
