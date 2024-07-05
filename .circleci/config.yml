@@ -1,13 +1,15 @@
 version: 2.1
 
+orbs:
+  win: circleci/windows@2.4
+
 jobs:
   test:
     description: Setup and run application tests
-    parallelism: 4
-    docker:
-      - image: mcr.microsoft.com/windows/servercore:ltsc2019
-        environment:
-          ENABLE_WSL:true
+    #parallelism: 4
+    executor:
+      name: win/default
+          
     steps:
       - checkout
       
@@ -19,20 +21,22 @@ jobs:
           name: Display .NET SDK version
           command: dotnet --version
       
-      - restore_cache:
-          keys:
-            - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
+      - attach_workspace:
+          at: .
+      #- restore_cache:
+      #    keys:
+      #     - dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
     
-      - run: nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
-      - save_cache:
-          paths:
-            - C:\Users\circleci\.nuget\packages
-          key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
-     
+      #- run: nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
+      #- save_cache:
+      #    paths:
+      #      - C:\Users\circleci\.nuget\packages
+      #    key: dotnet-packages-v1-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}
+      
       - run:
           name: "Run Application Tests"
           command: |
-            msbuild "Calculator/Calculator_Exam_CommandProject.sln" /p:Configuration=Release
+            #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
             
@@ -45,7 +49,7 @@ jobs:
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
-            dotnet test --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
           
       - run:
@@ -59,22 +63,36 @@ jobs:
     
       - store_test_results:
           path: Calculator\Tests\TestResults\test-results.xml
-          
+    
+      
   build:
     description: Build application with Release configuration
-    docker:
-      - image: circleci/windows:latest
+    #docker:
+      #- image: circleci/node:10.24.1  
+    executor:
+      name: win/default
     steps:
       - checkout
+      # Install Node.js 10 and show Node.js version
+      - run:
+          name: Install Node.js 10
+          command: |
+            choco install nodejs --version 10.24.0 -y
+            #RefreshEnv  # Refresh environment variables
+            node --version  # Print Node.js version
       - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            cd /d C:\Users\circleci\project\Calculator\CalcClassBr
-            test.bat
+            node --version
             msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
+      - persist_to_workspace:
+          root: .    # Root directory to persist
+          paths:
+            - .nuget/
+            - Calculator/
       
 
 workflows:
