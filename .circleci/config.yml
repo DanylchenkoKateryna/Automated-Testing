@@ -65,9 +65,6 @@ jobs:
           
   build:
     description: Build application with Release configuration
-    executor:
-      name: win/default
-      name: node/default
     #docker:
       #- image: circleci/node:10.24.1  
     
