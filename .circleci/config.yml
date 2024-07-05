@@ -68,9 +68,6 @@ jobs:
       name: win/default
     steps:
       - checkout
-      - run:
-          name: "Install project dependencies"
-          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       # Install Node.js 10 and show Node.js version
       - run:
           name: Install Node.js 10
@@ -78,6 +75,9 @@ jobs:
             choco install nodejs --version 10.24.0 --yes
             RefreshEnv  # Refresh environment variables
             node --version  # Print Node.js version
+      - run:
+          name: "Install project dependencies"
+          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
           command: |
