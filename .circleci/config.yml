@@ -70,7 +70,11 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            msbuild "Calculator/Calculator_Exam_CommandProject.sln" /p:Configuration=Release
+            start msbuild Calculator/Tests /t:Build /p:Configuration=Release
+            start msbuild Calculator/GraphInterface /t:Build /p:Configuration=Release
+            start msbuild Calculator/ErrorLibrary /t:Build /p:Configuration=Release
+            start msbuild Calculator/CalcClassBr /t:Build /p:Configuration=Release
+            start msbuild Calculator/AnalizerClassLibrary /t:Build /p:Configuration=Release
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
