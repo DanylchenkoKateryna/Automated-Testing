@@ -21,6 +21,11 @@ jobs:
           at: .
       
       - run:
+          name: Install JunitXml.TestLogger
+          command: |
+            dotnet add Calculator/Tests/AnalizerClassLibrary.Tests.csproj package JunitXml.TestLogger
+      
+      - run:
           name: "Run Application Tests"
           command: |
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
