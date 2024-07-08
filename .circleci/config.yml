@@ -54,14 +54,11 @@ jobs:
   build:
     description: Build application with Release configuration
     executor:
-      name: win/default
+      name: win/server-2022
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Upgrade Visual Studio Build Tools
-          command: choco upgrade visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --includeOptional --quiet --wait"
       - run:
           name: Check Visual Studio Version and Components
           command: |
