@@ -63,6 +63,12 @@ jobs:
           name: Upgrade Visual Studio Build Tools
           command: choco upgrade visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --includeOptional --quiet --wait"
       - run:
+          name: Check Visual Studio Version and Components
+          command: |
+            & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -all -products * -requires Microsoft.Component.MSBuild -format json
+            & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -all -products * -format json
+
+      - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
