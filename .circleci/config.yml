@@ -19,12 +19,6 @@ jobs:
           
       - attach_workspace:
           at: .
-      
-      - run:
-          name: Install JunitXml.TestLogger
-          command: |
-            dotnet add Calculator/Tests/AnalizerClassLibrary.Tests.csproj package JunitXml.TestLogger
-      
       - run:
           name: "Run Application Tests"
           command: |
@@ -41,20 +35,20 @@ jobs:
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
-            dotnet test Calculator/Calculator_Exam_CommandProject.sln --configuration Release --no-build --logger "junit;LogFileName=test-results.xml" 
+            dotnet test Calculator/Calculator_Exam_CommandProject.sln --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" 
           when: always
           
       - run:
           name: View XML File Content
           command: |
-            cat Calculator\Tests\TestResults\test-results.xml
+            cat Calculator\Tests\TestResults\test-results.trx
 
       - store_artifacts:
-          path: Calculator\Tests\TestResults\test-results.xml
+          path: Calculator\Tests\TestResults\test-results.trx
           destination: test-results
     
       - store_test_results:
-          path: Calculator\Tests\TestResults\test-results.xml
+          path: Calculator\Tests\TestResults\test-results.trx
  
   build:
     description: Build application with Release configuration
