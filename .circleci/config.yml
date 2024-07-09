@@ -31,7 +31,7 @@ jobs:
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
 
-            #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=analizer-test-results.xml" 
+            dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=analizer-test-results.xml" 
             dotnet test Calculator/xUnitProject/xUnitProject.csproj --configuration Release --logger "junit;LogFileName=xunit-test-results.xml" 
 
           when: always
@@ -40,7 +40,7 @@ jobs:
           name: View XML File Content
           command: |
             cat Calculator\Tests\TestResults\analizer-test-results.xml
-            cat Calculator\xUnitProject\xunit-test-results.xml
+            cat Calculator\TestResults\xUnitProject\xunit-test-results.xml
 
       - store_artifacts:
           path: Calculator\Tests
