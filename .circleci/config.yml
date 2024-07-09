@@ -37,7 +37,7 @@ jobs:
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
 
             dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=analizer-test-results.xml" 
-            dotnet test Calculator/xUnitProject.csproj --configuration Release --no-build --logger "junit;LogFileName=xunit-test-results.xml" 
+            dotnet test Calculator/xUnitProject/xUnitProject.csproj --configuration Release --no-build --logger "junit;LogFileName=xunit-test-results.xml" 
 
           when: always
           
