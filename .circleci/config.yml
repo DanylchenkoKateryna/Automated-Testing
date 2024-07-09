@@ -11,7 +11,7 @@ jobs:
       name: win/server-2022
           
     steps:
-      - checkout
+      #- checkout
       - attach_workspace:
           at: .
       - run:
