@@ -42,20 +42,14 @@ jobs:
             cat Calculator\AnalizerClassLibrary.Tests\TestResults\analizer-test-results.xml
             cat Calculator\xUnitProject\TestResults\xunit-test-results.xml
 
-      # Store test result artifacts
+        # Store all test result artifacts
       - store_artifacts:
-          path: Calculator/Tests/TestResults
-          destination: test-results/analizer
+          path: Calculator
+          destination: test-results
 
-      - store_artifacts:
-          path: Calculator/xUnitProject/TestResults
-          destination: test-results/xunit
-
-      # Store test results for CircleCI Insights
+      # Store all test results for CircleCI Insights
       - store_test_results:
-          path: Calculator/AnalizerClassLibrary.Tests/TestResults
-      - store_test_results:
-          path: Calculator/xUnitProject/TestResults
+          path: Calculator
  
   build:
     description: Build application with Release configuration
