@@ -69,7 +69,7 @@ jobs:
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
       - run:
           name: "Build Application according to some given configuration"
-          command: Calculator_Build.bat
+          command: ./Calculator_Build.bat
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
