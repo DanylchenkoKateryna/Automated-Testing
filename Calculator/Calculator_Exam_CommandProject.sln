@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphInterface", "GraphInte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalizerClassLibrary", "AnalizerClassLibrary\AnalizerClassLibrary.csproj", "{28D27784-D8EF-42FD-9E46-C85481F20F20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalizerClassLibrary.Tests", "Tests\AnalizerClassLibrary.Tests.csproj", "{33BAE248-EB6F-42B3-A0CB-EB529465D3F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalizerClassLibrary.Tests", "AnalizerClassLibrary.Tests\AnalizerClassLibrary.Tests.csproj", "{33BAE248-EB6F-42B3-A0CB-EB529465D3F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitProject", "xUnitProject\xUnitProject.csproj", "{DD9F4018-D93D-4656-8213-C32711A818B6}"
 EndProject
