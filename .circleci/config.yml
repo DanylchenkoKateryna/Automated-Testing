@@ -43,11 +43,11 @@ jobs:
             cat Calculator\TestResults\xUnitProject\xunit-test-results.xml
 
       - store_artifacts:
-          path: Calculator\Tests
+          path: Calculator
           destination: test-results
     
       - store_test_results:
-          path: Calculator\Tests
+          path: Calculator
  
   build:
     description: Build application with Release configuration
