@@ -45,14 +45,14 @@ jobs:
           name: View XML File Content
           command: |
             cat Calculator\Tests\TestResults\analizer-test-results.xml
-            cat Calculator\Tests\TestResults\xunit-test-results.xml
+            cat Calculator\xUnitProject\xunit-test-results.xml
 
       - store_artifacts:
-          path: Calculator\Tests\TestResults
+          path: Calculator\Tests
           destination: test-results
     
       - store_test_results:
-          path: Calculator\Tests\TestResults
+          path: Calculator\Tests
  
   build:
     description: Build application with Release configuration
