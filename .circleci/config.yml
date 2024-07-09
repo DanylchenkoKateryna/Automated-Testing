@@ -53,7 +53,7 @@ jobs:
 
       # Store test results for CircleCI Insights
       - store_test_results:
-          path: Calculator/Tests/TestResults
+          path: Calculator/AnalizerClassLibrary.Tests/TestResults
       - store_test_results:
           path: Calculator/xUnitProject/TestResults
  
