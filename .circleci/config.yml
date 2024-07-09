@@ -40,14 +40,22 @@ jobs:
           name: View XML File Content
           command: |
             cat Calculator\AnalizerClassLibrary.Tests\TestResults\analizer-test-results.xml
-            cat Calculator\TestResults\xUnitProject\xunit-test-results.xml
+            cat Calculator\xUnitProject\TestResults\xunit-test-results.xml
+
+      # Store test result artifacts
+      - store_artifacts:
+          path: Calculator/Tests/TestResults
+          destination: test-results/analizer
 
       - store_artifacts:
-          path: Calculator
-          destination: test-results
-    
+          path: Calculator/xUnitProject/TestResults
+          destination: test-results/xunit
+
+      # Store test results for CircleCI Insights
       - store_test_results:
-          path: Calculator
+          path: Calculator/Tests/TestResults
+      - store_test_results:
+          path: Calculator/xUnitProject/TestResults
  
   build:
     description: Build application with Release configuration
