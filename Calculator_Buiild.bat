@@ -4,5 +4,4 @@ msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release
 msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release
 msbuild Calculator/Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release
 msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release
-
 pause
