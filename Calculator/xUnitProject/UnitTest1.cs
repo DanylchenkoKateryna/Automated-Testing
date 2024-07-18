@@ -1,4 +1,7 @@
 using CalcClassBr;
+using FluentAssertions;
+using System.Web;
+using System.Web.Caching;
 using Xunit;
 
 namespace xUnitProject
@@ -6,6 +9,7 @@ namespace xUnitProject
     public class UnitTest1
     {
         private readonly CalcClass calcClass = new CalcClass();
+        private readonly Cache cache = HttpRuntime.Cache;
 
         [Theory]
         [InlineData(10, 20, 30)]
@@ -42,6 +46,7 @@ namespace xUnitProject
         {
             int result = calcClass.Add(a, b);
             Assert.Equal(expected, result);
+            result.Should().Be(expected);
         }
     }
 }
