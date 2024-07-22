@@ -38,21 +38,15 @@ jobs:
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
-            # Use the parallelism feature of CircleCI to split the tests
-            case $CIRCLE_NODE_INDEX in
-              0)
-                dotnet test Calculator/xUnitProject/xUnitProject.csproj --configuration Release --logger "junit;LogFileName=test-results-1.xml"
-                ;;
-              1)
-                dotnet test Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=test-results-2.xml"
-                ;;
-              2)
-                dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=test-results-3.xml"
-                ;;
-              3)
-                dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=test-results-4.xml"
-                ;;
-            esac
+            if [ $CIRCLE_NODE_INDEX -eq 0 ]; then
+              dotnet test Calculator/xUnitProject/xUnitProject.csproj --configuration Release --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-1.xml"
+            elif [ $CIRCLE_NODE_INDEX -eq 1 ]; then
+              dotnet test Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-2.xml"
+            elif [ $CIRCLE_NODE_INDEX -eq 2 ]; then
+              dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-3.xml"
+            elif [ $CIRCLE_NODE_INDEX -eq 3 ]; then
+              dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-4.xml"
+            fi
           when: always
        
       - run:
