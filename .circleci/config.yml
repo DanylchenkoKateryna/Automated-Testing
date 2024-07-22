@@ -14,7 +14,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-       # Restore cache for NuGet packages
+      
+      # Restore cache for NuGet packages
       - restore_cache:
           keys:
             - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
@@ -60,7 +61,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      # Restore cache for NuGet packages
+     # Restore cache for NuGet packages
       - restore_cache:
           keys:
             - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
