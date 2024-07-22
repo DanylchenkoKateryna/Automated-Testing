@@ -25,7 +25,6 @@ jobs:
           name: "Run Application Tests"
           command: |
             cmd.exe /c circleci_test.bat
-            mkdir Calculator/TestResults
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
@@ -40,19 +39,15 @@ jobs:
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
-          
-      - run:
-          name: "List Test Results"
-          command: dir  Calculator/TestResults
-      
+       
       # Store test result artifacts
       - store_artifacts:
-          path: Calculator/TestResults
+          path: Calculator
           destination: test-results
 
       # Store test results for CircleCI Insights
       - store_test_results:
-          path: Calculator/TestResults
+          path: Calculator
  
   build:
     description: Build application with Release configuration
