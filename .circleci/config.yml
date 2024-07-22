@@ -40,18 +40,12 @@ jobs:
           
       # Store test result artifacts
       - store_artifacts:
-          path: Calculator/AnalizerClassLibrary.Tests/TestResults
-          destination: test-results/analizer
-
-      - store_artifacts:
-          path: Calculator/xUnitProject/TestResults
-          destination: test-results/xunit
+          path: Calculator/TestResults
+          destination: test-results
 
       # Store test results for CircleCI Insights
       - store_test_results:
-          path: Calculator/AnalizerClassLibrary.Tests/TestResults
-      - store_test_results:
-          path: Calculator/xUnitProject/TestResults
+          path: Calculator/TestResults
  
   build:
     description: Build application with Release configuration
