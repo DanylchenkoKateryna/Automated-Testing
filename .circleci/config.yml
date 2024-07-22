@@ -40,6 +40,10 @@ jobs:
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
        
+      - run:
+          name: "List Test Results"
+          command: dir Calculator\TestResults
+          
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
