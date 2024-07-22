@@ -44,7 +44,7 @@ jobs:
           
       - run:
           name: "List Test Results"
-          command: dir Calculator
+          command: dir  Calculator\TestResults
       
       # Store test result artifacts
       - store_artifacts:
