@@ -24,7 +24,7 @@ jobs:
       - run:
           name: "Run Application Tests"
           command: |
-            cmd.exe /c circleci_test.bat
+            #cmd.exe /c circleci_test.bat
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
@@ -38,6 +38,21 @@ jobs:
                     #dotnet test Calculator/Tests/AnalizerClassLibrary.Tests.csproj --filter $relativePath --configuration Release --no-build --logger "junit;LogFileName=test-results.xml"  
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
+            # Use the parallelism feature of CircleCI to split the tests
+            case $CIRCLE_NODE_INDEX in
+              0)
+                dotnet test Calculator/xUnitProject/xUnitProject.csproj --configuration Release --logger "junit;LogFileName=test-results-1.xml"
+                ;;
+              1)
+                dotnet test Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=test-results-2.xml"
+                ;;
+              2)
+                dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=test-results-3.xml"
+                ;;
+              3)
+                dotnet test Calculator/TestProject2.Tests/TestProject2.Tests.csproj --configuration Release --logger "junit;LogFileName=test-results-4.xml"
+                ;;
+            esac
           when: always
        
       - run:
