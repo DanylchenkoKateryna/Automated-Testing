@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
+  codecov: codecov/codecov@4.1.0
 
 jobs:
   test:
@@ -64,6 +65,12 @@ jobs:
       - store_artifacts:
           path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
+      
+      - run:
+          name: Upload Coverage to Codecov
+          command: |
+            curl -Os https://uploader.codecov.io/latest/windows/codecov.exe
+            ./codecov.exe -f "Calculator/CodeCoverageResults/**/*.cobertura.xml"
       
       # Store test result artifacts
       - store_artifacts:
