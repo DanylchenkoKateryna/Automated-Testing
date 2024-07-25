@@ -62,7 +62,7 @@ jobs:
             }
 
       - store_artifacts:
-          path: coverage-report
+          path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
       
       # Store test result artifacts
