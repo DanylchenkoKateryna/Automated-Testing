@@ -42,11 +42,21 @@ jobs:
        
       - run:
           name: "List Test Results"
-          command: dir Calculator\TestResults
+          command: |
+            dir Calculator\TestResults
+            dir Calculator\CodeCoverageResults
+            
+      - run:
+          name: Install ReportGenerator
+          command: dotnet tool install -g dotnet-reportgenerator-globaltool
           
       - run:
-          name: "List Code Coverage Results"
-          command: dir Calculator\CodeCoverageResults
+          name: Generate coverage report
+          command: reportgenerator -reports:../CodeCoverageResults/coverage.opencover.xml -targetdir:coverage-report -reporttypes:Html
+
+      - store_artifacts:
+          path: coverage-report
+          destination: coverage-report
       
       # Store test result artifacts
       - store_artifacts:
