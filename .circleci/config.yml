@@ -44,6 +44,10 @@ jobs:
           name: "List Test Results"
           command: dir Calculator\TestResults
           
+      - run:
+          name: "List Code Coverage Results"
+          command: dir Calculator\CodeCoverageResults
+      
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
