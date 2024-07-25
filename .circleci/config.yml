@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Generate coverage report
           command: |
-            $coverage_files = Get-ChildItem -Path "./Tests/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            $coverage_files = Get-ChildItem -Path ".Calculator/Tests/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             $coverage_files
             foreach ($coverage_file in $coverage_files) {
               $coverage_file
