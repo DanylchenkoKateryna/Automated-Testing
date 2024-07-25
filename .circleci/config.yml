@@ -54,7 +54,9 @@ jobs:
           name: Generate coverage report
           command: |
             $coverage_files = find ./Tests/CodeCoverageResults -name 'coverage.cobertura.xml'
+            $coverage_files
             foreach ($coverage_file in $coverage_files) {
+              $coverage_file
               reportgenerator -reports:$coverage_file -targetdir:Calculator/CodeCoverageResults/GeneralResult -reporttypes:Html
             }
 
