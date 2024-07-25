@@ -52,7 +52,12 @@ jobs:
           
       - run:
           name: Generate coverage report
-          command: reportgenerator -reports:C:/Users/circleci/project/Calculator/Tests/CodeCoverageResults/../coverage.cobertura.xml -targetdir:coverage-report -reporttypes:Html
+          command: |
+            coverage_files=$(find ./Tests/CodeCoverageResults -name 'coverage.cobertura.xml')
+            for coverage_file in $coverage_files; do
+              report_dir="coverage-report-$(basename $(dirname $coverage_file))"
+              reportgenerator -reports:$coverage_file -targetdir:$report_dir -reporttypes:Html
+            done
 
       - store_artifacts:
           path: coverage-report
