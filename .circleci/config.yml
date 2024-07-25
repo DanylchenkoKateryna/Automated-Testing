@@ -52,7 +52,7 @@ jobs:
           
       - run:
           name: Generate coverage report
-          command: reportgenerator -reports:../CodeCoverageResults/../coverage.cobertura.xml -targetdir:coverage-report -reporttypes:Html
+          command: reportgenerator -reports:C:/Users/circleci/project/Calculator/Tests/CodeCoverageResults/../coverage.cobertura.xml -targetdir:coverage-report -reporttypes:Html
 
       - store_artifacts:
           path: coverage-report
