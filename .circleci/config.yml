@@ -55,8 +55,7 @@ jobs:
           command: |
             $coverage_files = find ./Tests/CodeCoverageResults -name 'coverage.cobertura.xml'
             foreach ($coverage_file in $coverage_files) {
-              $report_dir="coverage-report-$(basename $(dirname $coverage_file))"
-              reportgenerator -reports:$coverage_file -targetdir:$report_dir -reporttypes:Html
+              reportgenerator -reports:$coverage_file -targetdir:Calculator/CodeCoverageResults/GeneralResult -reporttypes:Html
             }
 
       - store_artifacts:
