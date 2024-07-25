@@ -54,10 +54,10 @@ jobs:
           name: Generate coverage report
           command: |
             coverage_files=$(find ./Tests/CodeCoverageResults -name 'coverage.cobertura.xml')
-            for (coverage_file in $coverage_files) do
+            for (coverage_file in $coverage_files) {
               report_dir="coverage-report-$(basename $(dirname $coverage_file))"
               reportgenerator -reports:$coverage_file -targetdir:$report_dir -reporttypes:Html
-            done
+            }
 
       - store_artifacts:
           path: coverage-report
