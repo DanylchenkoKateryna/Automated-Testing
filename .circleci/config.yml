@@ -66,8 +66,6 @@ jobs:
           path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
       
-      - codecov/upload
-      
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
@@ -116,3 +114,4 @@ workflows:
       - test:
           requires:
             - build
+      - codecov/upload
