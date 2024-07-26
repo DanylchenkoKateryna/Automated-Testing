@@ -80,10 +80,6 @@ jobs:
           path: Calculator/GeneralResult
           destination: coverage-report
       
-      - coveralls/upload:
-          coverage-format: cobertura
-          path-to-file: Calculator/GeneralResult/Cobertura.xml
-      
       #- run:
       #    name: Upload coverage to Codecov
       #    shell: powershell.exe
