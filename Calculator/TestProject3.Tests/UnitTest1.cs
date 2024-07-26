@@ -8,6 +8,7 @@ namespace TestProject3.Tests
         private readonly CalcClass calcClass = new CalcClass();
 
         [Theory]
+        [InlineData(11, 20, 31)]
         [InlineData(10, 20, 30)]
         [InlineData(1, 2, 3)]
         [InlineData(-5, 5, 0)]
