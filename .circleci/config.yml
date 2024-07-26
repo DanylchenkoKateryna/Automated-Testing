@@ -67,7 +67,7 @@ jobs:
           destination: coverage-report
       - run:
           name: "List Report"
-          command: Сalculator/CodeCoverageResults
+          command: dir Сalculator/CodeCoverageResults
       - run:
           name: Upload coverage to Codecov
           shell: powershell.exe
