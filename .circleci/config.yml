@@ -57,7 +57,7 @@ jobs:
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             foreach ($coverage_file in $coverage_files.FullName) {
-              reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult -reporttypes:Html
+              reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
 
       - run:
@@ -72,11 +72,17 @@ jobs:
             foreach ($coverage_file in $coverage_files.FullName) {
               coveralls.io --opencover -i $coverage_file
             }
+
+            dir Calculator/GeneralResult/Cobertura.xml
             
       - store_artifacts:
           path: Calculator/GeneralResult
           destination: coverage-report
-     
+      
+      - coveralls/upload:
+          coverage-format: cobertura
+          path-to-file: Calculator/GeneralResult/Cobertura.xml
+      
       #- run:
       #    name: Upload coverage to Codecov
       #    shell: powershell.exe
