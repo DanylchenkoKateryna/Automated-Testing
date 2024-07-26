@@ -65,7 +65,9 @@ jobs:
       - store_artifacts:
           path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
-      
+      - run:
+          name: "List Report"
+          command: Сalculator/CodeCoverageResults
       - run:
           name: Upload coverage to Codecov
           shell: powershell.exe
