@@ -65,15 +65,16 @@ jobs:
       - store_artifacts:
           path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
-      - run:
-          name: "List Report"
-          command: dir Сalculator/CodeCoverageResults
+     
       - run:
           name: Upload coverage to Codecov
           shell: powershell.exe
           command: |
+            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -OutFile codecov.exe
-            .\codecov.exe -f Calculator/CodeCoverageResults/coverage.cobertura.xml -t $env:CODECOV_TOKEN
+            foreach ($coverage_file in $coverage_files.FullName) {
+              .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
+            }
 
       # Store test result artifacts
       - store_artifacts:
