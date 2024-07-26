@@ -70,7 +70,8 @@ jobs:
             #  exit 1
             #fi
             foreach ($coverage_file in $coverage_files.FullName) {
-              coveralls.io --opencover -i $coverage_file
+              #coveralls.io --opencover -i $coverage_file
+              coveralls.net.exe -f $coverage_file -t $env:COVERALLS_REPO_TOKEN
             }
 
             dir Calculator/GeneralResult/Cobertura.xml
