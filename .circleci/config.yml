@@ -48,14 +48,14 @@ jobs:
       - run:
           name: Generate coverage report
           command: |
-            mkdir Calculator/CodeCoverageResults/GeneralResult
+            mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             foreach ($coverage_file in $coverage_files.FullName) {
-              reportgenerator -reports:$coverage_file -targetdir:Calculator/CodeCoverageResults/GeneralResult -reporttypes:Html
+              reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult -reporttypes:Html
             }
 
       - store_artifacts:
-          path: Calculator/CodeCoverageResults/GeneralResult
+          path: Calculator/GeneralResult
           destination: coverage-report
      
       #- run:
