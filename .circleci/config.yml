@@ -57,23 +57,17 @@ jobs:
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
 
-      - run:
-          name: Upload to Coveralls
-          command: |
-            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            #COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-            #if [ -z "$COVERALLS_REPO_TOKEN" ]; then
-            #  echo "COVERALLS_REPO_TOKEN is not set"
-            #  exit 1
-            #fi
-            foreach ($coverage_file in $coverage_files.FullName) {
+      #- run:
+          #name: Upload to Coveralls
+          #command: |
+            #$coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            #foreach ($coverage_file in $coverage_files.FullName) {
               #coveralls.io --opencover -i $coverage_file
               #coveralls.net.exe -f $coverage_file -t $env:COVERALLS_REPO_TOKEN
-            }
-            #coveralls.io upload -r Calculator/GeneralResult/Cobertura.xml -t $COVERALLS_REPO_TOKEN
-            dotnet add package coveralls.net
-            .nuget\coveralls.net\0.7.0\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
-            dir Calculator/GeneralResult/Cobertura.xml
+            #}
+            #dotnet add package coveralls.net
+            #.nuget\coveralls.net\0.7.0\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
+            #dir Calculator/GeneralResult/Cobertura.xml
       
       - store_artifacts:
           path: Calculator/GeneralResult
@@ -89,6 +83,12 @@ jobs:
       #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
       #      }
 
+      
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Calculator/GeneralResult/Cobertura.xml
+      
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
@@ -98,6 +98,20 @@ jobs:
       - store_test_results:
           path: Calculator/TestResults
  
+  upload-coverage:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Coveralls Python Package
+          command: pip install coveralls
+      - run:
+          name: Upload coverage to Coveralls
+          command: coveralls --repo-token $COVERALLS_REPO_TOKEN < /workspace/coverage.opencover.xml
+  
+  
   build:
     description: Build application with Release configuration
     executor:
@@ -137,3 +151,7 @@ workflows:
       - test:
           requires:
             - build
+      - upload-coverage:
+          requires:
+            - build
+            - test
