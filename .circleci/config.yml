@@ -66,10 +66,9 @@ jobs:
           path: Calculator/CodeCoverageResults/GeneralResult
           destination: coverage-report
       
-      - run:
-          name: Upload Coverage Report
-          command: |
-            bash <(curl -s https://codecov.io/bash) -F $CODECOV_TOKEN
+      - codecov/upload:
+          file: './coverage/clover.xml'
+          token: $CODECOV_TOKEN
       
       # Store test result artifacts
       - store_artifacts:
