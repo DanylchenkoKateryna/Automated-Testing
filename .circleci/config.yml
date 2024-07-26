@@ -68,7 +68,7 @@ jobs:
       
       - codecov/upload:
           file: Calculator/CodeCoverageResults/coverage.cobertura.xml
-          token: CODECOV_TOKEN
+          token: $env:CODECOV_TOKEN
       
       # Store test result artifacts
       - store_artifacts:
