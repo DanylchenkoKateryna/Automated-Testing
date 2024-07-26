@@ -62,10 +62,10 @@ jobs:
           command: |
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-            if [ -z "$COVERALLS_REPO_TOKEN" ]; then
-              echo "COVERALLS_REPO_TOKEN is not set"
-              exit 1
-            fi
+            #if [ -z "$COVERALLS_REPO_TOKEN" ]; then
+            #  echo "COVERALLS_REPO_TOKEN is not set"
+            #  exit 1
+            #fi
             foreach ($coverage_file in $coverage_files.FullName) {
               coveralls.net --opencover -i $coverage_file
             }
