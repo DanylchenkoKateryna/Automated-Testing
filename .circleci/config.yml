@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Upload Coverage Report
           command: |
-            codecov -f Calculator/CodeCoverageResults/GeneralResult/coverage.Html
+            bash <(curl -s https://codecov.io/bash) -F $CODECOV_TOKEN
       
       # Store test result artifacts
       - store_artifacts:
