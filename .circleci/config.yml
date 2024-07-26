@@ -110,10 +110,13 @@ jobs:
       - run:
           name: Upload coverage to Coveralls
           command: |
-            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            foreach ($coverage_file in $coverage_files.FullName) {
-              coveralls --repo-token $COVERALLS_REPO_TOKEN < $coverage_file
-            }
+            #$coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            #foreach ($coverage_file in $coverage_files.FullName) {
+             # coveralls --repo-token $COVERALLS_REPO_TOKEN < $coverage_file
+            #}
+            for coverage_file in $(find Calculator/CodeCoverageResults -name "coverage.cobertura.xml"); do
+              coveralls --repo-token $COVERALLS_REPO_TOKEN < "$coverage_file"
+            done
             
   
   
