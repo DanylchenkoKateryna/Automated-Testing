@@ -67,8 +67,8 @@ jobs:
           destination: coverage-report
       
       - codecov/upload:
-          file: './coverage/clover.xml'
-          token: $CODECOV_TOKEN
+          file: Calculator/CodeCoverageResults/coverage.cobertura.xml
+          token: CODECOV_TOKEN
       
       # Store test result artifacts
       - store_artifacts:
