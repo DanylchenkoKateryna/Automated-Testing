@@ -48,6 +48,8 @@ jobs:
             dotnet tool install -g dotnet-reportgenerator-globaltool
             #dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
             dotnet tool install --global coveralls.net
+            dotnet tool install --global coveralls.io
+            export PATH="$PATH:/root/.dotnet/tools"
           
       - run:
           name: Generate coverage report
@@ -68,7 +70,7 @@ jobs:
             #  exit 1
             #fi
             foreach ($coverage_file in $coverage_files.FullName) {
-              coveralls.net --opencover -i $coverage_file
+              coveralls.io --opencover -i $coverage_file
             }
             
       - store_artifacts:
