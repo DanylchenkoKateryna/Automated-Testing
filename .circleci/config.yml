@@ -46,7 +46,8 @@ jobs:
           name: Install ReportGenerator
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
-            dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
+            #dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
+            dotnet tool install --global coveralls.net
           
       - run:
           name: Generate coverage report
