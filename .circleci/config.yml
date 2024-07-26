@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
+  coveralls: coveralls/coveralls@1.0.4
   #codecov: codecov/codecov@4.1.0
 
 jobs:
@@ -43,7 +44,9 @@ jobs:
        
       - run:
           name: Install ReportGenerator
-          command: dotnet tool install -g dotnet-reportgenerator-globaltool
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+            dotnet tool install coveralls.net --version 2.0.0 --tool-path tools
           
       - run:
           name: Generate coverage report
@@ -54,6 +57,19 @@ jobs:
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult -reporttypes:Html
             }
 
+      - run:
+          name: Upload to Coveralls
+          command: |
+            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+            if [ -z "$COVERALLS_REPO_TOKEN" ]; then
+              echo "COVERALLS_REPO_TOKEN is not set"
+              exit 1
+            fi
+            foreach ($coverage_file in $coverage_files.FullName) {
+              coveralls.net --opencover -i $coverage_file
+            }
+            
       - store_artifacts:
           path: Calculator/GeneralResult
           destination: coverage-report
