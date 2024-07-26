@@ -42,12 +42,6 @@ jobs:
           when: always
        
       - run:
-          name: "List Test Results"
-          command: |
-            dir Calculator\TestResults
-            dir Calculator\CodeCoverageResults
-            
-      - run:
           name: Install ReportGenerator
           command: dotnet tool install -g dotnet-reportgenerator-globaltool
           
@@ -56,9 +50,7 @@ jobs:
           command: |
             mkdir Calculator/CodeCoverageResults/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            $coverage_files
             foreach ($coverage_file in $coverage_files.FullName) {
-              $coverage_file
               reportgenerator -reports:$coverage_file -targetdir:Calculator/CodeCoverageResults/GeneralResult -reporttypes:Html
             }
 
