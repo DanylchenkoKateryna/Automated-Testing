@@ -87,7 +87,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/GeneralResult/Cobertura.xml
+            - Calculator
       
       # Store test result artifacts
       - store_artifacts:
@@ -109,7 +109,12 @@ jobs:
           command: pip install coveralls
       - run:
           name: Upload coverage to Coveralls
-          command: coveralls --repo-token $COVERALLS_REPO_TOKEN < Calculator/GeneralResult/Cobertura.xml
+          command: |
+            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            foreach ($coverage_file in $coverage_files.FullName) {
+              coveralls --repo-token $COVERALLS_REPO_TOKEN < $coverage_file
+            }
+            
   
   
   build:
