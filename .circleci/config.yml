@@ -71,7 +71,7 @@ jobs:
               #coveralls.net.exe -f $coverage_file -t $env:COVERALLS_REPO_TOKEN
             }
             nuget install coveralls.io -OutputDirectory packages
-            packages\coveralls.io\tools\coveralls.exe --opencover Calculator/GeneralResult/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
+            call packages\coveralls.io\tools\coveralls.exe --opencover Calculator/GeneralResult/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
             #csmacnz.Coveralls --cobertura -i Calculator/GeneralResult/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
             dir Calculator/GeneralResult/Cobertura.xml
             
