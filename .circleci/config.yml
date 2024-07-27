@@ -59,8 +59,8 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html" #Cobertura
-            #cat Calculator/Cobertura.xml
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
+            cat Calculator/Cobertura.xml
             
       - store_artifacts:
           path: Calculator
@@ -79,8 +79,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            #- Calculator/Cobertura.xml
-            - Calculator/index.html
+            - Calculator/Cobertura.xml
       
       # Store test result artifacts
       - store_artifacts:
@@ -93,12 +92,12 @@ jobs:
  
   upload-coverage-codecov:
      docker:
-       - image: circleci/python:3.8
+       - image: cimg/python:3.10
      steps:
        - attach_workspace:
            at: .
        - codecov/upload:
-           file: 'Calculator/index.html'
+           file: 'Calculator/Cobertura.xml'
   
   upload-coverage-coveralls:
     docker:
