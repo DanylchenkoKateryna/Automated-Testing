@@ -100,7 +100,7 @@ jobs:
           coverage_file: Calculator/Cobertura.xml
       - codecov/upload:
           file: 'Calculator/Cobertura.xml'
-          token: $env:CODECOV_TOKEN
+          token: ${CODECOV_TOKEN}
           
     
   build:
