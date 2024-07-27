@@ -47,6 +47,9 @@ jobs:
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
             dotnet tool install --global coveralls.net --version 4.0.1
+             cat C:\Users\circleci\project\Calculator\CodeCoverageResults\1d41e64e-0c7d-4923-8a0b-3c939c10f743\coverage.cobertura.xml
+             cat C:\Users\circleci\project\Calculator\CodeCoverageResults\806de6bc-b9ab-4906-a5de-dc529d456194\coverage.cobertura.xml
+             cat C:\Users\circleci\project\Calculator\CodeCoverageResults\929c972b-edf3-4024-8bd1-760e4a565cc2\coverage.cobertura.xml
           
       - run:
           name: Generate coverage report
@@ -55,7 +58,6 @@ jobs:
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             $coverage_files_list = ""
             foreach ($file in $coverage_files) {
-              cat $coverage_files
               $coverage_files_list += $file.FullName + ";"
             }
             # Remove the trailing semicolon
