@@ -60,7 +60,7 @@ jobs:
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html" #Cobertura
-            cat Calculator/Cobertura.xml
+            #cat Calculator/Cobertura.xml
             
       - store_artifacts:
           path: Calculator
@@ -79,7 +79,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/Cobertura.xml
+            #- Calculator/Cobertura.xml
+            - Calculator/index.html
       
       # Store test result artifacts
       - store_artifacts:
@@ -97,7 +98,7 @@ jobs:
        - attach_workspace:
            at: .
        - codecov/upload:
-           file: 'Calculator/Cobertura.xml'
+           file: 'Calculator/index.html'
   
   upload-coverage-coveralls:
     docker:
