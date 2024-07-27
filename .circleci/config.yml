@@ -51,37 +51,12 @@ jobs:
       - run:
           name: Generate coverage report
           command: |
-            #mkdir Calculator/GeneralResult
-            #$coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            #foreach ($coverage_file in $coverage_files.FullName) {
-              #reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
-              #cat Calculator/GeneralResult/Cobertura.xml
-            #}
-            #cat Calculator/GeneralResult/Cobertura.xml
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            $merged_coverage_file = "Calculator/GeneralResult/merged_coverage.cobertura.xml"
-
-            # Initialize the merged coverage file with the first file's content
-            [xml]$merged_coverage = Get-Content $coverage_files[0].FullName
-
-            # Loop through remaining files and merge their content
-            foreach ($coverage_file in $coverage_files[1..($coverage_files.Length - 1)]) {
-              [xml]$xml = Get-Content $coverage_file.FullName
-              foreach ($package in $xml.coverage.packages.package) {
-                $importedNode = $merged_coverage.ImportNode($package, $true)
-                $merged_coverage.coverage.packages.AppendChild($importedNode) | Out-Null
-              }
-            }
-
-            # Save the merged content
-            $merged_coverage.Save($merged_coverage_file)
-
-            # Generate the report from the merged coverage file
-            reportgenerator -reports:$merged_coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
-
-            # Display the content of the merged coverage file
-            cat $merged_coverage_file
+            $coverage_files_list = $coverage_files | ForEach-Object { $_.FullName } -join ";"
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
+            cat Calculator/GeneralResult/Cobertura.xml
+            
         
       - store_artifacts:
           path: Calculator/GeneralResult
@@ -119,7 +94,7 @@ jobs:
           at: .
       - coveralls/upload:
           base_path: Calculator/GeneralResult
-          coverage_file: Calculator/GeneralResult/merged_coverage.cobertura.xml
+          coverage_file: Calculator/GeneralResult/Cobertura.xml
           
     
   build:
