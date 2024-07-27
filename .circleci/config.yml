@@ -95,7 +95,7 @@ jobs:
           at: .
       - coveralls/upload:
           base_path: Calculator/GeneralResult
-          coverage_file: Cobertura.xml
+          coverage_file: Calculator/GeneralResult/Cobertura.xml
           
     
   build:
