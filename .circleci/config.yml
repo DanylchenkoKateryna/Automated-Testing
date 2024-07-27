@@ -98,7 +98,6 @@ jobs:
            at: .
        - codecov/upload:
            file: 'Calculator/Cobertura.xml'
-           token: ${CODECOV_TOKEN}
   
   upload-coverage-coveralls:
     docker:
