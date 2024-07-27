@@ -53,7 +53,12 @@ jobs:
           command: |
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            $coverage_files_list = $coverage_files | ForEach-Object { $_.FullName } -join ";"
+            $coverage_files_list = ""
+            foreach ($file in $coverage_files) {
+              $coverage_files_list += $file.FullName + ";"
+            }
+            # Remove the trailing semicolon
+            $coverage_files_list = $coverage_files_list.TrimEnd(';')
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             cat Calculator/GeneralResult/Cobertura.xml
             
