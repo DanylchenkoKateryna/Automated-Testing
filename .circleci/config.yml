@@ -106,7 +106,7 @@ jobs:
       - attach_workspace:
           at: .
       - coveralls/upload:
-          base_path: Calculator/GeneralResult/Cobertura.xml
+          base_path: Calculator/GeneralResult/e8c4bd0f-906e-4f6d-abcb-07b4fa349965/coverage.cobertura.xml     
             
   
   
