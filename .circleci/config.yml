@@ -57,8 +57,9 @@ jobs:
             foreach ($coverage_file in $coverage_files.FullName) {
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
+            .\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
 
-      - cmd: .\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
+
       
       #- run:
           #name: Upload to Coveralls
