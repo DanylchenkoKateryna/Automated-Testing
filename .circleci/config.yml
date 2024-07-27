@@ -115,7 +115,7 @@ jobs:
              # coveralls --repo-token $COVERALLS_REPO_TOKEN < $coverage_file
             #}
             for coverage_file in $(find Calculator/CodeCoverageResults -name "coverage.cobertura.xml"); do
-              coveralls --repo-token $COVERALLS_REPO_TOKEN < "$coverage_file"
+              coveralls --repo-token $COVERALLS_REPO_TOKEN --file $coverage_file --service-name circleci
             done
             
   
