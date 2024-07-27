@@ -109,8 +109,6 @@ jobs:
           coverage_file: Calculator/Cobertura.xml
 
    
-          
-    
   build:
     description: Build application with Release configuration
     executor:
