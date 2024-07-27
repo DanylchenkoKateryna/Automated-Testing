@@ -57,18 +57,6 @@ jobs:
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
             cat Calculator/GeneralResult/Cobertura.xml
-
-      #- run:
-          #name: Upload to Coveralls
-          #command: |
-            #$coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            #foreach ($coverage_file in $coverage_files.FullName) {
-              #coveralls.io --opencover -i $coverage_file
-              #coveralls.net.exe -f $coverage_file -t $env:COVERALLS_REPO_TOKEN
-            #}
-            #dotnet add package coveralls.net
-            #.nuget\coveralls.net\0.7.0\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
-            #dir Calculator/GeneralResult/Cobertura.xml
         
       - store_artifacts:
           path: Calculator/GeneralResult
@@ -107,10 +95,9 @@ jobs:
           at: .
       - coveralls/upload:
           base_path: Calculator/GeneralResult
+          coverage_file: Cobertura.xml
           
-            
-  
-  
+    
   build:
     description: Build application with Release configuration
     executor:
