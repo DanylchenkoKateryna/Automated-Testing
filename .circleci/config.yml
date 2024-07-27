@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   win: circleci/windows@5.0
   coveralls: coveralls/coveralls@2.2.1
-  #codecov: codecov/codecov@4.1.0
+  codecov: codecov/codecov@4.1.0
 
 jobs:
   test:
@@ -98,6 +98,10 @@ jobs:
           at: .
       - coveralls/upload:
           coverage_file: Calculator/Cobertura.xml
+          
+      - codecov/upload:
+          file: 'Calculator/Cobertura.xml'
+          token: $env:CODECOV_TOKEN
           
     
   build:
