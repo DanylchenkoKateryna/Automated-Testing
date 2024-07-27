@@ -47,6 +47,7 @@ jobs:
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
             dotnet tool install --global coveralls.net --version 4.0.1
+            cat C:\Users\circleci\project\Calculator\CalcClassBr\CalcClass.cs
           
       - run:
           name: Generate coverage report
