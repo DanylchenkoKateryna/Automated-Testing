@@ -47,6 +47,7 @@ jobs:
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
             dotnet tool install --global coveralls.net
+            dotnet tool install coveralls.net --version 1.0.0-beta0003 --tool-path "${pwd}/tools"
           
       - run:
           name: Generate coverage report
@@ -57,6 +58,8 @@ jobs:
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
 
+      - cmd: .\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
+      
       #- run:
           #name: Upload to Coveralls
           #command: |
