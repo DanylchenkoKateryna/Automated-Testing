@@ -98,7 +98,6 @@ jobs:
           at: .
       - coveralls/upload:
           coverage_file: Calculator/Cobertura.xml
-          
       - codecov/upload:
           file: 'Calculator/Cobertura.xml'
           token: $env:CODECOV_TOKEN
