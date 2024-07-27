@@ -72,7 +72,6 @@ jobs:
       #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
       #      }
 
-      
       - persist_to_workspace:
           root: .
           paths:
