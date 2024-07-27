@@ -56,7 +56,7 @@ jobs:
             foreach ($coverage_file in $coverage_files.FullName) {
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
-            cat Calculator/GeneralResult/Cobertura.xml
+            dir Calculator/CodeCoverageResults
 
       #- run:
           #name: Upload to Coveralls
