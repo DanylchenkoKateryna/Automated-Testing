@@ -2,12 +2,13 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  codecov: codecov/codecov@4.1.0
+  coveralls: coveralls/coveralls@2.2.1
+  #codecov: codecov/codecov@4.1.0
 
 jobs:
   test:
     description: Setup and run application tests
-    #parallelism: 4
+    #parallelism: 4 
     executor:
       name: win/server-2022
           
@@ -43,31 +44,39 @@ jobs:
        
       - run:
           name: Install ReportGenerator
-          command: dotnet tool install -g dotnet-reportgenerator-globaltool
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+            dotnet tool install --global coveralls.net --version 4.0.1
           
       - run:
           name: Generate coverage report
           command: |
-            mkdir Calculator/CodeCoverageResults/GeneralResult
+            mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             foreach ($coverage_file in $coverage_files.FullName) {
-              reportgenerator -reports:$coverage_file -targetdir:Calculator/CodeCoverageResults/GeneralResult -reporttypes:Html
+              reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
-
+            cat Calculator/GeneralResult/Cobertura.xml
+        
       - store_artifacts:
-          path: Calculator/CodeCoverageResults/GeneralResult
+          path: Calculator/GeneralResult
           destination: coverage-report
-     
-      - run:
-          name: Upload coverage to Codecov
-          shell: powershell.exe
-          command: |
-            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -OutFile codecov.exe
-            foreach ($coverage_file in $coverage_files.FullName) {
-              .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
-            }
+      
+      #- run:
+      #    name: Upload coverage to Codecov
+      #    shell: powershell.exe
+      #    command: |
+      #      $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+      #      Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -OutFile codecov.exe
+      #      foreach ($coverage_file in $coverage_files.FullName) {
+      #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
+      #      }
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Calculator
+      
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
@@ -77,6 +86,17 @@ jobs:
       - store_test_results:
           path: Calculator/TestResults
  
+  upload-coverage:
+    docker:
+      - image: circleci/node:10.16.0
+    steps:
+      - attach_workspace:
+          at: .
+      - coveralls/upload:
+          base_path: Calculator/GeneralResult
+          coverage_file: Calculator/GeneralResult/Cobertura.xml
+          
+    
   build:
     description: Build application with Release configuration
     executor:
@@ -116,3 +136,6 @@ workflows:
       - test:
           requires:
             - build
+      - upload-coverage:
+          requires:
+            - test
