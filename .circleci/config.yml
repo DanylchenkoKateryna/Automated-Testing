@@ -59,7 +59,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Cobertura"
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html" #Cobertura
             cat Calculator/Cobertura.xml
             
       - store_artifacts:
