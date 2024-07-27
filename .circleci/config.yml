@@ -78,7 +78,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator
+            - Calculator/GeneralResult
       
       # Store test result artifacts
       - store_artifacts:
