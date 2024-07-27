@@ -98,7 +98,6 @@ jobs:
       - attach_workspace:
           at: .
       - coveralls/upload:
-          base_path: Calculator/GeneralResult
           coverage_file: Calculator/GeneralResult/Cobertura.xml
           
     
