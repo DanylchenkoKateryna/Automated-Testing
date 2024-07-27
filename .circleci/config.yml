@@ -47,7 +47,6 @@ jobs:
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
             dotnet tool install --global coveralls.net --version 4.0.1
-            cat C:\Users\circleci\project\Calculator\CalcClassBr\CalcClass.cs
           
       - run:
           name: Generate coverage report
@@ -60,10 +59,10 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura"
             
       - store_artifacts:
-          path: Calculator/GeneralResult
+          path: Calculator
           destination: coverage-report
       
       #- run:
@@ -79,7 +78,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/GeneralResult
+            - Calculator
       
       # Store test result artifacts
       - store_artifacts:
@@ -97,7 +96,7 @@ jobs:
       - attach_workspace:
           at: .
       - coveralls/upload:
-          coverage_file: Calculator/GeneralResult/Cobertura.xml
+          coverage_file: Calculator/Cobertura.xml
           
     
   build:
