@@ -98,8 +98,16 @@ jobs:
           at: .
       - coveralls/upload:
           coverage_file: Calculator/Cobertura.xml
+
+  upload-coverage:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - attach_workspace:
+          at: .
       - codecov/upload:
           file: 'Calculator/Cobertura.xml'
+          token: ${CODECOV_TOKEN}
           
     
   build:
