@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  coveralls: coveralls/coveralls@1.0.1
+  coveralls/coveralls@2.2.1
   #codecov: codecov/codecov@4.1.0
 
 jobs:
@@ -46,8 +46,7 @@ jobs:
           name: Install ReportGenerator
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
-            dotnet tool install --global coveralls.net
-            dotnet tool install coveralls.net --version 1.0.0-beta0003 --tool-path "${pwd}/tools"
+            dotnet tool install --global coveralls.net --version 4.0.1
           
       - run:
           name: Generate coverage report
@@ -57,7 +56,7 @@ jobs:
             foreach ($coverage_file in $coverage_files.FullName) {
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
-            .\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
+            #.\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
 
 
       
@@ -73,6 +72,9 @@ jobs:
             #.nuget\coveralls.net\0.7.0\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
             #dir Calculator/GeneralResult/Cobertura.xml
       
+      - coveralls/upload:
+          base_path: Calculator/GeneralResult/Cobertura.xml
+        
       - store_artifacts:
           path: Calculator/GeneralResult
           destination: coverage-report
