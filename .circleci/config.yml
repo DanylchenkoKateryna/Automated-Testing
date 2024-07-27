@@ -53,13 +53,17 @@ jobs:
           command: |
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            foreach ($coverage_file in $coverage_files.FullName) {
-              reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
+            $coverage_files_list = ""
+            foreach ($file in $coverage_files) {
+              $coverage_files_list += $file.FullName + ";"
             }
-            cat Calculator/GeneralResult/Cobertura.xml
-        
+            # Remove the trailing semicolon
+            $coverage_files_list = $coverage_files_list.TrimEnd(';')
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura"
+            cat Calculator/Cobertura.xml
+            
       - store_artifacts:
-          path: Calculator/GeneralResult
+          path: Calculator
           destination: coverage-report
       
       #- run:
@@ -93,8 +97,7 @@ jobs:
       - attach_workspace:
           at: .
       - coveralls/upload:
-          base_path: Calculator/GeneralResult
-          coverage_file: Calculator/GeneralResult/Cobertura.xml
+          coverage_file: Calculator/Cobertura.xml
           
     
   build:
