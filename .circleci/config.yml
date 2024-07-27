@@ -56,10 +56,7 @@ jobs:
             foreach ($coverage_file in $coverage_files.FullName) {
               reportgenerator -reports:$coverage_file -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura"
             }
-            #.\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
 
-
-      
       #- run:
           #name: Upload to Coveralls
           #command: |
@@ -71,9 +68,6 @@ jobs:
             #dotnet add package coveralls.net
             #.nuget\coveralls.net\0.7.0\tools\csmacnz.Coveralls.exe --opencover -i Calculator/GeneralResult/Cobertura.xml --useRelativePaths
             #dir Calculator/GeneralResult/Cobertura.xml
-      
-      - coveralls/upload:
-          base_path: Calculator/GeneralResult/Cobertura.xml
         
       - store_artifacts:
           path: Calculator/GeneralResult
@@ -106,23 +100,12 @@ jobs:
  
   upload-coverage:
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/node:10.16.0
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install Coveralls Python Package
-          command: pip install coveralls
-      - run:
-          name: Upload coverage to Coveralls
-          command: |
-            #$coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-            #foreach ($coverage_file in $coverage_files.FullName) {
-             # coveralls --repo-token $COVERALLS_REPO_TOKEN < $coverage_file
-            #}
-            for coverage_file in $(find Calculator/CodeCoverageResults -name "coverage.cobertura.xml"); do
-              coveralls --repo-token $COVERALLS_REPO_TOKEN --file $coverage_file --service-name circleci
-            done
+      - coveralls/upload:
+          base_path: Calculator/GeneralResult/Cobertura.xml
             
   
   
