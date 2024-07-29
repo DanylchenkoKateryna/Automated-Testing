@@ -17,5 +17,5 @@ upload:
   # The path to the coverage report file
   # Adjust based on your report file format and location
   file:
-    - 'Calculator/Coverage.xml'
+    - 'Calculator/Cobertura.xml'
 
