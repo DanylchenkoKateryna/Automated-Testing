@@ -69,6 +69,9 @@ jobs:
           name: Add .NET global tools to PATH
           command: echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> $BASH_ENV
       - run:
+          name: Verify PATH
+          command: echo $PATH
+      - run:
           name: Send coverage to Coveralls
           command: coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
           
