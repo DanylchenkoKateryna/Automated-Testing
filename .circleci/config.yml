@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  coveralls: coveralls/coveralls@2.2.1
+  #coveralls: coveralls/coveralls@2.2.1
   codecov: codecov/codecov@4.1.0
 
 jobs:
@@ -99,14 +99,14 @@ jobs:
        - codecov/upload:
            file: 'Calculator/Cobertura.xml'
   
-  upload-coverage-coveralls:
-    docker:
-      - image: circleci/node:10.16.0
-    steps:
-      - attach_workspace:
-          at: .
-      - coveralls/upload:
-          coverage_file: Calculator/Cobertura.xml
+  #upload-coverage-coveralls:
+  #  docker:
+  #    - image: circleci/node:10.16.0
+  #  steps:
+  #    - attach_workspace:
+  #        at: .
+  #    - coveralls/upload:
+  #        coverage_file: Calculator/Cobertura.xml
 
   build:
     description: Build application with Release configuration
