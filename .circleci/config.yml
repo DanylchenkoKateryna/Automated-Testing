@@ -107,7 +107,7 @@ jobs:
      
   upload-coverage-coveralls:
     docker:
-      - image: circleci/node:10.16.0
+      - image: cimg/node:22.5.1
     steps:
       - checkout
       - attach_workspace:
@@ -115,16 +115,8 @@ jobs:
       - run:
           name: Print current working directory
           command: pwd
-      #- coveralls/upload:
-      #    coverage_file: Calculator/Cobertura.xml
-      - run:
-          name: Install Coveralls
-          command: |
-            npm install -g coveralls
-      - run:
-          name: Upload coverage to Coveralls
-          command: |
-            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN coveralls < Calculator/Cobertura.xml
+      - coveralls/upload:
+          coverage_file: Calculator/Cobertura.xml
 
   build:
     description: Build application with Release configuration
