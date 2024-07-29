@@ -59,7 +59,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura;lcov" 
             cat Calculator/Cobertura.xml
             
       - store_artifacts:
@@ -122,7 +122,7 @@ jobs:
           name: Upload coverage to Coveralls
           command: |
             COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-            npx coveralls --coverage-report=Calculator\Cobertura.xml
+            npx coveralls < Calculator/lcov.info
 
   build:
     description: Build application with Release configuration
