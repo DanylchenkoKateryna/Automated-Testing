@@ -54,8 +54,22 @@ jobs:
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
             $coverage_files_list = ""
-            foreach ($file in $coverage_files) {
-              $coverage_files_list += $file.FullName + ";"
+            #foreach ($file in $coverage_files) {
+            #  $coverage_files_list += $file.FullName + ";"
+            #}
+             foreach ($file in $coverage_files) {
+                # Read the content of the coverage file
+                $content = Get-Content $file.FullName
+                
+                # Modify file paths in the content
+                $modified_content = $content -replace 'C:\\Users\\circleci\\project', ''
+                
+                # Save the modified content to a temporary file
+                $temp_file = "Calculator/GeneralResult/" + [System.IO.Path]::GetFileName($file.FullName)
+                Set-Content -Path $temp_file -Value $modified_content
+                
+                # Append the path of the modified file to the list
+                $coverage_files_list += $temp_file + ";"
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
