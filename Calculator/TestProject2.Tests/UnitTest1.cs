@@ -84,7 +84,7 @@ namespace TestProject2.Tests
 
             // Act & Assert
             Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
-        }
+        } 
 
 
         [Theory]
