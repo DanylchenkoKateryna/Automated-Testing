@@ -105,6 +105,11 @@ jobs:
           name: Upload coverage to Codecov
           command: |
             codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
+       - run:
+          name: Upload coverage to Coveralls
+          command: |
+            pip install coveralls
+            coveralls -t $COVERALLS_TOKEN -f Calculator/Cobertura.xml
        
    
   upload-coverage-coveralls:
@@ -119,11 +124,6 @@ jobs:
           command: pwd
       #- coveralls/upload:
       #    coverage_file: Calculator/Cobertura.xml
-      - run:
-          name: Upload coverage to Coveralls
-          command: |
-            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
-            npx coveralls < Calculator/lcov.info
 
   build:
     description: Build application with Release configuration
