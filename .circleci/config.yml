@@ -59,7 +59,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura;lcov" 
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
             cat Calculator/Cobertura.xml
             
       - store_artifacts:
@@ -105,13 +105,7 @@ jobs:
           name: Upload coverage to Codecov
           command: |
             codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
-       - run:
-          name: Upload coverage to Coveralls
-          command: |
-            pip install coveralls
-            coveralls --verbose -t $COVERALLS_TOKEN -f Calculator/Cobertura.xml
-       
-   
+     
   upload-coverage-coveralls:
     docker:
       - image: circleci/node:10.16.0
@@ -122,8 +116,8 @@ jobs:
       - run:
           name: Print current working directory
           command: pwd
-      #- coveralls/upload:
-      #    coverage_file: Calculator/Cobertura.xml
+      - coveralls/upload:
+          coverage_file: Calculator/Cobertura.xml
 
   build:
     description: Build application with Release configuration
