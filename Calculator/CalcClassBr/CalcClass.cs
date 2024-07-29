@@ -14,6 +14,11 @@ namespace CalcClassBr
             return a + b;
         }
 
+        public int Add1(int a, int b)
+        {
+            return a + b;
+        }
+
         public int Sub(int a, int b)
         {
             return a - b;
