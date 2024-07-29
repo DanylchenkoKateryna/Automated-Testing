@@ -80,6 +80,7 @@ jobs:
           root: .
           paths:
             - Calculator/Cobertura.xml
+            - Calculator/lcov.info
       
       # Store test result artifacts
       - store_artifacts:
