@@ -59,7 +59,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" -sourcedirs:.
             cat Calculator/Cobertura.xml
           
       - store_artifacts:
@@ -108,7 +108,6 @@ jobs:
   upload-coverage-coveralls:
     docker:
       - image: cimg/node:22.5.1
-    working_directory: C:/Users/circleci/project
     steps:
       - checkout
       - attach_workspace:
