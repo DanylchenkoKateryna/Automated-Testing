@@ -80,7 +80,6 @@ jobs:
           root: .
           paths:
             - Calculator/Cobertura.xml
-            - Calculator/lcov.info
       
       # Store test result artifacts
       - store_artifacts:
@@ -116,8 +115,16 @@ jobs:
       - run:
           name: Print current working directory
           command: pwd
-      - coveralls/upload:
-          coverage_file: Calculator/Cobertura.xml
+      #- coveralls/upload:
+      #    coverage_file: Calculator/Cobertura.xml
+      - run:
+          name: Install Coveralls
+          command: |
+            npm install coveralls
+      - run:
+          name: Upload coverage to Coveralls
+          command: |
+            COVERALLS_REPO_TOKEN=$COVERALLS_TOKEN coveralls < Calculator/Cobertura.xml
 
   build:
     description: Build application with Release configuration
