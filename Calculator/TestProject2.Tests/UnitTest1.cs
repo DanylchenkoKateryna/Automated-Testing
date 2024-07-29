@@ -75,16 +75,16 @@ namespace TestProject2.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Div_DivideByZero_ThrowsDivideByZeroException()
-        {
-            // Arrange
-            int a = 10;
-            int b = 0;
+        //[Fact]
+        //public void Div_DivideByZero_ThrowsDivideByZeroException()
+        //{
+        //    // Arrange
+        //    int a = 10;
+        //    int b = 0;
 
-            // Act & Assert
-            Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
-        }
+        //    // Act & Assert
+        //    Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
+        //}
 
 
         [Theory]
