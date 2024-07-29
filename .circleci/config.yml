@@ -62,7 +62,7 @@ jobs:
                 $content = Get-Content $file.FullName
                 
                 # Modify file paths in the content
-                $modified_content = $content -replace 'C:\\Users\\circleci\\project', ''
+                $modified_content = $content -replace 'C:\\Users\\circleci\\project\\', ''
                 
                 # Save the modified content to a temporary file
                 $temp_file = "Calculator/GeneralResult/" + [System.IO.Path]::GetFileName($file.FullName)
@@ -73,7 +73,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" -sourcedirs:C:\Users\circleci\project
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura"
             cat Calculator/Cobertura.xml
           
       - store_artifacts:
