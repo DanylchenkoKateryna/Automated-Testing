@@ -96,8 +96,12 @@ jobs:
      steps:
        - attach_workspace:
            at: .
-       - codecov/upload:
-           file: 'Calculator/Cobertura.xml'
+       - run:
+          name: Upload coverage to Codecov
+          command: |
+            codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
+       #- codecov/upload:
+       #    file: 'Calculator/Cobertura.xml'
   
   #upload-coverage-coveralls:
   #  docker:
