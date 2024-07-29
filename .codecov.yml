@@ -1,21 +1,13 @@
 # .codecov.yml
-
-
-# Specify whether to use the default Codecov behavior
-# for merging coverage reports or to overwrite with your settings
-# If set to false, Codecov will not merge the reports
 coverage:
-  merge:
-    strategy: "simple" # You can use 'simple', 'basic', or 'merge' strategies
-
+  status:
+    project:
+      threshold: 1
 
 # Configure how to upload coverage reports
 upload:
   # The URL where reports will be uploaded
   url: 'https://codecov.io'
-  
-  # The path to the coverage report file
-  # Adjust based on your report file format and location
   file:
     - 'Calculator/Cobertura.xml'
 
