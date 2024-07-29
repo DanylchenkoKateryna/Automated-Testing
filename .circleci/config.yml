@@ -61,11 +61,6 @@ jobs:
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
             cat Calculator/Cobertura.xml
-      
-      - run:
-          name: Send coverage to Coveralls
-          command: csmacnz.Coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN --commitId $CIRCLE_SHA1 --commitBranch $CIRCLE_BRANCH --serviceName circleci --jobId $CIRCLE_BUILD_NUM
-
           
       - store_artifacts:
           path: Calculator
@@ -113,6 +108,7 @@ jobs:
   upload-coverage-coveralls:
     docker:
       - image: cimg/node:22.5.1
+    working_directory: C:/Users/circleci/project
     steps:
       - checkout
       - attach_workspace:
@@ -165,6 +161,6 @@ workflows:
       #- upload-coverage-codecov:
       #    requires:
       #      - test
-      #- upload-coverage-coveralls:
-      #    requires:
-      #      - test
+      - upload-coverage-coveralls:
+          requires:
+            - test
