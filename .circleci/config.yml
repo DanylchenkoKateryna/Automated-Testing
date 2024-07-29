@@ -63,10 +63,14 @@ jobs:
             cat Calculator/Cobertura.xml
             
       - run:
+          name: Install coveralls.net tool
+          command: dotnet tool install --global coveralls.net
+      - run:
+          name: Add .NET global tools to PATH
+          command: echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> $BASH_ENV
+      - run:
           name: Send coverage to Coveralls
-          command: |
-            dotnet tool install --global coveralls.net
-            coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
+          command: coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
           
       - store_artifacts:
           path: Calculator
