@@ -46,7 +46,7 @@ jobs:
           name: Install ReportGenerator
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
-            dotnet tool install --global coveralls.net --version 4.0.1
+            #dotnet tool install --global coveralls.net --version 4.0.1
           
       - run:
           name: Generate coverage report
@@ -62,8 +62,11 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
             cat Calculator/Cobertura.xml
             
-      - coveralls/upload:
-          coverage_file: Calculator/Cobertura.xml
+      - run:
+          name: Send coverage to Coveralls
+          command: |
+            dotnet tool install --global coveralls.net
+            coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
           
       - store_artifacts:
           path: Calculator
