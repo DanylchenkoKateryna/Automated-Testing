@@ -64,7 +64,7 @@ jobs:
       
       - run:
           name: Send coverage to Coveralls
-          command: csmacnz.Coveralls.exe --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
+          command: dotnet csmacnz.Coveralls --opencover -i Calculator/Cobertura.xml --repoToken $COVERALLS_REPO_TOKEN
           
       - store_artifacts:
           path: Calculator
