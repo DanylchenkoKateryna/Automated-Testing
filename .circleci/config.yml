@@ -116,8 +116,13 @@ jobs:
       - run:
           name: Print current working directory
           command: pwd
-      - coveralls/upload:
-          coverage_file: Calculator/Cobertura.xml
+      #- coveralls/upload:
+      #    coverage_file: Calculator/Cobertura.xml
+      - run:
+          name: Upload coverage to Coveralls
+          command: |
+            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN
+            npx coveralls --coverage-report=Calculator\Cobertura.xml
 
   build:
     description: Build application with Release configuration
