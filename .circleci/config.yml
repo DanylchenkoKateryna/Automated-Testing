@@ -158,6 +158,6 @@ workflows:
       - upload-coverage-codecov:
           requires:
             - test
-      #- upload-coverage-coveralls:
-      #    requires:
-      #      - test
+      - upload-coverage-coveralls:
+          requires:
+            - test
