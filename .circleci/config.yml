@@ -2,11 +2,13 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
+  #coveralls: coveralls/coveralls@2.2.1
+  codecov: codecov/codecov@4.1.0
 
 jobs:
   test:
     description: Setup and run application tests
-    #parallelism: 4
+    #parallelism: 4 
     executor:
       name: win/server-2022
           
@@ -14,7 +16,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      
+       
       # Restore cache for NuGet packages
       - restore_cache:
           keys:
@@ -41,9 +43,44 @@ jobs:
           when: always
        
       - run:
-          name: "List Test Results"
-          command: dir Calculator\TestResults
+          name: Install ReportGenerator
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+            dotnet tool install --global coveralls.net --version 4.0.1
           
+      - run:
+          name: Generate coverage report
+          command: |
+            mkdir Calculator/GeneralResult
+            $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            $coverage_files_list = ""
+            foreach ($file in $coverage_files) {
+              $coverage_files_list += $file.FullName + ";"
+            }
+            # Remove the trailing semicolon
+            $coverage_files_list = $coverage_files_list.TrimEnd(';')
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
+            cat Calculator/Cobertura.xml
+            
+      - store_artifacts:
+          path: Calculator
+          destination: coverage-report
+      
+      #- run:
+      #    name: Upload coverage to Codecov
+      #    shell: powershell.exe
+      #    command: |
+      #      $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+      #      Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -OutFile codecov.exe
+      #      foreach ($coverage_file in $coverage_files.FullName) {
+      #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
+      #      }
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Calculator/Cobertura.xml
+      
       # Store test result artifacts
       - store_artifacts:
           path: Calculator/TestResults
@@ -53,6 +90,31 @@ jobs:
       - store_test_results:
           path: Calculator/TestResults
  
+  upload-coverage-codecov:
+     docker:
+       - image: circleci/python:3.9
+     steps:
+       - attach_workspace:
+           at: .
+       - run:
+          name: Install Codecov
+          command: pip install codecov
+       - run:
+          name: Upload coverage to Codecov
+          command: |
+            codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
+       #- codecov/upload:
+       #    file: 'Calculator/Cobertura.xml'
+  
+  #upload-coverage-coveralls:
+  #  docker:
+  #    - image: circleci/node:10.16.0
+  #  steps:
+  #    - attach_workspace:
+  #        at: .
+  #    - coveralls/upload:
+  #        coverage_file: Calculator/Cobertura.xml
+
   build:
     description: Build application with Release configuration
     executor:
@@ -69,6 +131,7 @@ jobs:
       - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+      
       # Save cache for NuGet packages
       - save_cache:
           paths:
@@ -91,3 +154,9 @@ workflows:
       - test:
           requires:
             - build
+      - upload-coverage-codecov:
+          requires:
+            - test
+      #- upload-coverage-coveralls:
+      #    requires:
+      #      - test
