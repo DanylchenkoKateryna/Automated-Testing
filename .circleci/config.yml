@@ -11,7 +11,7 @@ jobs:
     #parallelism: 4 
     executor:
       name: win/server-2022
-          
+           
     steps:
       - checkout
       - attach_workspace:
@@ -92,8 +92,9 @@ jobs:
  
   upload-coverage-codecov:
      docker:
-       - image: circleci/python:3.9
+       - image: cimg/python:3.12.4
      steps:
+       - checkout
        - attach_workspace:
            at: .
        - run:
@@ -103,7 +104,7 @@ jobs:
           name: Upload coverage to Codecov
           command: |
             codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
-       #- codecov/upload:
+       #- codecov/upload: 
        #    file: 'Calculator/Cobertura.xml'
   
   #upload-coverage-coveralls:
