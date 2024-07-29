@@ -106,7 +106,7 @@ jobs:
             codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
        #- codecov/upload: 
        #    file: 'Calculator/Cobertura.xml'
-  
+   
   #upload-coverage-coveralls:
   #  docker:
   #    - image: circleci/node:10.16.0
