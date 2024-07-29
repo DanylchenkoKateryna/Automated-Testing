@@ -64,12 +64,10 @@ jobs:
                 # Modify file paths in the content
                 $modified_content = $content -replace 'C:\\Users\\circleci\\project\\', ''
                 
-                # Save the modified content to a temporary file
-                $temp_file = "Calculator/GeneralResult/" + [System.IO.Path]::GetFileName($file.FullName)
-                Set-Content -Path $temp_file -Value $modified_content
+                Set-Content -Path $file -Value $modified_content
                 
                 # Append the path of the modified file to the list
-                $coverage_files_list += $temp_file + ";"
+                $coverage_files_list += $file + ";"
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
