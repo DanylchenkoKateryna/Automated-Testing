@@ -62,6 +62,9 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
             cat Calculator/Cobertura.xml
             
+      - coveralls/upload:
+          coverage_file: Calculator/Cobertura.xml
+          
       - store_artifacts:
           path: Calculator
           destination: coverage-report
@@ -157,9 +160,9 @@ workflows:
       - test:
           requires:
             - build
-      - upload-coverage-codecov:
-          requires:
-            - test
-      - upload-coverage-coveralls:
-          requires:
-            - test
+      #- upload-coverage-codecov:
+      #    requires:
+      #      - test
+      #- upload-coverage-coveralls:
+      #    requires:
+      #      - test
