@@ -1,4 +1,5 @@
 using CalcClassBr;
+using System;
 using Xunit;
 
 namespace TestProject2.Tests
@@ -55,6 +56,16 @@ namespace TestProject2.Tests
         }
 
         [Theory]
+        [InlineData(5, 3, 2)]
+        [InlineData(9, 9, 0)]
+        [InlineData(15, 11, 4)]
+        public void Sub1_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
+        {
+            int result = calcClass.Sub1(a, b);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
         [InlineData(10, 2, 5)]
         [InlineData(10, 5, 2)]
         [InlineData(15, 5, 3)]
@@ -63,6 +74,18 @@ namespace TestProject2.Tests
             int result = calcClass.Div(a, b);
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Div_DivideByZero_ThrowsDivideByZeroException()
+        {
+            // Arrange
+            int a = 10;
+            int b = 0;
+
+            // Act & Assert
+            Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
+        }
+
 
         [Theory]
         [InlineData(6, 7, 13)]
