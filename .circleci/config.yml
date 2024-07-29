@@ -113,6 +113,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Print current working directory
+          command: pwd
       - coveralls/upload:
           coverage_file: Calculator/Cobertura.xml
 
