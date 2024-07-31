@@ -79,7 +79,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/Cobertura.xml
+            #- Calculator/Cobertura.xml
+            - Calculator/index.html
       
       # Store test result artifacts
       - store_artifacts:
