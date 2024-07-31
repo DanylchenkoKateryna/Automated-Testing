@@ -62,9 +62,9 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura"
             cat Calculator/Cobertura.xml
           
-      - store_artifacts:
-          path: Calculator/index.html
-          destination: coverage-report
+      #- store_artifacts:
+      #    path: Calculator/index.html
+      #    destination: coverage-report
       
       #- run:
       #    name: Upload coverage to Codecov
