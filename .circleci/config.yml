@@ -124,25 +124,21 @@ jobs:
       name: win/server-2022
     steps:
       - checkout
-      - attach_workspace:
-          at: .
      # Restore cache for NuGet packages
       - restore_cache:
           keys:
             - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
             - nuget-cache-
       - run:
-          name: "Install project dependencies"
-          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+          name: "Build Application according to some given configuration"
+          command: cmd.exe /c Calculator_Buiild.bat
       
       # Save cache for NuGet packages
       - save_cache:
           paths:
             - C:/Users/circleci/.nuget/packages
           key: nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-      - run:
-          name: "Build Application according to some given configuration"
-          command: cmd.exe /c Calculator_Buiild.bat
+      
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
@@ -159,6 +155,6 @@ workflows:
       #- upload-coverage-codecov:
       #    requires:
       #      - test
-      - upload-coverage-coveralls:
-          requires:
-            - test
+      #- upload-coverage-coveralls:
+      #    requires:
+      #      - test
