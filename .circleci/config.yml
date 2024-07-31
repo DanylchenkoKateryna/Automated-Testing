@@ -147,7 +147,7 @@ jobs:
           root: .    # Root directory to persist
           paths:
             - .nuget/
-            - Calculator/
+            #- Calculator/
       
 
 workflows:
