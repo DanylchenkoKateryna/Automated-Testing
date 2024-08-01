@@ -147,7 +147,6 @@ jobs:
             - .nuget/
             - Calculator/
       
-
 workflows:
   build_and_test:
     jobs:
