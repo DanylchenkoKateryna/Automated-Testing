@@ -22,7 +22,7 @@ jobs:
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
             #dotnet tool install --global coveralls.net --version 4.0.1
-             dotnet tool install --global coverlet.console
+             dotnet tool install --global coverlet.console --version 3.0.2
      
       - run:
           name: "Run Application Tests"
