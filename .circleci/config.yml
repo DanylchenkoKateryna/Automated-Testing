@@ -145,9 +145,9 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: cmd.exe /c Calculator_Buiild.bat
-      - persist_to_workspace:
-          root: .    # Root directory to persist
-          paths:
+      #- persist_to_workspace:
+          #root: .    # Root directory to persist
+          #paths:
             #- .nuget/
             #- Calculator/
       
