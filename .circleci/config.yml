@@ -17,6 +17,11 @@ jobs:
       - attach_workspace:
           at: .
 
+      - restore_cache:
+          keys:
+            - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-
+
       - run:
           name: Install ReportGenerator
           command: |
