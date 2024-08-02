@@ -20,8 +20,8 @@ jobs:
       # Restore cache for NuGet packages
       - restore_cache:
           keys:
-            - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-
+            - nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v2-
      
       - run:
           name: "Run Application Tests"
@@ -46,21 +46,24 @@ jobs:
           name: Install ReportGenerator
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
-            dotnet tool install --global coveralls.net --version 4.0.1
+            #dotnet tool install --global coveralls.net --version 4.0.1
           
       - run:
           name: Generate coverage report
           command: |
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            $coverage_files
             $coverage_files_list = ""
             foreach ($file in $coverage_files) {
+              $file.FullName 
               $coverage_files_list += $file.FullName + ";"
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Html;Cobertura" 
-            cat Calculator/Cobertura.xml
+            $coverage_files_list
+            reportgenerator -reports:$coverage_files_list -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura" 
+            cat Calculator/GeneralResult/Cobertura.xml
             
       #- store_artifacts:
       #    path: Calculator
@@ -131,8 +134,8 @@ jobs:
      # Restore cache for NuGet packages
       - restore_cache:
           keys:
-            - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-
+            - nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v2-
       - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
@@ -141,10 +144,11 @@ jobs:
       - save_cache:
           paths:
             - C:/Users/circleci/.nuget
-          key: nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          key: nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
       - run:
           name: "Build Application according to some given configuration"
           command: cmd.exe /c Calculator_Buiild.bat
+          
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
