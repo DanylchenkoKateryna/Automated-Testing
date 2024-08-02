@@ -19,8 +19,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-
+            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-
 
       - run:
           name: Install ReportGenerator
@@ -129,8 +129,8 @@ jobs:
      # Restore cache for NuGet packages
       - restore_cache:
           keys:
-            - nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-
+            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-
 
       - run:
           name: "Install project dependencies"
@@ -140,7 +140,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          key: nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
 
       - run:
           name: "Build Application according to some given configuration"
