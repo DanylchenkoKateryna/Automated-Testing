@@ -17,7 +17,7 @@ namespace TestProject2.Tests
             int result = calcClass.Add(a, b);
             Assert.Equal(expected, result);
         }
-
+         
        
         [Fact]
         public void Div_DivideByZero_ThrowsDivideByZeroException()
