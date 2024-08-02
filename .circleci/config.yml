@@ -141,7 +141,7 @@ jobs:
       - save_cache:
           paths:
             - C:/Users/circleci/.nuget
-          key: nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          key: nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
       - run:
           name: "Build Application according to some given configuration"
           command: cmd.exe /c Calculator_Buiild.bat
