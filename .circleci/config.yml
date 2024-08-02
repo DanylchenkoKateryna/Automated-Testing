@@ -76,10 +76,9 @@ jobs:
       #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
       #      }
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Calculator/Cobertura.xml
+      - store_artifacts:
+          path: Calculator
+          destination: coverage-report
       
       # Store test result artifacts
       - store_artifacts:
@@ -89,6 +88,11 @@ jobs:
       # Store test results for CircleCI Insights
       - store_test_results:
           path: Calculator/TestResults
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Calculator/Cobertura.xml
  
   upload-coverage-codecov:
      docker:
