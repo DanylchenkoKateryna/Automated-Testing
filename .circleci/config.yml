@@ -17,11 +17,12 @@ jobs:
       - attach_workspace:
           at: .
        
-      # Restore cache for NuGet packages
-      - restore_cache:
-          keys:
-            - nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-v2-
+      - run:
+          name: Install ReportGenerator
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+            #dotnet tool install --global coveralls.net --version 4.0.1
+             dotnet tool install --global coverlet.console
      
       - run:
           name: "Run Application Tests"
@@ -42,12 +43,6 @@ jobs:
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
        
-      - run:
-          name: Install ReportGenerator
-          command: |
-            dotnet tool install -g dotnet-reportgenerator-globaltool
-            #dotnet tool install --global coveralls.net --version 4.0.1
-          
       - run:
           name: Generate coverage report
           command: |
