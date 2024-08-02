@@ -26,7 +26,8 @@ jobs:
       - run:
           name: "Run Application Tests"
           command: |
-            .circleci/circleci_test.bat
+            cd .circleci
+            cmd.exe /c circleci_test.bat
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
@@ -142,7 +143,9 @@ jobs:
 
       - run:
           name: "Build Application according to some given configuration"
-          command: .circleci/circleci_build.bat
+          command: |
+            cd .circleci
+            cmd.exe /c circleci_build.bat
       
       - persist_to_workspace:
           root: .    # Root directory to persist
