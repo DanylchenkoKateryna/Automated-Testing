@@ -25,9 +25,7 @@ jobs:
      
       - run:
           name: "Run Application Tests"
-          command: |
-            cd .circleci
-            cmd.exe /c circleci_test.bat
+          command: .circleci\circleci_test.bat
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
