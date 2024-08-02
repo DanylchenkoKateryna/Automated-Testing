@@ -139,7 +139,7 @@ jobs:
       # Save cache for NuGet packages
       - save_cache:
           paths:
-            - C:/Users/circleci/.nuget/packages
+            - ~/.nuget/packages
           key: nuget-cache-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
 
       - run:
