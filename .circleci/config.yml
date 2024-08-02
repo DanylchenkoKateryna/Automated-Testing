@@ -148,8 +148,8 @@ jobs:
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
-            - .nuget/
-            - Calculator/
+            #- .nuget/
+            #- Calculator/
       
 workflows:
   build_and_test:
