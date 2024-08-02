@@ -14,16 +14,10 @@ jobs:
            
     steps:
       - checkout
+      
       - attach_workspace:
           at: .
-       
-      - run:
-          name: Install ReportGenerator
-          command: |
-            dotnet tool install -g dotnet-reportgenerator-globaltool
-            #dotnet tool install --global coveralls.net --version 4.0.1
-
-     
+          
       - run:
           name: "Run Application Tests"
           command: |
@@ -42,6 +36,12 @@ jobs:
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
+
+      - run:
+          name: Install ReportGenerator
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+            #dotnet tool install --global coveralls.net --version 4.0.1
        
       - run:
           name: Generate coverage report
