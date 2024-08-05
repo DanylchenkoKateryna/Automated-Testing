@@ -96,7 +96,7 @@ jobs:
            command: pwd
        - run:
           name: Install Coveralls
-          command: npm install -g coveralls
+          command: npm install coveralls
        - run:
           name: Upload coverage to Coveralls
           command: |
