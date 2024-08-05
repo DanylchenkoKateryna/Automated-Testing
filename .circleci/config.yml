@@ -65,6 +65,14 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:C:\Users\circleci\project "-reporttypes:Cobertura"
             cat C:\Users\circleci\project\Cobertura.xml
 
+      - run:
+          name: Install Coveralls
+          command: dotnet tool install --global coveralls.net
+      - run:
+          name: Upload coverage report to Coveralls
+          command: |
+            coveralls -r C:\Users\circleci\project -t $COVERALLS_REPO_TOKEN
+
       #- coveralls/upload:
       #      flag_name: job1
       #      parallel: true
@@ -93,7 +101,7 @@ jobs:
        - run:
            name: Print current working directory
            command: pwd
-       - coveralls/upload
+       #- coveralls/upload
        #- coveralls/upload:
        #       carryforward: job1
        #       parallel_finished: true
@@ -159,6 +167,6 @@ workflows:
       #- upload-coverage-codecov:
       #    requires:
       #      - test
-      - upload-coverage-coveralls:
-          requires:
-            - test
+      #- upload-coverage-coveralls:
+      #    requires:
+      #      - test
