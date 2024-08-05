@@ -91,7 +91,7 @@ jobs:
            name: Print current working directory
            command: pwd
        - coveralls/upload:
-           coverage_file: Calculator/Cobertura.xml
+           coverage_file: Cobertura.xml
   
   upload-coverage-codecov:
      docker:
