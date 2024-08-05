@@ -66,9 +66,9 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:C:\Users\circleci\project "-reporttypes:Cobertura"
             cat C:\Users\circleci\project\Cobertura.xml
 
-      - coveralls/upload:
-            flag_name: job1
-            parallel: true
+      #- coveralls/upload:
+      #      flag_name: job1
+      #      parallel: true
 
       - persist_to_workspace:
           root: .
@@ -94,10 +94,17 @@ jobs:
        - run:
            name: Print current working directory
            command: pwd
-       - coveralls/upload:
-              carryforward: job1
-              parallel_finished: true
-              coverage_file: Cobertura.xml
+       - run:
+          name: Install Coveralls
+          command: npm install -g coveralls
+      - run:
+          name: Upload coverage to Coveralls
+          command: |
+            coveralls < Cobertura.xml
+       #- coveralls/upload:
+       #       carryforward: job1
+       #       parallel_finished: true
+       #       coverage_file: Cobertura.xml
        #- coveralls/upload:
        #    coverage_file: Cobertura.xml
   
