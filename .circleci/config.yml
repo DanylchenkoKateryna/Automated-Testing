@@ -63,13 +63,13 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator "-reporttypes:Cobertura"
-            cat Calculator/Cobertura.xml
+            reportgenerator -reports:$coverage_files_list -targetdir:C:\Users\circleci\project "-reporttypes:Cobertura"
+            cat C:\Users\circleci\project\Cobertura.xml
 
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/Cobertura.xml
+            - C:\Users\circleci\project\Cobertura.xml
       
       # Store test result artifacts
       - store_artifacts:
