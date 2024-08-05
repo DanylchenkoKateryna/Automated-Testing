@@ -97,7 +97,7 @@ jobs:
        - run:
           name: Install Coveralls
           command: npm install -g coveralls
-      - run:
+       - run:
           name: Upload coverage to Coveralls
           command: |
             coveralls < Cobertura.xml
