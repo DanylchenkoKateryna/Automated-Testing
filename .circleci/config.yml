@@ -55,8 +55,10 @@ jobs:
           command: |
             mkdir Calculator/GeneralResult
             $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
+            $coverage_files
             $coverage_files_list = ""
             foreach ($file in $coverage_files) {
+              $file.FullName
               $coverage_files_list += $file.FullName + ";"
             }
             # Remove the trailing semicolon
