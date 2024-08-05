@@ -78,18 +78,18 @@ jobs:
       - store_test_results:
           path: Calculator/TestResults
  
- upload-coverage-coveralls:
-    docker:
-      - image: cimg/node:22.5.1
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Print current working directory
-          command: pwd
-      - coveralls/upload:
-          coverage_file: Calculator/Cobertura.xml
+  upload-coverage-coveralls:
+     docker:
+       - image: cimg/node:22.5.1
+     steps:
+       - checkout
+       - attach_workspace:
+           at: .
+       - run:
+           name: Print current working directory
+           command: pwd
+       - coveralls/upload:
+           coverage_file: Calculator/Cobertura.xml
   
   upload-coverage-codecov:
      docker:
