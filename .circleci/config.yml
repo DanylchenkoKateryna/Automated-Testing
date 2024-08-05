@@ -72,7 +72,7 @@ jobs:
       - run:
           name: Upload coverage report to Coveralls
           command: |
-            coveralls -r C:\Users\circleci\project -t $COVERALLS_REPO_TOKEN
+            csmacnz.Coveralls -r C:\Users\circleci\project -t $COVERALLS_REPO_TOKEN
 
       #- coveralls/upload:
       #      flag_name: job1
