@@ -26,7 +26,7 @@ jobs:
           name: Install ReportGenerator
           command: |
             dotnet tool install -g dotnet-reportgenerator-globaltool
-            dotnet tool install -g coveralls.net
+            dotnet tool install -g coveralls
    
       - run:
           name: "Run Application Tests"
@@ -94,13 +94,7 @@ jobs:
        - run:
            name: Print current working directory
            command: pwd
-       - run:
-          name: Install Coveralls
-          command: npm install coveralls
-       - run:
-          name: Upload coverage to Coveralls
-          command: |
-            coveralls < Cobertura.xml
+       - coveralls/upload
        #- coveralls/upload:
        #       carryforward: job1
        #       parallel_finished: true
