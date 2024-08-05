@@ -69,7 +69,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - C:\Users\circleci\project\Cobertura.xml
+            - Cobertura.xml
       
       # Store test result artifacts
       - store_artifacts:
