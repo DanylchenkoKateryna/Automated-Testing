@@ -29,5 +29,26 @@ namespace TestProject2.Tests
             // Act & Assert
             Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
         } 
+
+
+        //[Theory]
+        //[InlineData(6, 7, 13)]
+        //[InlineData(8, 9, 17)]
+        //[InlineData(10, 11, 21)]
+        //public void Add1_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
+        //{
+        //    int result = calcClass.Add1(a, b);
+        //    Assert.Equal(expected, result);
+        //}
+
+        //[Theory]
+        //[InlineData(6, 7, 13)]
+        //[InlineData(8, 9, 17)]
+        //[InlineData(10, 11, 21)]
+        //public void Add2_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
+        //{
+        //    int result = calcClass.Add2(a, b);
+        //    Assert.Equal(expected, result);
+        //}
     }
 }

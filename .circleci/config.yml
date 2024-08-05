@@ -2,8 +2,8 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  #coveralls: coveralls/coveralls@2.2.1
-  codecov: codecov/codecov@4.1.0
+  coveralls: coveralls/coveralls@2.2.1
+  #codecov: codecov/codecov@4.1.0
 
 jobs:
   test:
@@ -17,11 +17,24 @@ jobs:
       
       - attach_workspace:
           at: .
-          
+
+      - restore_cache:
+          keys:
+            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-
+
+      - run:
+          name: Install ReportGenerator
+          command: |
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+   
       - run:
           name: "Run Application Tests"
-          command: |
-            cmd.exe /c circleci_test.bat
+          command: .circleci\circleci_test.bat
+            #dotnet test Calculator\xUnitProject\xUnitProject.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-1.xml" --collect:"Code Coverage" --results-directory C:\Users\circleci\project\Calculator\CodeCoverageResults
+            #dotnet test Calculator\TestProject2.Tests\TestProject2.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-3.xml" --collect:"Code Coverage" --results-directory C:\Users\circleci\project\Calculator\CodeCoverageResults
+            #dotnet test Calculator\TestProject3.Tests\TestProject3.Tests.csproj --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\TestResults\test-results-4.xml" --collect:"Code Coverage" --results-directory C:\Users\circleci\project\Calculator\CodeCoverageResults
+
             #msbuild "Calculator/Tests/AnalizerClassLibrary.Tests.csproj" /p:Configuration=Release
              
             #circleci tests glob "Calculator/Tests/**/*Tests.cs" | circleci tests split > C:\Users\circleci\project\Calculator\Tests\tests-to-run
@@ -36,13 +49,7 @@ jobs:
             #}
             #dotnet.exe test Calculator/Tests/AnalizerClassLibrary.Tests.csproj -v n --configuration Release --no-build --logger "junit;LogFileName=C:\Users\circleci\project\Calculator\Tests\TestResults\test-results.xml" 
           when: always
-
-      - run:
-          name: Install ReportGenerator
-          command: |
-            dotnet tool install -g dotnet-reportgenerator-globaltool
-            #dotnet tool install --global coveralls.net --version 4.0.1
-       
+      
       - run:
           name: Generate coverage report
           command: |
@@ -51,32 +58,23 @@ jobs:
             $coverage_files
             $coverage_files_list = ""
             foreach ($file in $coverage_files) {
-              $file.FullName 
+              $file.FullName
               $coverage_files_list += $file.FullName + ";"
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            $coverage_files_list
-            reportgenerator -reports:$coverage_files_list -targetdir:Calculator/GeneralResult "-reporttypes:Html;Cobertura" 
-            cat Calculator/GeneralResult/Cobertura.xml
-            
-      #- store_artifacts:
-      #    path: Calculator
-      #    destination: coverage-report
-      
-      #- run:
-      #    name: Upload coverage to Codecov
-      #    shell: powershell.exe
-      #    command: |
-      #      $coverage_files = Get-ChildItem -Path "Calculator/CodeCoverageResults" -Filter "coverage.cobertura.xml" -Recurse
-      #      Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -OutFile codecov.exe
-      #      foreach ($coverage_file in $coverage_files.FullName) {
-      #        .\codecov.exe -f $coverage_file -t $env:CODECOV_TOKEN
-      #      }
+            reportgenerator -reports:$coverage_files_list -targetdir:C:\Users\circleci\project "-reporttypes:Cobertura"
+            sed -i 's/\\/\//g' C:\Users\circleci\project\cobertura.xml
+            cat Cobertura.xml
 
-      - store_artifacts:
-          path: Calculator
-          destination: coverage-report
+      #- coveralls/upload:
+      #      flag_name: job1
+      #      parallel: true
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - Cobertura.xml
       
       # Store test result artifacts
       - store_artifacts:
@@ -86,12 +84,20 @@ jobs:
       # Store test results for CircleCI Insights
       - store_test_results:
           path: Calculator/TestResults
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Calculator/Cobertura.xml
  
+  upload-coverage-coveralls:
+     docker:
+       - image: cimg/node:22.5.1
+     steps:
+       - checkout
+       - attach_workspace:
+           at: .
+       - run:
+           name: Print current working directory
+           command: pwd
+       - coveralls/upload:
+           coverage_file: Cobertura.xml
+  
   upload-coverage-codecov:
      docker:
        - image: cimg/python:3.12.4
@@ -106,31 +112,19 @@ jobs:
           name: Upload coverage to Codecov
           command: |
             codecov -t $CODECOV_TOKEN -f Calculator/Cobertura.xml
-       #- codecov/upload: 
-       #    file: 'Calculator/Cobertura.xml'
-   
-  #upload-coverage-coveralls:
-  #  docker:
-  #    - image: circleci/node:10.16.0
-  #  steps:
-  #    - attach_workspace:
-  #        at: .
-  #    - coveralls/upload:
-  #        coverage_file: Calculator/Cobertura.xml
-
+  
   build:
     description: Build application with Release configuration
     executor:
       name: win/server-2022
     steps:
       - checkout
-      - attach_workspace:
-          at: .
      # Restore cache for NuGet packages
       - restore_cache:
           keys:
-            - nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-v2-
+            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-
+
       - run:
           name: "Install project dependencies"
           command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
@@ -138,17 +132,20 @@ jobs:
       # Save cache for NuGet packages
       - save_cache:
           paths:
-            - C:/Users/circleci/.nuget
-          key: nuget-cache-v2-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - ~/.nuget/packages
+          key: nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+
       - run:
           name: "Build Application according to some given configuration"
-          command: cmd.exe /c Calculator_Buiild.bat
-          
+          command: .circleci\Calculator_Buiild.bat
+      
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
+            - .nuget/packages
             - Calculator
       
+
 workflows:
   build_and_test:
     jobs:
@@ -156,9 +153,9 @@ workflows:
       - test:
           requires:
             - build
-      - upload-coverage-codecov:
-          requires:
-            - test
-      #- upload-coverage-coveralls:
+      #- upload-coverage-codecov:
       #    requires:
       #      - test
+      - upload-coverage-coveralls:
+          requires:
+            - test
