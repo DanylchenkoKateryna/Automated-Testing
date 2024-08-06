@@ -63,7 +63,7 @@ jobs:
             }
             # Remove the trailing semicolon
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
-            reportgenerator -reports:$coverage_files_list -targetdir:C:\Users\circleci\project "-reporttypes:Cobertura"
+            reportgenerator -reports:$coverage_files_list -targetdir:. "-reporttypes:Cobertura"
             sed -i 's/\\/\//g' C:\Users\circleci\project\cobertura.xml
             cat Cobertura.xml
 
