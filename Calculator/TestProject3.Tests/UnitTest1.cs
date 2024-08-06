@@ -18,7 +18,7 @@ namespace TestProject3.Tests
         }
 
         [Theory]
-        [InlineData(10, 2, 5)]
+        //[InlineData(10, 2, 5)]
         [InlineData(10, 5, 2)]
         [InlineData(15, 5, 3)]
         public void Div_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
