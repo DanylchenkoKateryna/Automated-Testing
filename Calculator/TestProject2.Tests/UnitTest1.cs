@@ -30,7 +30,6 @@ namespace TestProject2.Tests
             Assert.Throws<DivideByZeroException>(() => calcClass.Div(a, b));
         }
 
-
         [Theory]
         [InlineData(6, 7, 13)]
         [InlineData(8, 9, 17)]
