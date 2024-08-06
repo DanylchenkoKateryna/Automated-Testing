@@ -66,11 +66,7 @@ jobs:
             reportgenerator -reports:$coverage_files_list -targetdir:. "-reporttypes:Cobertura"
             sed -i 's/\\/\//g' C:\Users\circleci\project\cobertura.xml
             cat Cobertura.xml
-
-      #- coveralls/upload:
-      #      flag_name: job1
-      #      parallel: true
-
+            
       - persist_to_workspace:
           root: .
           paths:
