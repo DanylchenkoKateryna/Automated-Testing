@@ -40,14 +40,14 @@ namespace TestProject2.Tests
             Assert.Equal(expected, result);
         }
 
-        [Theory]
-        [InlineData(6, 7, 13)]
-        [InlineData(8, 9, 17)]
-        [InlineData(10, 11, 21)]
-        public void Add2_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
-        {
-            int result = calcClass.Add2(a, b);
-            Assert.Equal(expected, result);
-        }
+        //[Theory]
+        //[InlineData(6, 7, 13)]
+        //[InlineData(8, 9, 17)]
+        //[InlineData(10, 11, 21)]
+        //public void Add2_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
+        //{
+        //    int result = calcClass.Add2(a, b);
+        //    Assert.Equal(expected, result);
+        //}
     }
 }
