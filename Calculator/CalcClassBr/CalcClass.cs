@@ -29,11 +29,6 @@ namespace CalcClassBr
             return a - b;
         }
 
-        public int Sub1(int a, int b)
-        {
-            return a - b;
-        }
-
         public int Mult(int a, int b)
         {
             return a * b;
