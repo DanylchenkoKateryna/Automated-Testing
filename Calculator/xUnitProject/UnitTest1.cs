@@ -12,6 +12,7 @@ namespace xUnitProject
         private readonly Cache cache = HttpRuntime.Cache;
 
         [Theory]
+        [InlineData(2, 2, 4)]
         [InlineData(2, 3, 6)]
         [InlineData(1, 9, 9)]
         [InlineData(10, 0, 0)]
