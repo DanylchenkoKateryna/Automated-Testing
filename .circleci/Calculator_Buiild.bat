@@ -1,3 +1,4 @@
+@echo off
 msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Debug
 if %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
