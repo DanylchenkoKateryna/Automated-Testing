@@ -20,7 +20,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-{{ checksum "Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj" }}-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}-{{ checksum "Calculator/ErrorLibrary/ErrorLibrary.csproj" }}-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}-{{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
             - nuget-cache-v1-
 
       - run:
@@ -118,7 +118,7 @@ jobs:
      # Restore cache for NuGet packages
       - restore_cache:
           keys:
-            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - nuget-cache-v1-{{ checksum "Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj" }}-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}-{{ checksum "Calculator/ErrorLibrary/ErrorLibrary.csproj" }}-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}-{{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
             - nuget-cache-v1-
 
       - run:
@@ -129,7 +129,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          key: nuget-cache-v1-{{ checksum "Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj" }}-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}-{{ checksum "Calculator/ErrorLibrary/ErrorLibrary.csproj" }}-{{ checksum "Calculator/GraphInterface/GraphInterface.csproj" }}-{{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
           
       - run:
           name: "Build Application according to some given configuration"
