@@ -138,7 +138,8 @@ jobs:
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
-            - Calculator
+            - build_output.txt
+            
             #- Calculator\xUnitProject\bin\Release
             #- Calculator\xUnitProject\obj
             #- Calculator\TestProject3.Tests\bin\Release
