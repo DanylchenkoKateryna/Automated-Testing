@@ -23,6 +23,7 @@ jobs:
             - nuget-cache-v6-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
             - nuget-cache-v6-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
             - nuget-cache-v6-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
+            - nuget-cache-v6- 
 
       - run:
           name: Install ReportGenerator
@@ -123,6 +124,7 @@ jobs:
             - nuget-cache-v6-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
             - nuget-cache-v6-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
             - nuget-cache-v6-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
+            - nuget-cache-v6- 
 
            #- nuget-cache-v1-  # fallback to using the latest cache if no exact match is found
 
