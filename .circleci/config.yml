@@ -20,11 +20,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - nuget-cache-v6-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
-            - nuget-cache-v6- 
-
+            - nuget-cache-v6-test-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
+     
       - run:
           name: Install ReportGenerator
           command: |
@@ -118,13 +115,11 @@ jobs:
       - checkout
      
       - restore_cache:
-          keys:
-            - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
-            - nuget-cache-v6-{{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
-            - nuget-cache-v6- 
+          keys: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+                - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+                - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+                - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+                - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }} 
 
            #- nuget-cache-v1-  # fallback to using the latest cache if no exact match is found
 
