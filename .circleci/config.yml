@@ -78,7 +78,6 @@ jobs:
           path: Calculator/TestResults
           destination: test-results
 
-      # Store test results for CircleCI Insights
       - store_test_results:
           path: Calculator/TestResults
  
