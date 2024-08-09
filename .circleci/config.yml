@@ -138,7 +138,7 @@ jobs:
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
-            - Calculator/*/bin/Release
+            - Calculator/*/bin
             - Calculator/*/obj
       
 
