@@ -1,5 +1,5 @@
 @echo off
-dotnet build Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release
+msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release
 if %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release
