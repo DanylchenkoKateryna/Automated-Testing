@@ -133,6 +133,7 @@ jobs:
           
       - run:
           name: "Build Application according to some given configuration"
+          shell: powershell
           command: | 
             set -e
             msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release
@@ -143,7 +144,6 @@ jobs:
             msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release
             msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release
             msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release
-          shell: cmd.exe
       
       - persist_to_workspace:
           root: .    # Root directory to persist
