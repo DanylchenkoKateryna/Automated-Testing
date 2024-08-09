@@ -121,20 +121,28 @@ jobs:
             - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
             - nuget-cache-v1-
 
-      #- run:
-      #    name: "Install project dependencies"
-      #    command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
-
       - run:
-          name: "Build Application according to some given configuration"
-          command: .circleci\Calculator_Buiild.bat
-      
+          name: "Install project dependencies"
+          command: |
+            #nuget restore Calculator/Calculator_Exam_CommandProject.sln
+            nuget restore Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj
+            nuget restore Calculator/CalcClassBr/CalcClassBr.csproj
+            nuget restore Calculator/ErrorLibrary/ErrorLibrary.csproj
+            nuget restore Calculator/GraphInterface/GraphInterface.csproj
+            nuget restore Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj
+            nuget restore Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release
+            nuget restore Calculator/TestProject2.Tests/TestProject2.Tests.csproj
+            nuget restore Calculator/TestProject3.Tests/TestProject3.Tests.csproj
+
       # Save cache for NuGet packages
       - save_cache:
           paths:
             - ~/.nuget/packages
           key: nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-
+          
+      - run:
+          name: "Build Application according to some given configuration"
+          command: .circleci\Calculator_Buiild.bat
       
       - persist_to_workspace:
           root: .    # Root directory to persist
