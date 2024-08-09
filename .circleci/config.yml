@@ -138,9 +138,9 @@ jobs:
       - persist_to_workspace:
           root: .    # Root directory to persist
           paths:
-            - Calculator\TestProject3.Tests\bin
-            - Calculator\TestProject2.Tests\bin
-            - Calculator\xUnitProject\bin
+            - Calculator\TestProject3.Tests\bin\Release\net472\TestProject3.Tests.dll
+            - Calculator\TestProject2.Tests\bin\Release\net472\TestProject2.Tests.dll
+            - Calculator\xUnitProject\bin\Release\net472\xUnitProject.Tests.dll
       
 
 workflows:
