@@ -120,8 +120,8 @@ jobs:
     steps:
       - checkout
      
-      - restore_cache:
-          keys: 
+      #- restore_cache:
+      #    keys: 
             #- nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
             #  - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
             #  - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
@@ -129,15 +129,15 @@ jobs:
             #  - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
             #- nuget-cache-v6-  # fallback to using the latest cache if no exact match is found
 
-      - run:
-          name: "Install project dependencies"
-          command: #nuget restore Calculator/Calculator_Exam_CommandProject.sln
+      #- run:
+      #    name: "Install project dependencies"
+      #    command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
 
       
-      - save_cache:
-          paths:
-            - ~/.nuget/packages
-          key: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+      #- save_cache:
+      #    paths:
+      #      - ~/.nuget/packages
+      #    key: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
                #- {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
                #- {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
                #- {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
