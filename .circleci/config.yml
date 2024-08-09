@@ -131,7 +131,7 @@ jobs:
 
       - run:
           name: "Install project dependencies"
-          command: circleci\circleci_restore.bat
+          command: .circleci\circleci_restore.bat
 
       
       - save_cache:
