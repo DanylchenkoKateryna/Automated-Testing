@@ -134,14 +134,14 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: | 
-            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj 
-            msbuild Calculator/CalcClassBr/CalcClassBr.csproj 
-            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj
-            msbuild Calculator/GraphInterface/GraphInterface.csproj 
-            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj 
-            msbuild Calculator/xUnitProject/xUnitProject.csproj 
-            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj 
-            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj
+            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Debug
+            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Debug
+            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Debug
+            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Debug
+            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Debug
+            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Debug
+            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Debug
+            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj/p:Configuration=Debug
       
       - persist_to_workspace:
           root: .    # Root directory to persist
