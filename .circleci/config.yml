@@ -145,7 +145,15 @@ jobs:
       
       - run:
           name: "Build Application according to some given configuration"
-          command: .circleci\Calculator_Buiild.bat
+          command: |
+            nuget restore Calculator/CalcClassBr/CalcClassBr.csproj -SolutionDirectory C:\Users\circleci\project
+            nuget restore Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj -SolutionDirectory C:\Users\circleci\project
+            nuget restore Calculator/ErrorLibrary/ErrorLibrary.csproj -SolutionDirectory C:\Users\circleci\project
+            nuget restore Calculator/GraphInterface/GraphInterface.csproj -SolutionDirectory C:\Users\circleci\project
+            nuget restore Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory C:\Users\circleci\project
+            nuget restore Calculator/xUnitProject/xUnitProject.csproj
+            nuget restore Calculator/TestProject2.Tests/TestProject2.Tests.csproj
+            nuget restore Calculator/TestProject3.Tests/TestProject3.Tests.csproj
       
       - persist_to_workspace:
           root: .
