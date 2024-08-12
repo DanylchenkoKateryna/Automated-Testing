@@ -137,14 +137,14 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            msbuild -restore Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
-            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
+            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true
 
       
       - save_cache:
