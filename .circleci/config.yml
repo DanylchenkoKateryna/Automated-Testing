@@ -146,7 +146,7 @@ jobs:
       
       - run:
           name: "Build Application according to some given configuration"
-          command: .circleci_CalculatorBuiild.bat
+          command: .circleci\Calculator_Buiild.bat
       
       - persist_to_workspace:
           root: .
