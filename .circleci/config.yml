@@ -129,10 +129,22 @@ jobs:
               - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
             - nuget-cache-v6-  # fallback to using the latest cache if no exact match is found
 
+      #- run:
+      #    name: "Install project dependencies"
+      #    command: | #.circleci\circleci_restore.bat
+      #      nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
+
       - run:
-          name: "Install project dependencies"
-          command: | #.circleci\circleci_restore.bat
-            nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
+          name: "Build Application according to some given configuration"
+          command: |
+            msbuild -restore Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
+            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -p:RestorePackagesConfig=true
 
       
       - save_cache:
@@ -144,9 +156,9 @@ jobs:
                - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
                - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
       
-      - run:
-          name: "Build Application according to some given configuration"
-          command: .circleci\Calculator_Buiild.bat
+      #- run:
+      #    name: "Build Application according to some given configuration"
+      #    command: .circleci\Calculator_Buiild.bat
       
       - persist_to_workspace:
           root: .
