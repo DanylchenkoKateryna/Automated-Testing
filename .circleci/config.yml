@@ -146,14 +146,15 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: |
-            nuget restore Calculator/CalcClassBr/CalcClassBr.csproj -SolutionDirectory C:\Users\circleci\project
-            nuget restore Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj -SolutionDirectory C:\Users\circleci\project
-            nuget restore Calculator/ErrorLibrary/ErrorLibrary.csproj -SolutionDirectory C:\Users\circleci\project
-            nuget restore Calculator/GraphInterface/GraphInterface.csproj -SolutionDirectory C:\Users\circleci\project
-            nuget restore Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj -SolutionDirectory C:\Users\circleci\project
-            nuget restore Calculator/xUnitProject/xUnitProject.csproj
-            nuget restore Calculator/TestProject2.Tests/TestProject2.Tests.csproj
-            nuget restore Calculator/TestProject3.Tests/TestProject3.Tests.csproj
+            #nuget restore Calculator/CalcClassBr/CalcClassBr.csproj -SolutionDirectory C:\Users\circleci\project
+            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release /t:Restore;Build
+            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release /t:Restore;Build
       
       - persist_to_workspace:
           root: .
