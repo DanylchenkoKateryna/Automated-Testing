@@ -19,10 +19,15 @@ jobs:
           at: .
 
       - restore_cache:
-          keys:
-            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-v1-
+          keys: 
+            - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+              - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+              - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+              - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+              - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
+            - nuget-cache-v6-
 
+      
       - run:
           name: Install ReportGenerator
           command: |
@@ -77,7 +82,6 @@ jobs:
           path: Calculator/TestResults
           destination: test-results
 
-      # Store test results for CircleCI Insights
       - store_test_results:
           path: Calculator/TestResults
  
@@ -115,35 +119,48 @@ jobs:
       name: win/server-2022
     steps:
       - checkout
-     # Restore cache for NuGet packages
+     
       - restore_cache:
-          keys:
-            - nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - nuget-cache-v1-
+          keys: 
+            - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+              - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+              - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+              - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+              - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
+            - nuget-cache-v6-  # fallback to using the latest cache if no exact match is found
 
       - run:
           name: "Install project dependencies"
-          command: nuget restore Calculator/Calculator_Exam_CommandProject.sln
+          command: .circleci\circleci_restore.bat
 
-      # Save cache for NuGet packages
+      
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: nuget-cache-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-          
+          key: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+               - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+               - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+               - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+               - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
+      
       - run:
           name: "Build Application according to some given configuration"
-          command: .circleci\Calculator_Buiild.bat
+          command: |
+            #nuget restore Calculator/CalcClassBr/CalcClassBr.csproj -SolutionDirectory C:\Users\circleci\project
+            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release "/t:Restore;Build"
+            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release "/t:Restore;Build"
       
       - persist_to_workspace:
-          root: .    # Root directory to persist
+          root: .
           paths:
-            - Calculator\xUnitProject\bin\Release
-            - Calculator\xUnitProject\obj
-            - Calculator\TestProject3.Tests\bin\Release
-            - Calculator\TestProject3.Tests\obj
-            - Calculator\TestProject2.Tests\bin\Release
-            - Calculator\TestProject2.Tests\obj
+            - Calculator/*/bin
+            - Calculator/*/obj
       
 
 workflows:
