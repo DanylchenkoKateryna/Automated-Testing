@@ -1,7 +1,10 @@
 using CalcClassBr;
+
 using FluentAssertions;
+
 using System.Web;
 using System.Web.Caching;
+
 using Xunit;
 
 namespace xUnitProject
