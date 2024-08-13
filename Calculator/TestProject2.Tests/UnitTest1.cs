@@ -1,5 +1,7 @@
 using CalcClassBr;
+
 using System;
+
 using Xunit;
 
 namespace TestProject2.Tests

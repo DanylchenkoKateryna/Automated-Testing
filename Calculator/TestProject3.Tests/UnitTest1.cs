@@ -1,4 +1,5 @@
 using CalcClassBr;
+
 using Xunit;
 
 namespace TestProject3.Tests
