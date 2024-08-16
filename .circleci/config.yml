@@ -65,7 +65,6 @@ jobs:
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
             reportgenerator -reports:$coverage_files_list -targetdir:. "-reporttypes:Cobertura"
             sed -i 's/\\/\//g' C:\Users\circleci\project\cobertura.xml
-            #cat Cobertura.xml
             
       - persist_to_workspace:
           root: .
