@@ -19,14 +19,9 @@ jobs:
           at: .
 
       - restore_cache:
-          keys: 
-            - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
-              - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
-              - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
-              - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
-              - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
-            - nuget-cache-v6-
-
+          keys:
+            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - v1-nuget-
       
       - run:
           name: Install ReportGenerator
@@ -70,7 +65,6 @@ jobs:
             $coverage_files_list = $coverage_files_list.TrimEnd(';')
             reportgenerator -reports:$coverage_files_list -targetdir:. "-reporttypes:Cobertura"
             sed -i 's/\\/\//g' C:\Users\circleci\project\cobertura.xml
-            #cat Cobertura.xml
             
       - persist_to_workspace:
           root: .
@@ -119,15 +113,20 @@ jobs:
       name: win/server-2022
     steps:
       - checkout
-     
+
       - restore_cache:
-          keys: 
-            - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
-              - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
-              - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
-              - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
-              - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
-            - nuget-cache-v6-  # fallback to using the latest cache if no exact match is found
+          keys:
+            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+            - v1-nuget-
+     
+      #- restore_cache:
+      #    keys: 
+      #      - nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+      #        - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+      #        - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+      #        - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+      #        - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}  
+      #      - nuget-cache-v6-  # fallback to using the latest cache if no exact match is found
 
       #- run:
       #    name: "Install project dependencies"
@@ -138,25 +137,29 @@ jobs:
           command: dotnet format --verify-no-changes --verbosity diagnostic
       - run:
           name: "Build Application according to some given configuration"
-          command: |
-            msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-            msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+          command: .circleci\Calculator_Buiild.bat
+            #msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/GraphInterface/GraphInterface.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
+            #msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
 
-      
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
-               - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
-               - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
-               - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
-               - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
+          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          
+      #- save_cache:
+      #    paths:
+      #      - ~/.nuget/packages
+      #    key: nuget-cache-v6-{{ checksum "Calculator/CalcClassBr/CalcClassBr.csproj" }}
+      #         - {{ checksum "Calculator/AnalizerClassLibrary.Tests/AnalizerClassLibrary.Tests.csproj" }}
+      #         - {{ checksum "Calculator/xUnitProject/xUnitProject.csproj" }}
+      #         - {{ checksum "Calculator/TestProject2.Tests/TestProject2.Tests.csproj" }}
+       #        - {{ checksum "Calculator/TestProject3.Tests/TestProject3.Tests.csproj" }}
       
       #- run:
       #    name: "Build Application according to some given configuration"
