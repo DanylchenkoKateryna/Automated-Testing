@@ -1,5 +1,6 @@
 ﻿using CalcClassBr;
 
+
 using Xunit;
 
 namespace Tests.MultiplyTestFolder

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+
+
 namespace AnalaizerClassLibrary
 {
     public static class AnalaizerClass
@@ -20,7 +22,7 @@ namespace AnalaizerClassLibrary
         private const char _symbolOperatorMul = '*';
         private const char _symbolOperatorMod = '%';
         private const char _symbolUnaryPlus = 'p';
-        private const char _symbolUnaryMinus = 'm';
+        private const char symbolUnaryMinus = 'm';
 
         /// <summary>
         /// максимальна глибина вкладеності.
@@ -48,7 +50,7 @@ namespace AnalaizerClassLibrary
 
         private static readonly char[] _unary_operators = new char[] // унарні операції
             {
-                _symbolUnaryMinus,
+                symbolUnaryMinus,
                 _symbolUnaryPlus
             };
 
@@ -193,7 +195,7 @@ namespace AnalaizerClassLibrary
             // перевірка на невірний початок виразу
             if (!char.IsDigit(startSymbol) &&
                 startSymbol != _symbolOpenBracket &&
-                startSymbol != _symbolUnaryMinus &&
+                startSymbol != symbolUnaryMinus &&
                 startSymbol != _symbolUnaryPlus)
             {
                 return "&" + ErrorsExpression.ERROR03;
@@ -218,7 +220,7 @@ namespace AnalaizerClassLibrary
                     if (i < Expression.Length - 1)
                     {
                         char nextSymbol = Expression[i + 1];
-                        if (nextSymbol == _symbolOpenBracket || nextSymbol == _symbolUnaryMinus || nextSymbol == _symbolUnaryPlus)
+                        if (nextSymbol == _symbolOpenBracket || nextSymbol == symbolUnaryMinus || nextSymbol == _symbolUnaryPlus)
                         {
                             return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR01, i + 1);
                         }
@@ -236,7 +238,7 @@ namespace AnalaizerClassLibrary
                             return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR04, i + 1);
                         }
 
-                        if (!char.IsDigit(nextSymbol) && nextSymbol != _symbolOpenBracket && nextSymbol != _symbolUnaryMinus && nextSymbol != _symbolUnaryPlus)
+                        if (!char.IsDigit(nextSymbol) && nextSymbol != _symbolOpenBracket && nextSymbol != symbolUnaryMinus && nextSymbol != _symbolUnaryPlus)
                         {
                             return "&" + ErrorsExpression.ERROR03;
                         }
@@ -602,7 +604,7 @@ namespace AnalaizerClassLibrary
                         char nextSymbol = res[i + 1];
                         if ((nextSymbol == _symbolOpenBracket || char.IsDigit(nextSymbol)) && (_operators.Contains(previosSymbol) || previosSymbol == _symbolOpenBracket))
                         {
-                            res = ReplaceSymbol(res, _symbolUnaryMinus, i);
+                            res = ReplaceSymbol(res, symbolUnaryMinus, i);
                         }
                     }
                 }
