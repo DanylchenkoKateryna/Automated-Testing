@@ -1,5 +1,7 @@
 ﻿using CalcClassBr;
+
 using System.Threading;
+
 using Xunit;
 
 namespace Tests

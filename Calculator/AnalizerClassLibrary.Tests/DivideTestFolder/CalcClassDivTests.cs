@@ -1,10 +1,12 @@
 ﻿using CalcClassBr;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Xunit;
 
 namespace Tests.DivideTestFolder
@@ -12,7 +14,7 @@ namespace Tests.DivideTestFolder
     public class CalcClassDivTests
     {
         private readonly CalcClass calcClass = new CalcClass();
-         
+
 
         [Theory]
         [InlineData(10, 2, 5)]

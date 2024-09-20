@@ -1,12 +1,13 @@
 ﻿using CalcClassBr;
+
 using Xunit;
 
 namespace Tests
 {
     public class CalcClassAddTests
     {
-        private readonly CalcClass calcClass=new CalcClass();
-        
+        private readonly CalcClass calcClass = new CalcClass();
+
         [Theory]
         [InlineData(10, 20, 30)]
         [InlineData(1, 2, 3)]
