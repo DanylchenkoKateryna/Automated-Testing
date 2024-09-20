@@ -1,14 +1,12 @@
 ﻿using CalcClassBr;
 
-using System.Threading;
-
 using Xunit;
 
 namespace Tests.MultiplyTestFolder
 {
     public class CalcClassMultTests
     {
-        private readonly CalcClass calcClass = new CalcClass();
+        private readonly CalcClass _calcClass = new CalcClass();
 
         [Theory]
         [InlineData(1, 1, 1)]
@@ -43,7 +41,7 @@ namespace Tests.MultiplyTestFolder
         [InlineData(1000, -1000, -1000000)]
         public void Mult_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
-            int result = calcClass.Mult(a, b);
+            int result = _calcClass.Mult(a, b);
             Assert.Equal(expected, result);
         }
     }

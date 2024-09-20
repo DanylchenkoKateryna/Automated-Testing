@@ -129,3 +129,5 @@ dotnet_diagnostic.SA1204.severity = none
 
 # Disable CS0162 rule:unreachable code detected (when we use if Debug)
 dotnet_diagnostic.CS0162.severity = none
+
+dotnet_diagnostic.SA1601.severity = none
