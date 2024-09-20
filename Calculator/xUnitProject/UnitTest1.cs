@@ -2,6 +2,7 @@ using CalcClassBr;
 
 using FluentAssertions;
 
+
 using Xunit;
 
 namespace XUnitProject
