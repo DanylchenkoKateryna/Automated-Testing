@@ -129,9 +129,7 @@ namespace AnalaizerClassLibrary
                             return false;
                         }
                         else
-                        {
                             openBracket.Pop();
-                        }
                     }
                 }
             }
