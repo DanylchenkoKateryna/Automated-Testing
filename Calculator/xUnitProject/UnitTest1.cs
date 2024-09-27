@@ -12,7 +12,7 @@ namespace XUnitProject
         private readonly CalcClass _calcClass = new CalcClass();
 
         [Theory]
-        [InlineData(2, 3, 6)]
+        [InlineData(2, 3, 26)]
         [InlineData(1, 9, 9)]
         [InlineData(10, 0, 0)]
         public void Mult_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
