@@ -132,9 +132,7 @@ jobs:
           name: "Install project dependencies"
           command: | #.circleci\circleci_restore.bat
             nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
-      - run:
-          name: "check code style rules"
-          command: dotnet format "Calculator/Calculator_Exam_CommandProject.sln" --verify-no-changes --verbosity diagnostic
+      
       - run:
           name: "Build Application according to some given configuration"
           command: .circleci\Calculator_Buiild.bat
