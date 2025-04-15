@@ -116,6 +116,7 @@ jobs:
 
       - restore_cache:
           keys:
+            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/packages.config" }}
             - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
             - v1-nuget-
      
@@ -131,11 +132,16 @@ jobs:
       - run:
           name: "Install project dependencies"
           command: | #.circleci\circleci_restore.bat
-            nuget restore "Calculator/Calculator_Exam_CommandProject.sln"
+            nuget restore "Calculator/Calculator_Exam_CommandProject.sln" -PackageSaveMode nuspec
+
+      - save_cache:
+          paths:
+            - ~/.nuget/packages
+          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/packages.config" }}
       
       - run:
           name: "Build Application according to some given configuration"
-          command: .circleci\Calculator_Buiild.bat
+          command: msbuild "Calculator/Calculator_Exam_CommandProject.sln" m /p:Configuration=Release /p:BuildInParallel=true #.circleci\Calculator_Buiild.bat
             #msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
@@ -144,11 +150,6 @@ jobs:
             #msbuild Calculator/xUnitProject/xUnitProject.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/TestProject2.Tests/TestProject2.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/TestProject3.Tests/TestProject3.Tests.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
-
-      - save_cache:
-          paths:
-            - ~/.nuget/packages
-          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
           
       #- save_cache:
       #    paths:
@@ -162,8 +163,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - Calculator/*/bin
-            - Calculator/*/obj
+            - Calculator/*/bin/Release
       
 
 workflows:
