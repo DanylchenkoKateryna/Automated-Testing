@@ -141,7 +141,7 @@ jobs:
       
       - run:
           name: "Build Application according to some given configuration"
-          command: msbuild "Calculator/Calculator_Exam_CommandProject.sln" /p:Configuration=Release /m /p:Platform="Any CPU"#.circleci\Calculator_Buiild.bat
+          command: msbuild "Calculator/Calculator_Exam_CommandProject.sln" /p:Configuration=Release /m #.circleci\Calculator_Buiild.bat
             #msbuild Calculator/AnalizerClassLibrary/AnalizerClassLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/CalcClassBr/CalcClassBr.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
             #msbuild Calculator/ErrorLibrary/ErrorLibrary.csproj /p:Configuration=Release -t:build -restore -p:RestorePackagesConfig=true /p:SolutionDir=C:\Users\circleci\project\Calculator\
