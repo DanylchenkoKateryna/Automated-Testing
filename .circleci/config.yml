@@ -116,9 +116,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/*.csproj" }}
-            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
-            - v1-nuget-
+            - nuget-v1-{{ checksum "packages.config" }}
+            - nuget-v1-
      
       #- restore_cache:
       #    keys: 
@@ -136,8 +135,9 @@ jobs:
 
       - save_cache:
           paths:
-            - ~/.nuget/packages
-          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/*.csproj" }}
+            - C:\Users\circleci\.nuget\packages
+            - C:\Users\circleci\AppData\Local\NuGet\Cache
+          key: nuget-v1-{{ checksum "packages.config" }}
       
       - run:
           name: "Build Application according to some given configuration"
