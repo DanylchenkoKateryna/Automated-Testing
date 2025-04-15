@@ -113,12 +113,7 @@ jobs:
       name: win/server-2022
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-            - nuget-pkgconfig-v1-{{ checksum "packages.config" }}
-            - nuget-pkgconfig-v1-
-
+      
       - restore_cache:
           keys:
             - nuget-global-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
@@ -139,10 +134,10 @@ jobs:
             nuget restore "Calculator/Calculator_Exam_CommandProject.sln" -PackageSaveMode nuspec
 
       - save_cache:
+          key: nuget-global-v1-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
           paths:
-            - C:\Users\circleci\.nuget\packages
-            - C:\Users\circleci\AppData\Local\NuGet\Cache
-          key: nuget-v1-{{ checksum "packages.config" }}
+            - ~/.nuget/packages
+            - packages/
       
       - run:
           name: "Build Application according to some given configuration"
