@@ -4,12 +4,6 @@ orbs:
   win: circleci/windows@5.0
   coveralls: coveralls/coveralls@2.2.1
   #codecov: codecov/codecov@4.1.0
-
-executors:
-  windows-dotnet-framework:
-    docker:
-      - image: mcr.microsoft.com/dotnet/framework/runtime:4.7.2
-    shell: powershell.exe
  
 jobs:
   test:
@@ -115,12 +109,14 @@ jobs:
   
   build:
     description: Build application with Release configuration
-    executor: windows-dotnet-framework
+    executor:
+      name: win/server-2022
     steps:
       - checkout
 
       - restore_cache:
           keys:
+            - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/*.csproj" }}
             - v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
             - v1-nuget-
      
@@ -141,7 +137,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.nuget/packages
-          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}
+          key: v1-nuget-{{ checksum "Calculator/Calculator_Exam_CommandProject.sln" }}-{{ checksum "**/*.csproj" }}
       
       - run:
           name: "Build Application according to some given configuration"
