@@ -5,6 +5,7 @@ using RestSharp;
 [Binding]
 public class ApiBookingSteps
 {
+    
     private RestClient client;
     private RestRequest request;
     private IRestResponse response;
