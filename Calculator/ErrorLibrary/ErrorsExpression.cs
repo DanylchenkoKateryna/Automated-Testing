@@ -8,6 +8,7 @@ namespace ErrorLibrary
 {
     public static class ErrorsExpression
     {
+        // test coveralls
         public const string ERROR_01 = "Error 01 at <i> — Неправильна структура в дужках, помилка на <i> символі.";
         public const string ERROR_02 = "Error 02 at <i> — Невідомий оператор на <i> символі.";
         public const string ERROR_03 = "Error 03 — Невірна синтаксична конструкція вхідного виразу.";
