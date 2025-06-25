@@ -1,77 +1,75 @@
 ﻿using CalcClassBr;
+
 using ErrorLibrary;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
 
 namespace AnalaizerClassLibrary
 {
-
     public static class AnalaizerClass
     {
-        private const char SYMBOL_CLOSE_BRACKET = ')';
-        private const char SYMBOL_OPEN_BRACKET = '(';
-        private const char SYMBOL_OPERATOR_ADD = '+';
-        private const char SYMBOL_OPERATOR_SUB = '-';
-        private const char SYMBOL_OPERATOR_DIV = '/';
-        private const char SYMBOL_OPERATOR_MUL = '*';
-        private const char SYMBOL_OPERATOR_MOD = '%';
-        private const char SYMBOL_UNARY_PLUS = 'p';
-        private const char SYMBOL_UNARY_MINUS = 'm';
-
-
-        private static readonly char[] _operators = new char[]  // бінарні операції
-            {
-                SYMBOL_OPERATOR_ADD,
-                SYMBOL_OPERATOR_SUB,
-                SYMBOL_OPERATOR_MUL,
-                SYMBOL_OPERATOR_DIV,
-                SYMBOL_OPERATOR_MOD
-            };
-
-        private static readonly char[] _unary_operators = new char[]  // унарні операції
-            {
-                SYMBOL_UNARY_MINUS,
-                SYMBOL_UNARY_PLUS
-            };
-
-        private static readonly char[] _brackets = new char[]  // дужки для розділу виразів
-            {
-                SYMBOL_OPEN_BRACKET,
-                SYMBOL_CLOSE_BRACKET
-            };
-
-        /// <summary> 
-        /// максимальна глибина вкладеності
-        /// </summary> 
-        private const int MAX_DEPTH_BRACKET = 3;
-
-        /// <summary> 
-        /// максимальна довжина виразу (символів)
-        /// </summary> 
-        private const int MAX_LENGHT_EXPRESSION = 65536;
-
-        /// <summary> 
-        /// максимальна кількість операторів та чисел у виразі
-        /// </summary> 
-        private const int MAX_COUNT_OPERANDS = 30;
-
-
-        /// <summary> 
-        /// позиція виразу, на якій знайдена синтаксична помилка 
-        /// (у випадку відловлення на рівні виконання - не визначається) 
-        /// </summary>     
-
-        private static int erposition = 0;
+        private const char _symbolCloseBracket = ')';
+        private const char _symbolOpenBracket = '(';
+        private const char _symbolOperatorAdd = '+';
+        private const char _symbolOperatorSub = '-';
+        private const char _symbolOperatorDiv = '/';
+        private const char _symbolOperatorMul = '*';
+        private const char _symbolOperatorMod = '%';
+        private const char _symbolUnaryPlus = 'p';
+        private const char symbolUnaryMinus = 'm';
 
         /// <summary>
-        /// Вхідний вираз
-        /// </summary>        
-        public static string expression = "";
+        /// максимальна глибина вкладеності.
+        /// </summary>
+        private const int _mAXDEPTHBRACKET = 3;
+
+        /// <summary>
+        /// максимальна довжина виразу (символів).
+        /// </summary>
+        private const int _mAXLENGHTEXPRESSION = 65536;
+
+        /// <summary>
+        /// максимальна кількість операторів та чисел у виразі.
+        /// </summary>
+        private const int _mAXCOUNTOPERANDS = 30;
+
+        private static readonly char[] _operators = new char[] // бінарні операції
+            {
+                _symbolOperatorAdd,
+                _symbolOperatorSub,
+                _symbolOperatorMul,
+                _symbolOperatorDiv,
+                _symbolOperatorMod
+            };
+
+        private static readonly char[] _unary_operators = new char[] // унарні операції
+            {
+                symbolUnaryMinus,
+                _symbolUnaryPlus
+            };
+
+        private static readonly char[] _brackets = new char[] // дужки для розділу виразів
+            {
+                _symbolOpenBracket,
+                _symbolCloseBracket
+            };
+
+        /// <summary>
+        /// позиція виразу, на якій знайдена синтаксична помилка
+        /// (у випадку відловлення на рівні виконання - не визначається).
+        /// </summary>
+        private static int _erposition = 0;
+
+        /// <summary>
+        /// Вхідний вираз.
+        /// </summary>
+        public static string Expression = string.Empty;
 
         /// <summary>
         /// Показує, чи є необхідність у виведенні повідомлень про помилки.
@@ -79,50 +77,55 @@ namespace AnalaizerClassLibrary
         /// </summary>
         public static bool ShowMessage = false;
 
-
         /// <summary>
-        /// Перевірка коректності структури в дужках вхідного виразу
+        /// Перевірка коректності структури в дужках вхідного виразу.
         /// </summary>
-        /// <returns> true - якщо все нормально, false - якщо  є помилка </returns>
+        /// <returns> true - якщо все нормально, false - якщо  є помилка. </returns>
         /// метод біжить по вхідному виразу, символ за символом аналізуючи його, і рахуючи кількість дужок.
         /// У разі виникнення помилки повертає false, а в erposition записує позицію, на якій виникла помилка.
         public static bool CheckCurrency()
         {
-            erposition = 0;
+            _erposition = 0;
 
             Stack<int> openBracket = new Stack<int>();
 
-            for (int i = 0; i < expression.Length; i++)
+            for (int i = 0; i < Expression.Length; i++)
             {
-                if (expression[i] == SYMBOL_OPEN_BRACKET)
+                if (Expression[i] == _symbolOpenBracket)
                 {
                     openBracket.Push(i);
 
-                    if (openBracket.Count > MAX_DEPTH_BRACKET)
+                    if (openBracket.Count > _mAXDEPTHBRACKET)
                     {
-                        erposition = i;
+                        _erposition = i;
                         if (ShowMessage)
-                            MessageBox.Show
-                                ($"expression: '{expression}'\nerposition: {erposition}\nError in expression: Maximum depth bracket {MAX_DEPTH_BRACKET}",
-                                 "Error",
-                                 MessageBoxButtons.OK,
-                                 MessageBoxIcon.Error);
+                        {
+                            MessageBox.Show(
+                                $"expression: '{Expression}'\nerposition: {_erposition}\nError in expression: Maximum depth bracket {_mAXDEPTHBRACKET}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+
                         return false;
                     }
                 }
                 else
                 {
-                    if (expression[i] == ')')
+                    if (Expression[i] == ')')
                     {
-                        if (openBracket.Count == 0) // варіант, при якому закриваюча дужка, використана без відкриваючої дужки                                                    
+                        if (openBracket.Count == 0)
                         {
-                            erposition = i;
+                            _erposition = i;
                             if (ShowMessage)
-                                MessageBox.Show
-                                    ($"expression: '{expression}'\nerposition: {erposition}\nError in expression: '{SYMBOL_CLOSE_BRACKET}' used without '{SYMBOL_OPEN_BRACKET}'",
-                                     "Error",
-                                     MessageBoxButtons.OK,
-                                     MessageBoxIcon.Error);
+                            {
+                                MessageBox.Show(
+                                    $"expression: '{Expression}'\nerposition: {_erposition}\nError in expression: '{_symbolCloseBracket}' used without '{_symbolOpenBracket}'",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+
                             return false;
                         }
                         else
@@ -131,178 +134,183 @@ namespace AnalaizerClassLibrary
                 }
             }
 
-            if (openBracket.Count > 0) // якщо кількість выдкриваючих дужок, быльше кількості закриваючих
+            if (openBracket.Count > 0)
             {
-                erposition = openBracket.Peek();
+                _erposition = openBracket.Peek();
                 if (ShowMessage)
-                    MessageBox.Show
-                        ($"expression: '{expression}'\nerposition: {erposition}\nError in expression: '{SYMBOL_OPEN_BRACKET}' used without '{SYMBOL_CLOSE_BRACKET}'",
-                         "Error",
-                         MessageBoxButtons.OK,
-                         MessageBoxIcon.Error);
+                {
+                    MessageBox.Show(
+                        $"expression: '{Expression}'\nerposition: {_erposition}\nError in expression: '{_symbolOpenBracket}' used without '{_symbolCloseBracket}'",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+
                 return false;
             }
 
             return true;
         }
 
-
-        ///<summary>
-        /// Форматує вхідний вираз, виставляючи між операторами пропуски і видаляючи зайві, 
-        /// а також знаходить нерозпізнані оператори, стежить за кінцем рядка 
-        /// а також знаходить помилки в кінці рядка 
+        /// <summary>
+        /// Форматує вхідний вираз, виставляючи між операторами пропуски і видаляючи зайві,
+        /// а також знаходить нерозпізнані оператори, стежить за кінцем рядка
+        /// а також знаходить помилки в кінці рядка.
         /// </summary>
-        ///<returns> кінцевий рядок або повідомлення про помилку, що починаються з спец. символу &</returns>
+        /// <returns> кінцевий рядок або повідомлення про помилку, що починаються з спец. символу &.</returns>
         public static string Format()
         {
-            expression = expression.Replace(" ", "");    // видаляэмо всі пробіли у виразі
+            Expression = Expression.Replace(" ", string.Empty);    // видаляэмо всі пробіли у виразі
 
-
-            if (expression.Length > MAX_LENGHT_EXPRESSION)
-                return "&" + ErrorsExpression.ERROR_07;
-
-            if (expression == "") return "";
-
-            for (int i = 0; i < expression.Length; i++)
+            if (Expression.Length > _mAXLENGHTEXPRESSION)
             {
-                char currentSymbol = expression[i];
+                return "&" + ErrorsExpression.ERROR07;
+            }
+
+            if (Expression == string.Empty)
+            {
+                return string.Empty;
+            }
+
+            for (int i = 0; i < Expression.Length; i++)
+            {
+                char currentSymbol = Expression[i];
 
                 // перевірка на невідомий символа оператора
                 if (char.IsDigit(currentSymbol) ||
                     _operators.Contains(currentSymbol) ||
                     _brackets.Contains(currentSymbol) ||
                     _unary_operators.Contains(currentSymbol))
+                {
                     continue;
+                }
 
-                return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR_02, i);
+                return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR02, i);
             }
 
-            char startSymbol = expression[0];
+            char startSymbol = Expression[0];
+
             // перевірка на невірний початок виразу
             if (!char.IsDigit(startSymbol) &&
-                startSymbol != SYMBOL_OPEN_BRACKET &&
-                startSymbol != SYMBOL_UNARY_MINUS &&
-                startSymbol != SYMBOL_UNARY_PLUS)
-                return "&" + ErrorsExpression.ERROR_03;
+                startSymbol != _symbolOpenBracket &&
+                startSymbol != symbolUnaryMinus &&
+                startSymbol != _symbolUnaryPlus)
+            {
+                return "&" + ErrorsExpression.ERROR03;
+            }
 
+            char endSymbol = Expression[Expression.Length - 1];
 
-            char endSymbol = expression[expression.Length - 1];
             // перевірка на закінчення всього виразу
             if (!char.IsDigit(endSymbol) &&
-                endSymbol != SYMBOL_CLOSE_BRACKET)
-                return "&" + ErrorsExpression.ERROR_05;
-
-
-            for (int i = 0; i < expression.Length; i++)
+                endSymbol != _symbolCloseBracket)
             {
-                char currentSymbol = expression[i];
+                return "&" + ErrorsExpression.ERROR05;
+            }
+
+            for (int i = 0; i < Expression.Length; i++)
+            {
+                char currentSymbol = Expression[i];
 
                 // проверка следующего символе после цифры
                 if (char.IsDigit(currentSymbol))
                 {
-                    if (i < expression.Length - 1)
+                    if (i < Expression.Length - 1)
                     {
-                        char nextSymbol = expression[i + 1];
-                        if (nextSymbol == SYMBOL_OPEN_BRACKET || nextSymbol == SYMBOL_UNARY_MINUS || nextSymbol == SYMBOL_UNARY_PLUS)
+                        char nextSymbol = Expression[i + 1];
+                        if (nextSymbol == _symbolOpenBracket || nextSymbol == symbolUnaryMinus || nextSymbol == _symbolUnaryPlus)
                         {
-                            return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR_01, i + 1);
+                            return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR01, i + 1);
                         }
                     }
                 }
 
-
-                // перевірка на два оператори підряд            
+                // перевірка на два оператори підряд
                 if (_operators.Contains(currentSymbol))
                 {
-                    if (i < expression.Length - 1)
+                    if (i < Expression.Length - 1)
                     {
-                        char nextSymbol = expression[i + 1];
+                        char nextSymbol = Expression[i + 1];
                         if (_operators.Contains(nextSymbol))
-                            return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR_04, i + 1);
+                        {
+                            return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR04, i + 1);
+                        }
 
-                        if (!char.IsDigit(nextSymbol) && nextSymbol != SYMBOL_OPEN_BRACKET && nextSymbol != SYMBOL_UNARY_MINUS && nextSymbol != SYMBOL_UNARY_PLUS)
-                            return "&" + ErrorsExpression.ERROR_03;
+                        if (!char.IsDigit(nextSymbol) && nextSymbol != _symbolOpenBracket && nextSymbol != symbolUnaryMinus && nextSymbol != _symbolUnaryPlus)
+                        {
+                            return "&" + ErrorsExpression.ERROR03;
+                        }
                     }
                 }
 
                 // перевірка на сивол після відкриваючої дужки
-                if (currentSymbol == SYMBOL_OPEN_BRACKET)
+                if (currentSymbol == _symbolOpenBracket)
                 {
-                    if (i < expression.Length - 1)
+                    if (i < Expression.Length - 1)
                     {
-                        char nextSymbol = expression[i + 1];
-                        if (nextSymbol == SYMBOL_CLOSE_BRACKET || _operators.Contains(nextSymbol))
-                            return "&" + ErrorsExpression.ERROR_03;
+                        char nextSymbol = Expression[i + 1];
+                        if (nextSymbol == _symbolCloseBracket || _operators.Contains(nextSymbol))
+                        {
+                            return "&" + ErrorsExpression.ERROR03;
+                        }
                     }
                 }
 
                 // перевірка на символ після закриваючої дужки
-                if (currentSymbol == SYMBOL_CLOSE_BRACKET)
+                if (currentSymbol == _symbolCloseBracket)
                 {
-                    if (i < expression.Length - 1)
+                    if (i < Expression.Length - 1)
                     {
-                        char nextSymbol = expression[i + 1];
-                        if (!_operators.Contains(nextSymbol) && nextSymbol != SYMBOL_CLOSE_BRACKET)
-                            return "&" + ErrorsExpression.ERROR_03;
+                        char nextSymbol = Expression[i + 1];
+                        if (!_operators.Contains(nextSymbol) && nextSymbol != _symbolCloseBracket)
+                        {
+                            return "&" + ErrorsExpression.ERROR03;
+                        }
                     }
                 }
 
                 // перевірка на сиволи після унарного оператора
                 if (_unary_operators.Contains(currentSymbol))
                 {
-                    if (i < expression.Length - 1)
+                    if (i < Expression.Length - 1)
                     {
-                        char nextSymbol = expression[i + 1];
-                        if (nextSymbol == SYMBOL_CLOSE_BRACKET || _unary_operators.Contains(nextSymbol) || _operators.Contains(nextSymbol))
-                            return "&" + ErrorsExpression.ERROR_03;
+                        char nextSymbol = Expression[i + 1];
+                        if (nextSymbol == _symbolCloseBracket || _unary_operators.Contains(nextSymbol) || _operators.Contains(nextSymbol))
+                        {
+                            return "&" + ErrorsExpression.ERROR03;
+                        }
                     }
                     else
-                        return "&" + ErrorsExpression.ERROR_05;
+                    {
+                        return "&" + ErrorsExpression.ERROR05;
+                    }
                 }
-
             }
 
-            return expression;
-
+            return Expression;
         }
 
-
-        /// <summary>
-        /// метод визначає чи є стрічка оператором 
-        /// </summary> 
-        /// <param name="c"></param>
-        /// <returns> true - якщо, сивол э оператором, false - якщо сивол не э оператором </returns>        
         private static bool IsOperator(string s)
         {
             if (s.Length == 1)
             {
                 char c = s[0];
                 if (_operators.Contains(c) || _brackets.Contains(c) || _unary_operators.Contains(c))
+                {
                     return true;
+                }
             }
 
             return false;
         }
 
-        /// <summary>
-        /// метод визначає чи є символ роздилителем 
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns> true - символ є пробілом, інакше false</returns>        
         private static bool IsDelimeter(char c)
         {
-            return (c == ' ' ? true : false);
+            return c == ' ' ? true : false;
         }
 
-        /// <summary>
-        /// метод повертає пріоритет оператора 
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>         
-        static private byte GetPriority(string s)
+        private static byte GetPriority(string s)
         {
-
-
             switch (s)
             {
                 case "(":
@@ -331,45 +339,53 @@ namespace AnalaizerClassLibrary
             {
                 string s = string.Empty + input[pos];
                 if (!_operators.Union(_brackets).Union(_unary_operators).Contains(input[pos]))
-                //if (!_operators.Contains(input[pos]) || !_unary_operators.Contains(input[pos]))
                 {
-                    if (Char.IsDigit(input[pos]))
+                    if (char.IsDigit(input[pos]))
+                    {
                         for (int i = pos + 1;
-                            i < input.Length && Char.IsDigit(input[i]);
+                            i < input.Length && char.IsDigit(input[i]);
                             i++)
+                        {
                             s += input[i];
-                    else if (Char.IsLetter(input[pos]))
+                        }
+                    }
+                    else if (char.IsLetter(input[pos]))
+                    {
                         for (int i = pos + 1; i < input.Length &&
-                            (Char.IsLetter(input[i]) || Char.IsDigit(input[i])); i++)
+                            (char.IsLetter(input[i]) || char.IsDigit(input[i])); i++)
+                        {
                             s += input[i];
+                        }
+                    }
                 }
+
                 yield return s;
                 pos += s.Length;
             }
         }
 
-        ///<summary>
-        /// Формує  масив, в якому розташовуються оператори і символи 
+        /// <summary>
+        /// Формує  масив, в якому розташовуються оператори і символи
         /// представлені в зворотному польському записі (без дужок)
         /// На  цьому ж етапі відшукується решта всіх помилок (див. код).
         /// По суті - це компіляція.
         /// </summary>
-        /// <returns> массив зворотнього польського запису </returns>
+        /// <returns> массив зворотнього польського запису. </returns>
         public static ArrayList CreateStack()
         {
             ArrayList result = new ArrayList();
             Stack<string> stack = new Stack<string>();
 
-            foreach (string c in Separate(expression))
+            foreach (string c in Separate(Expression))
             {
                 if (IsOperator(c))
                 {
-                    if (stack.Count > 0 && !c.Equals(SYMBOL_OPEN_BRACKET.ToString()))
+                    if (stack.Count > 0 && !c.Equals(_symbolOpenBracket.ToString()))
                     {
-                        if (c.Equals(SYMBOL_CLOSE_BRACKET.ToString()))
+                        if (c.Equals(_symbolCloseBracket.ToString()))
                         {
                             string s = stack.Pop();
-                            while (s != SYMBOL_OPEN_BRACKET.ToString())
+                            while (s != _symbolOpenBracket.ToString())
                             {
                                 result.Add(s);
                                 s = stack.Pop();
@@ -377,33 +393,45 @@ namespace AnalaizerClassLibrary
                         }
                         else
                             if (GetPriority(c) > GetPriority(stack.Peek()))
+                        {
                             stack.Push(c);
+                        }
                         else
                         {
                             while (stack.Count > 0 && GetPriority(c) <= GetPriority(stack.Peek()))
+                            {
                                 result.Add(stack.Pop());
+                            }
+
                             stack.Push(c);
                         }
                     }
                     else
+                    {
                         stack.Push(c);
+                    }
                 }
                 else
+                {
                     result.Add(c);
+                }
             }
+
             if (stack.Count > 0)
+            {
                 foreach (string c in stack)
+                {
                     result.Add(c);
+                }
+            }
 
             return result;
-
         }
 
-
-        ///<summary>
-        /// Обчислення зворотнього польського запису
+        /// <summary>
+        /// Обчислення зворотнього польського запису.
         /// </summary>
-        /// <returns> результат обчислень, або повідомлення про помилку </returns>
+        /// <returns> результат обчислень, або повідомлення про помилку. </returns>
         public static string RunEstimate()
         {
             Stack<string> stack = new Stack<string>();
@@ -419,8 +447,10 @@ namespace AnalaizerClassLibrary
             }
             else
             {
-                if (queue.Count > MAX_COUNT_OPERANDS)
-                    return "&" + ErrorsExpression.ERROR_08;
+                if (queue.Count > _mAXCOUNTOPERANDS)
+                {
+                    return "&" + ErrorsExpression.ERROR08;
+                }
             }
 
             string str = queue.Dequeue();
@@ -437,7 +467,6 @@ namespace AnalaizerClassLibrary
                     long res = 0;
                     try
                     {
-
                         switch (str)
                         {
                             case "+":
@@ -447,6 +476,7 @@ namespace AnalaizerClassLibrary
                                     res = CalcClass.Add(a, b);
                                     break;
                                 }
+
                             case "-":
                                 {
                                     long b = Convert.ToInt64(stack.Pop());
@@ -454,6 +484,7 @@ namespace AnalaizerClassLibrary
                                     res = CalcClass.Sub(a, b);
                                     break;
                                 }
+
                             case "*":
                                 {
                                     long b = Convert.ToInt64(stack.Pop());
@@ -461,6 +492,7 @@ namespace AnalaizerClassLibrary
                                     res = CalcClass.Mult(a, b);
                                     break;
                                 }
+
                             case "/":
                                 {
                                     long b = Convert.ToInt64(stack.Pop());
@@ -468,6 +500,7 @@ namespace AnalaizerClassLibrary
                                     res = CalcClass.Div(a, b);
                                     break;
                                 }
+
                             case "%":
                                 {
                                     long b = Convert.ToInt64(stack.Pop());
@@ -475,12 +508,14 @@ namespace AnalaizerClassLibrary
                                     res = CalcClass.Mod(a, b);
                                     break;
                                 }
+
                             case "m":
                                 {
                                     long a = Convert.ToInt64(stack.Pop());
                                     res = CalcClass.IABS(a);
                                     break;
                                 }
+
                             case "p":
                                 {
                                     long a = Convert.ToInt64(stack.Pop());
@@ -489,69 +524,86 @@ namespace AnalaizerClassLibrary
                                 }
                         }
                     }
-
                     catch
                     {
-                        return "&" + CalcClass.lastError;
+                        return "&" + CalcClass.LastError;
                     }
-
 
                     stack.Push(res.ToString());
                     if (queue.Count > 0)
+                    {
                         str = queue.Dequeue();
+                    }
                     else
+                    {
                         break;
+                    }
                 }
             }
 
             return stack.Pop();
-
-
         }
 
         private static string ReplaceSymbol(string input, char symbol, int position)
         {
-            string res = "";
+            string res = string.Empty;
             for (int i = 0; i < input.Length; i++)
             {
-                if (i == position) res += symbol;
-                else res += input[i];
+                if (i == position)
+                {
+                    res += symbol;
+                }
+                else
+                {
+                    res += input[i];
+                }
             }
+
             return res;
         }
 
         public static string ReplaceUnaryPlusMinus(string input)
         {
-            string res = input.Replace(" ", "");
+            string res = input.Replace(" ", string.Empty);
 
             for (int i = 0; i < res.Length; i++)
             {
                 char currentSymbol = res[i];
-                if (currentSymbol == SYMBOL_OPERATOR_ADD)
+                if (currentSymbol == _symbolOperatorAdd)
                 {
-                    char previosSymbol = SYMBOL_OPERATOR_MUL;
+                    char previosSymbol = _symbolOperatorMul;
 
-                    if (i > 0) previosSymbol = res[i - 1];
+                    if (i > 0)
+                    {
+                        previosSymbol = res[i - 1];
+                    }
 
                     if (i < res.Length - 1)
                     {
                         char nextSymbol = res[i + 1];
-                        if ((nextSymbol == SYMBOL_OPEN_BRACKET || char.IsDigit(nextSymbol)) && (_operators.Contains(previosSymbol) || previosSymbol == SYMBOL_OPEN_BRACKET))
-                            res = ReplaceSymbol(res, SYMBOL_UNARY_PLUS, i);
+                        if ((nextSymbol == _symbolOpenBracket || char.IsDigit(nextSymbol)) && (_operators.Contains(previosSymbol) || previosSymbol == _symbolOpenBracket))
+                        {
+                            res = ReplaceSymbol(res, _symbolUnaryPlus, i);
+                        }
                     }
                 }
 
-                if (currentSymbol == SYMBOL_OPERATOR_SUB)
+                if (currentSymbol == _symbolOperatorSub)
                 {
-                    char previosSymbol = SYMBOL_OPERATOR_MUL;
+                    char previosSymbol = _symbolOperatorMul;
 
-                    if (i > 0) previosSymbol = res[i - 1];
+                    if (i > 0)
+                    {
+                        previosSymbol = res[i - 1];
+                    }
 
                     if (i < res.Length - 1)
                     {
                         char nextSymbol = res[i + 1];
-                        if ((nextSymbol == SYMBOL_OPEN_BRACKET || char.IsDigit(nextSymbol)) && (_operators.Contains(previosSymbol) || previosSymbol == SYMBOL_OPEN_BRACKET))
-                            res = ReplaceSymbol(res, SYMBOL_UNARY_MINUS, i);
+                        if ((nextSymbol == _symbolOpenBracket || char.IsDigit(nextSymbol)) && (_operators.Contains(previosSymbol) || previosSymbol == _symbolOpenBracket))
+                        {
+                            res = ReplaceSymbol(res, symbolUnaryMinus, i);
+                        }
                     }
                 }
             }
@@ -559,30 +611,28 @@ namespace AnalaizerClassLibrary
             return res;
         }
 
-        /// <summary>
-        /// Метод, який організовує обчислення. 
-        /// По черзі запускає CheckCorrncy, Format, CreateStack і RunEstimate
-        /// </summary>
-        /// <returns></returns>
         public static string Estimate()
         {
             if (!CheckCurrency())
-                return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR_01, erposition);
+            {
+                return "&" + ErrorsExpression.GetFullStringError(ErrorsExpression.ERROR01, _erposition);
+            }
 
-            expression = ReplaceUnaryPlusMinus(expression);
+            Expression = ReplaceUnaryPlusMinus(Expression);
 
             string format = Format();
 
-            if (format == "") return "";
+            if (format == string.Empty)
+            {
+                return string.Empty;
+            }
 
             if (format.StartsWith("&"))
+            {
                 return format;
-
+            }
 
             return RunEstimate();
-
         }
-
     }
 }
-

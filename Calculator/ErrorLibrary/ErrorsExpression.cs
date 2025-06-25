@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ErrorLibrary
+﻿namespace ErrorLibrary
 {
     public static class ErrorsExpression
     {
@@ -18,6 +12,7 @@ namespace ErrorLibrary
         public const string ERROR_07 = "Error 07 — Дуже довгий вираз. Максмальная довжина — 65536 символів.";
         public const string ERROR_08 = "Error 08 — Сумарна кількість чисел і операторів перевищує 30.";
         public const string ERROR_09 = "Error 09 – Помилка ділення на 0.";
+
 
         public static string GetFullStringError(string errorMessage, int position)
         {

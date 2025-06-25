@@ -96,7 +96,7 @@ namespace GraphInterface
             this.textBoxExpression.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxExpression.Size = new System.Drawing.Size(273, 68);
             this.textBoxExpression.TabIndex = 2;
-            this.textBoxExpression.TextChanged += new System.EventHandler(this.textBoxExpression_TextChanged);
+            this.textBoxExpression.TextChanged += new System.EventHandler(this.TextBoxExpression_TextChanged);
             // 
             // panel1
             // 
@@ -140,7 +140,7 @@ namespace GraphInterface
             this.buttonEqual.TabIndex = 9;
             this.buttonEqual.Text = "=";
             this.buttonEqual.UseVisualStyleBackColor = true;
-            this.buttonEqual.Click += new System.EventHandler(this.buttonEqual_Click);
+            this.buttonEqual.Click += new System.EventHandler(this.ButtonEqual_Click);
             // 
             // buttonMR
             // 
@@ -152,7 +152,7 @@ namespace GraphInterface
             this.buttonMR.TabIndex = 5;
             this.buttonMR.Text = "MR";
             this.buttonMR.UseVisualStyleBackColor = true;
-            this.buttonMR.Click += new System.EventHandler(this.buttonMR_Click);
+            this.buttonMR.Click += new System.EventHandler(this.ButtonMR_Click);
             // 
             // buttonMPlus
             // 
@@ -164,7 +164,7 @@ namespace GraphInterface
             this.buttonMPlus.TabIndex = 7;
             this.buttonMPlus.Text = "M+";
             this.buttonMPlus.UseVisualStyleBackColor = true;
-            this.buttonMPlus.Click += new System.EventHandler(this.buttonMPlus_Click);
+            this.buttonMPlus.Click += new System.EventHandler(this.ButtonMPlus_Click);
             // 
             // buttonMC
             // 
@@ -176,7 +176,7 @@ namespace GraphInterface
             this.buttonMC.TabIndex = 8;
             this.buttonMC.Text = "MC";
             this.buttonMC.UseVisualStyleBackColor = true;
-            this.buttonMC.Click += new System.EventHandler(this.buttonMC_Click);
+            this.buttonMC.Click += new System.EventHandler(this.ButtonMC_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -221,7 +221,7 @@ namespace GraphInterface
             this.buttonMod.TabIndex = 17;
             this.buttonMod.Text = "mod";
             this.buttonMod.UseVisualStyleBackColor = true;
-            this.buttonMod.Click += new System.EventHandler(this.buttonMod_Click);
+            this.buttonMod.Click += new System.EventHandler(this.ButtonMod_Click);
             // 
             // button0
             // 
@@ -232,7 +232,7 @@ namespace GraphInterface
             this.button0.TabIndex = 16;
             this.button0.Text = "0";
             this.button0.UseVisualStyleBackColor = true;
-            this.button0.Click += new System.EventHandler(this.button0_Click);
+            this.button0.Click += new System.EventHandler(this.Button0_Click);
             // 
             // buttonABS
             // 
@@ -244,7 +244,7 @@ namespace GraphInterface
             this.buttonABS.TabIndex = 12;
             this.buttonABS.Text = "+/-";
             this.buttonABS.UseVisualStyleBackColor = true;
-            this.buttonABS.Click += new System.EventHandler(this.buttonABS_Click);
+            this.buttonABS.Click += new System.EventHandler(this.ButtonABS_Click);
             // 
             // button1
             // 
@@ -255,7 +255,7 @@ namespace GraphInterface
             this.button1.TabIndex = 2;
             this.button1.Text = "1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
@@ -266,7 +266,7 @@ namespace GraphInterface
             this.button2.TabIndex = 3;
             this.button2.Text = "2";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button3
             // 
@@ -277,7 +277,7 @@ namespace GraphInterface
             this.button3.TabIndex = 4;
             this.button3.Text = "3";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // button4
             // 
@@ -288,7 +288,7 @@ namespace GraphInterface
             this.button4.TabIndex = 5;
             this.button4.Text = "4";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button5
             // 
@@ -299,7 +299,7 @@ namespace GraphInterface
             this.button5.TabIndex = 6;
             this.button5.Text = "5";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // button6
             // 
@@ -310,7 +310,7 @@ namespace GraphInterface
             this.button6.TabIndex = 7;
             this.button6.Text = "6";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // button7
             // 
@@ -321,7 +321,7 @@ namespace GraphInterface
             this.button7.TabIndex = 8;
             this.button7.Text = "7";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
             // button8
             // 
@@ -332,7 +332,7 @@ namespace GraphInterface
             this.button8.TabIndex = 9;
             this.button8.Text = "8";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Click += new System.EventHandler(this.Button8_Click);
             // 
             // button9
             // 
@@ -343,7 +343,7 @@ namespace GraphInterface
             this.button9.TabIndex = 10;
             this.button9.Text = "9";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
             // buttonDiv
             // 
@@ -355,7 +355,7 @@ namespace GraphInterface
             this.buttonDiv.TabIndex = 11;
             this.buttonDiv.Text = "/";
             this.buttonDiv.UseVisualStyleBackColor = true;
-            this.buttonDiv.Click += new System.EventHandler(this.buttonDiv_Click);
+            this.buttonDiv.Click += new System.EventHandler(this.ButtonDiv_Click);
             // 
             // buttonMult
             // 
@@ -367,7 +367,7 @@ namespace GraphInterface
             this.buttonMult.TabIndex = 13;
             this.buttonMult.Text = "*";
             this.buttonMult.UseVisualStyleBackColor = true;
-            this.buttonMult.Click += new System.EventHandler(this.buttonMult_Click);
+            this.buttonMult.Click += new System.EventHandler(this.ButtonMult_Click);
             // 
             // buttonSub
             // 
@@ -378,7 +378,7 @@ namespace GraphInterface
             this.buttonSub.Size = new System.Drawing.Size(55, 49);
             this.buttonSub.TabIndex = 18;
             this.buttonSub.Text = "-";
-            this.buttonSub.Click += new System.EventHandler(this.buttonSub_Click);
+            this.buttonSub.Click += new System.EventHandler(this.ButtonSub_Click);
             // 
             // buttonAdd
             // 
@@ -390,7 +390,7 @@ namespace GraphInterface
             this.buttonAdd.TabIndex = 15;
             this.buttonAdd.Text = "+";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // groupBox1
             // 
@@ -414,7 +414,7 @@ namespace GraphInterface
             this.buttonC.TabIndex = 3;
             this.buttonC.Text = "C";
             this.buttonC.UseVisualStyleBackColor = true;
-            this.buttonC.Click += new System.EventHandler(this.buttonC_Click);
+            this.buttonC.Click += new System.EventHandler(this.ButtonC_Click);
             // 
             // buttonBS
             // 
@@ -425,7 +425,7 @@ namespace GraphInterface
             this.buttonBS.TabIndex = 2;
             this.buttonBS.Text = "Backspace";
             this.buttonBS.UseVisualStyleBackColor = true;
-            this.buttonBS.Click += new System.EventHandler(this.buttonBS_Click);
+            this.buttonBS.Click += new System.EventHandler(this.ButtonBS_Click);
             // 
             // buttonCloseBracket
             // 
@@ -435,7 +435,7 @@ namespace GraphInterface
             this.buttonCloseBracket.TabIndex = 1;
             this.buttonCloseBracket.Text = ")";
             this.buttonCloseBracket.UseVisualStyleBackColor = true;
-            this.buttonCloseBracket.Click += new System.EventHandler(this.buttonCloseBracket_Click);
+            this.buttonCloseBracket.Click += new System.EventHandler(this.ButtonCloseBracket_Click);
             // 
             // buttonOpenBracket
             // 
@@ -445,7 +445,7 @@ namespace GraphInterface
             this.buttonOpenBracket.TabIndex = 0;
             this.buttonOpenBracket.Text = "(";
             this.buttonOpenBracket.UseVisualStyleBackColor = true;
-            this.buttonOpenBracket.Click += new System.EventHandler(this.buttonOpenBracket_Click);
+            this.buttonOpenBracket.Click += new System.EventHandler(this.ButtonOpenBracket_Click);
             // 
             // textBoxResult
             // 
@@ -457,11 +457,11 @@ namespace GraphInterface
             this.textBoxResult.Size = new System.Drawing.Size(273, 77);
             this.textBoxResult.TabIndex = 3;
             this.textBoxResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBoxResult.TextChanged += new System.EventHandler(this.textBoxResult_TextChanged);
+            this.textBoxResult.TextChanged += new System.EventHandler(this.TextBoxResult_TextChanged);
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // Form1
             // 

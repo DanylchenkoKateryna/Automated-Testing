@@ -1,10 +1,8 @@
 ﻿using CalcClassBr;
+
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Xunit;
 
 namespace TestProject2.Tests
@@ -49,7 +47,7 @@ namespace TestProject2.Tests
             }
         }
 
-        [Fact] 
+        [Fact]
         public void UploadDocument_InvalidPath_ThrowsFileNotFoundException()
         {
             // Arrange

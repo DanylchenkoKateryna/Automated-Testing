@@ -1,12 +1,13 @@
 ﻿using CalcClassBr;
+
 using Xunit;
 
 namespace Tests
 {
     public class CalcClassAddTests
     {
-        private readonly CalcClass calcClass=new CalcClass();
-        
+        private readonly CalcClass _calcClass = new CalcClass();
+
         [Theory]
         [InlineData(10, 20, 30)]
         [InlineData(1, 2, 3)]
@@ -40,7 +41,7 @@ namespace Tests
         [InlineData(10, 11, 21)]
         public void Add_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
-            int result = calcClass.Add(a, b);
+            int result = _calcClass.Add(a, b);
             Assert.Equal(expected, result);
         }
     }

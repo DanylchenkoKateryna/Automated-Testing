@@ -1,12 +1,12 @@
 ﻿using CalcClassBr;
-using System.Threading;
+
 using Xunit;
 
 namespace Tests
 {
     public class CalcClassSubTests
     {
-        private readonly CalcClass calcClass = new CalcClass();
+        private readonly CalcClass _calcClass = new CalcClass();
 
         [Theory]
         [InlineData(10, 20, -10)]
@@ -41,7 +41,7 @@ namespace Tests
         [InlineData(80, 40, 40)]
         public void Sub_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
-            int result = calcClass.Sub(a, b);
+            int result = _calcClass.Sub(a, b);
             Assert.Equal(expected, result);
         }
     }

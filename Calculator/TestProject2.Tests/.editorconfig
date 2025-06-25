@@ -1,0 +1,133 @@
+[*.cs]
+
+# Ensure there is no trailing whitespace
+trim_trailing_whitespace = true
+
+# Ensure files end with a newline character
+insert_final_newline = true
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:error
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:error
+csharp_style_allow_embedded_statements_on_same_line_experimental = true:error
+
+# Optionally, enforce organizing and sorting using statements
+dotnet_sort_system_directives_first = false
+dotnet_separate_import_directive_groups = true
+csharp_using_directive_placement = outside_namespace:error
+file_header_template = unset
+
+dotnet_style_usings_blank_lines_between_using_groups = allow
+dotnet_style_namespace_declarations = block_scoped:suggestion
+
+# Use braces for all statements
+csharp_style_braces_for_single_line_statements = always
+
+# Enforce using expression-bodied members for properties when possible
+csharp_style_expression_bodied_properties = true:error
+
+# Disable StyleCop rule SA1413: "Use trailing commas in multi-line initializers"
+dotnet_diagnostic.SA1413.severity = none
+
+# Interfaces naming
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = error
+dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
+dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
+
+# Public properties start with capital letter
+dotnet_naming_rule.public_properties_capitalized.severity = error
+dotnet_naming_rule.public_properties_capitalized.symbols = public_properties
+dotnet_naming_rule.public_properties_capitalized.style = public_property_style
+
+dotnet_naming_symbols.public_properties.applicable_kinds = property
+dotnet_naming_symbols.public_properties.applicable_accessibilities = public
+dotnet_naming_symbols.public_properties.required_modifiers = none
+
+dotnet_naming_style.public_property_style.capitalization = pascal_case
+
+# Public fields start with capital letter
+dotnet_naming_rule.public_fields_capitalized.severity = error
+dotnet_naming_rule.public_fields_capitalized.symbols = public_fields
+dotnet_naming_rule.public_fields_capitalized.style = public_field_style
+dotnet_naming_symbols.public_fields.applicable_kinds = field
+dotnet_naming_symbols.public_fields.applicable_accessibilities = public
+dotnet_naming_symbols.public_fields.required_modifiers = public
+dotnet_naming_style.public_field_style.capitalization = pascal_case
+
+# Private fields start with underscore
+dotnet_naming_rule.private_fields_with_underscore.severity = error
+dotnet_naming_rule.private_fields_with_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_with_underscore.style = private_field_style
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.required_modifiers = private
+dotnet_naming_symbols.private_fields.required_prefix = _
+
+dotnet_naming_style.private_field_style.capitalization = camel_case
+dotnet_naming_style.private_field_style.required_prefix = _
+
+# RCS1036: Remove unnecessary blank line
+dotnet_diagnostic.RCS1036.severity = warning
+
+dotnet_diagnostic.SA1200.severity = none
+
+# Enforce that Boolean conditions should not be evaluated against true or false
+dotnet_diagnostic.RCS1033.severity = warning
+
+# Disable StyleCop rule SA1101: "Prefix local calls with 'this.'"
+dotnet_diagnostic.SA1101.severity = none
+
+# Disable StyleCop rule SA1600: "Elements should be documented"
+dotnet_diagnostic.SA1600.severity = none
+
+# Parameter names in methods should start with a lowercase letter
+dotnet_diagnostic.SA1313.severity = error
+
+# Disable StyleCop rule SA1309: "Field names should not begin with an underscore"
+dotnet_diagnostic.SA1309.severity = none
+
+# Disable StyleCop rule SA1633: "File must have a header"
+dotnet_diagnostic.SA1633.severity = none
+
+# Disable StyleCop rule SA1202: "Elements must be ordered by access"
+dotnet_diagnostic.SA1202.severity = none
+
+# Disable StyleCop rule SA1401: "Fields must be private"
+dotnet_diagnostic.SA1401.severity = none
+
+# Disable StyleCop rule SA1602: "Enumeration items must be documented"
+dotnet_diagnostic.SA1602.severity = none
+
+# Disable StyleCop rule SA1208: System using directives must be placed before other using directives
+dotnet_diagnostic.SA1208.severity = none
+
+# Disable StyleCop rule SA1129: Do not use default value type constructor
+dotnet_diagnostic.SA1129.severity = none
+
+# Disable SA1124 rule: Do not use region
+dotnet_diagnostic.SA1124.severity = none
+
+# Disable SA1404 rule: Code Analysis Suppression Must Have Justification
+dotnet_diagnostic.SA1404.severity = none
+
+# Disable SA1201 rule: Elements Must Appear In The Correct Order
+dotnet_diagnostic.SA1201.severity = none
+
+# Disable SA1649 rule: File name must match first type name
+dotnet_diagnostic.SA1649.severity = none
+
+# Disable SA1402 rule: File may only contain a single type
+dotnet_diagnostic.SA1402.severity = none
+
+# Parameters must be on the same line or separate lines
+dotnet_diagnostic.SA1117.severity = error
+
+# Disable IDE0270 rule: Null check can be simplified
+dotnet_diagnostic.IDE0270.severity = none
+
+# Disable SA1204 rule: Static members should appear before non-static members
+dotnet_diagnostic.SA1204.severity = none
+
+# Disable CS0162 rule:unreachable code detected (when we use if Debug)
+dotnet_diagnostic.CS0162.severity = none
+
+dotnet_diagnostic.SA1601.severity = none

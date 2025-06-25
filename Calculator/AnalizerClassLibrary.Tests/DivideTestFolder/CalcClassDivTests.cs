@@ -1,18 +1,15 @@
 ﻿using CalcClassBr;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 using Xunit;
 
 namespace Tests.DivideTestFolder
 {
     public class CalcClassDivTests
     {
-        private readonly CalcClass calcClass = new CalcClass();
-         
+        private readonly CalcClass _calcClass = new CalcClass();
+
 
         [Theory]
         [InlineData(10, 2, 5)]
@@ -47,14 +44,14 @@ namespace Tests.DivideTestFolder
         [InlineData(990, 90, 11)]
         public void Div_VariousInputs_ReturnsExpectedResults(int a, int b, int expected)
         {
-            int result = calcClass.Div(a, b);
+            int result = _calcClass.Div(a, b);
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void Div_DivisionByZero_ThrowsDivideByZeroException()
         {
-            Assert.Throws<DivideByZeroException>(() => calcClass.Div(10, 0));
+            Assert.Throws<DivideByZeroException>(() => _calcClass.Div(10, 0));
         }
     }
 }

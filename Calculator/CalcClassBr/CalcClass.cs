@@ -1,9 +1,6 @@
-﻿using System;
-using ErrorLibrary;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorLibrary;
+
+using System;
 
 namespace CalcClassBr
 {
@@ -29,6 +26,41 @@ namespace CalcClassBr
             return a - b;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int Mult(int a, int b)
         {
             return a * b;
@@ -37,162 +69,175 @@ namespace CalcClassBr
         public int Div(int a, int b)
         {
             if (b == 0)
+            {
                 throw new DivideByZeroException("Division by zero is not allowed.");
+            }
+
             return a / b;
         }
-        /// <summary> 
-        /// Функція складання числа а і b 
-        /// </summary> 
-        /// <param name="a">доданок</param> 
-        /// <param name="b">доданок</param> 
-        /// <returns>сума</returns>
+
         public static int Add(long a, long b)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if ((a <= int.MaxValue && a >= int.MinValue) && (b <= int.MaxValue && b >= int.MinValue))
+            {
                 res = a + b;
-            else
-                {
-                _lastError = ErrorsExpression.ERROR_06;
-                throw new ArgumentOutOfRangeException(_lastError);
-                }
-
-            if ((res <= int.MaxValue && res >= int.MinValue))
-                return (int)res;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
+                throw new ArgumentOutOfRangeException(_lastError);
+            }
+
+            if (res <= int.MaxValue && res >= int.MinValue)
+            {
+                return (int)res;
+            }
+            else
+            {
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
-        /// <summary> 
-        /// функція віднімання чисел а і b 
-        /// </summary> 
-        /// <param name="a">зменшуване</param> 
-        /// <param name="b">від’ємне</param> 
-        /// <returns>різниця</returns>
+
+        /// <summary>
+        /// функція віднімання чисел а і b.
+        /// </summary>
+        /// <param name="a">зменшуване.</param>
+        /// <param name="b">від’ємне.</param>
+        /// <returns>різниця.</returns>
         public static int Sub(long a, long b)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if ((a <= int.MaxValue && a >= int.MinValue) && (b <= int.MaxValue && b >= int.MinValue))
+            {
                 res = a - b;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
 
-            if ((res <= int.MaxValue && res >= int.MinValue))
+            if (res <= int.MaxValue && res >= int.MinValue)
+            {
                 return (int)res;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
-        /// <summary> 
-        /// функція множення чисел а і b 
-        /// </summary> 
-        /// <param name="a">множник</param> 
-        /// <param name="b">множник</param> 
-        /// <returns>добуток</returns>
+
         public static int Mult(long a, long b)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if ((a <= int.MaxValue && a >= int.MinValue) && (b <= int.MaxValue && b >= int.MinValue))
+            {
                 res = a * b;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
 
-            if ((res <= int.MaxValue && res >= int.MinValue))
+            if (res <= int.MaxValue && res >= int.MinValue)
+            {
                 return (int)res;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
-        /// <summary> 
-        /// функція знаходження частки 
-        /// </summary> 
-        /// <param name="a">ділене</param> 
-        /// <param name="b">дільник</param> 
-        /// <returns>частка</returns> 
+
+        /// <summary>
+        /// функція знаходження частки.
+        /// </summary>
+        /// <param name="a">ділене.</param>
+        /// <param name="b">дільник.</param>
+        /// <returns>частка.</returns>
         public static int Div(long a, long b)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if ((a <= int.MaxValue && a >= int.MinValue) && (b <= int.MaxValue && b >= int.MinValue))
+            {
                 if (b != 0)
+                {
                     res = a / b;
+                }
                 else
                 {
-                    _lastError = ErrorsExpression.ERROR_09;
+                    _lastError = ErrorsExpression.ERROR09;
                     throw new DivideByZeroException(_lastError);
                 }
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
 
-            if ((res <= int.MaxValue && res >= int.MinValue))
+            if (res <= int.MaxValue && res >= int.MinValue)
+            {
                 return (int)res;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
-
-
         }
-        /// <summary> 
-        /// функція ділення по модулю 
-        /// </summary> 
-        /// <param name="a">ділене</param> 
-        /// <param name="b">дільник</param> 
-        /// <returns>остача</returns> 
+
+        /// <summary>
+        /// функція ділення по модулю.
+        /// </summary>
+        /// <param name="a">ділене.</param>
+        /// <param name="b">дільник.</param>
+        /// <returns>остача.</returns>
         public static int Mod(long a, long b)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if ((a <= int.MaxValue && a >= int.MinValue) && (b <= int.MaxValue && b >= int.MinValue))
+            {
                 if (b != 0)
+                {
                     res = a % b;
+                }
                 else
                 {
-                    _lastError = ErrorsExpression.ERROR_09;
+                    _lastError = ErrorsExpression.ERROR09;
                     throw new DivideByZeroException(_lastError);
                 }
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
 
-            if ((res <= int.MaxValue && res >= int.MinValue))
+            if (res <= int.MaxValue && res >= int.MinValue)
+            {
                 return (int)res;
+            }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
 
-        /// <summary> 
-        /// унарний плюс  
-        /// </summary> 
-        /// <param name="a"></param> 
-        /// <returns></returns> 
         public static int ABS(long a)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if (a <= int.MaxValue && a >= int.MinValue)
             {
@@ -201,19 +246,14 @@ namespace CalcClassBr
             }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
 
-        /// <summary> 
-        /// унарний мінус  
-        /// </summary> 
-        /// <param name="a"></param> 
-        /// <returns></returns> 
         public static int IABS(long a)
         {
-            _lastError = "";
+            _lastError = string.Empty;
             long res;
             if (a <= int.MaxValue && a >= int.MinValue)
             {
@@ -222,21 +262,17 @@ namespace CalcClassBr
             }
             else
             {
-                _lastError = ErrorsExpression.ERROR_06;
+                _lastError = ErrorsExpression.ERROR06;
                 throw new ArgumentOutOfRangeException(_lastError);
             }
         }
 
-        /// <summary> 
-        /// Останнє повідомлення про помилку. 
-        /// Поле і властивість для нього 
-        /// </summary> 
-        private static string _lastError = "";
-        public static string lastError
-        {
-            get { return _lastError; }
-            //Job well done!
-        }
+        /// <summary>
+        /// Останнє повідомлення про помилку.
+        /// Поле і властивість для нього.
+        /// </summary>
+        private static string _lastError = string.Empty;
+
+        public static string LastError => _lastError;
     }
-   
 }
